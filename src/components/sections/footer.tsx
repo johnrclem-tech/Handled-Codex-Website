@@ -11,7 +11,7 @@ const footerLinks = {
     { name: "Returns", href: "/services/returns" },
   ],
   Integrations: [
-    { name: "Shopify", href: "/integrations/shopify" },
+    { name: "Shopify Fulfillment", href: "/integrations/shopify-fulfillment" },
     { name: "Amazon", href: "/integrations/amazon" },
     { name: "WooCommerce", href: "/integrations/woocommerce" },
     { name: "BigCommerce", href: "/integrations/bigcommerce" },
