@@ -29,7 +29,7 @@ export function Company() {
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         {/* Header */}
         <div className="max-w-2xl mx-auto text-center mb-16">
-          <p className="text-sm font-semibold text-muted-foreground uppercase tracking-widest mb-3">Company</p>
+          <p className="text-sm font-semibold text-blue-600 mb-3">Company</p>
           <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">
             Built by operators, for operators
           </h2>
@@ -52,7 +52,7 @@ export function Company() {
                 </span>
               </div>
               <h3 className="font-semibold">{leader.name}</h3>
-              <p className="text-sm text-muted-foreground mb-3">{leader.role}</p>
+              <p className="text-sm text-blue-600 mb-3">{leader.role}</p>
               <p className="text-sm text-muted-foreground leading-relaxed">{leader.bio}</p>
             </div>
           ))}
@@ -61,8 +61,8 @@ export function Company() {
         {/* Locations */}
         <div className="grid md:grid-cols-3 gap-8">
           <div className="flex gap-3">
-            <div className="h-10 w-10 rounded-lg bg-muted flex items-center justify-center shrink-0">
-              <HiOutlineMapPin className="h-5 w-5 text-foreground" />
+            <div className="h-10 w-10 rounded-lg bg-blue-50 flex items-center justify-center shrink-0">
+              <HiOutlineMapPin className="h-5 w-5 text-blue-500" />
             </div>
             <div>
               <p className="font-semibold mb-1">Bi-Coastal Network</p>
@@ -73,8 +73,8 @@ export function Company() {
             </div>
           </div>
           <div className="flex gap-3">
-            <div className="h-10 w-10 rounded-lg bg-muted flex items-center justify-center shrink-0">
-              <HiOutlineUserGroup className="h-5 w-5 text-foreground" />
+            <div className="h-10 w-10 rounded-lg bg-blue-50 flex items-center justify-center shrink-0">
+              <HiOutlineUserGroup className="h-5 w-5 text-blue-500" />
             </div>
             <div>
               <p className="font-semibold mb-1">Dedicated Partners</p>
@@ -85,8 +85,8 @@ export function Company() {
             </div>
           </div>
           <div className="flex gap-3">
-            <div className="h-10 w-10 rounded-lg bg-muted flex items-center justify-center shrink-0">
-              <HiOutlineRocketLaunch className="h-5 w-5 text-foreground" />
+            <div className="h-10 w-10 rounded-lg bg-blue-50 flex items-center justify-center shrink-0">
+              <HiOutlineRocketLaunch className="h-5 w-5 text-blue-500" />
             </div>
             <div>
               <p className="font-semibold mb-1">Fast Onboarding</p>

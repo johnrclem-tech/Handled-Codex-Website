@@ -113,34 +113,34 @@ export const defaultOnboardingSteps: OnboardingStep[] = [
 
 const colorMap = {
   blue: {
-    bg: "bg-muted",
-    text: "text-foreground",
-    border: "border-border",
-    ring: "ring-border",
-    badgeBg: "bg-muted text-foreground",
-    iconBg: "bg-muted",
-    progressBar: "bg-foreground",
-    activeDot: "bg-foreground",
+    bg: "bg-blue-50",
+    text: "text-blue-600",
+    border: "border-blue-200",
+    ring: "ring-blue-100",
+    badgeBg: "bg-blue-100 text-blue-700",
+    iconBg: "bg-blue-100",
+    progressBar: "bg-blue-500",
+    activeDot: "bg-blue-500",
   },
   emerald: {
-    bg: "bg-muted",
-    text: "text-foreground",
-    border: "border-border",
-    ring: "ring-border",
-    badgeBg: "bg-muted text-foreground",
-    iconBg: "bg-muted",
-    progressBar: "bg-foreground",
-    activeDot: "bg-foreground",
+    bg: "bg-emerald-50",
+    text: "text-emerald-600",
+    border: "border-emerald-200",
+    ring: "ring-emerald-100",
+    badgeBg: "bg-emerald-100 text-emerald-700",
+    iconBg: "bg-emerald-100",
+    progressBar: "bg-emerald-500",
+    activeDot: "bg-emerald-500",
   },
   purple: {
-    bg: "bg-muted",
-    text: "text-foreground",
-    border: "border-border",
-    ring: "ring-border",
-    badgeBg: "bg-muted text-foreground",
-    iconBg: "bg-muted",
-    progressBar: "bg-foreground",
-    activeDot: "bg-foreground",
+    bg: "bg-purple-50",
+    text: "text-purple-600",
+    border: "border-purple-200",
+    ring: "ring-purple-100",
+    badgeBg: "bg-purple-100 text-purple-700",
+    iconBg: "bg-purple-100",
+    progressBar: "bg-purple-500",
+    activeDot: "bg-purple-500",
   },
 }
 
@@ -172,15 +172,15 @@ function IntegrationVisual() {
 
         <div className="rounded-lg border border-border bg-background p-3 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <div className="h-8 w-8 rounded-full bg-muted flex items-center justify-center">
-              <HiOutlineArrowPath className="h-4 w-4 text-foreground" />
+            <div className="h-8 w-8 rounded-full bg-blue-100 flex items-center justify-center">
+              <HiOutlineArrowPath className="h-4 w-4 text-blue-600" />
             </div>
             <div>
               <p className="text-xs font-medium">Returns Portal</p>
               <p className="text-[11px] text-muted-foreground">Self-service enabled</p>
             </div>
           </div>
-          <Badge variant="secondary" className="text-[10px] bg-muted text-foreground border-0">Live</Badge>
+          <Badge variant="secondary" className="text-[10px] bg-emerald-100 text-emerald-700 border-0">Live</Badge>
         </div>
       </div>
     </div>
@@ -191,7 +191,7 @@ function SyncRow({ label, status, active }: { label: string; status: string; act
   return (
     <div className="flex items-center justify-between">
       <div className="flex items-center gap-2">
-        <div className={`h-2 w-2 rounded-full ${active ? "bg-foreground animate-pulse" : "bg-muted-foreground/30"}`} />
+        <div className={`h-2 w-2 rounded-full ${active ? "bg-emerald-500 animate-pulse" : "bg-muted-foreground/30"}`} />
         <span className="text-sm font-medium">{label}</span>
       </div>
       <span className="text-xs text-muted-foreground">{status}</span>
@@ -202,7 +202,7 @@ function SyncRow({ label, status, active }: { label: string; status: string; act
 function FlowRow({ icon: Icon, label }: { icon: React.ComponentType<{ className?: string }>; label: string }) {
   return (
     <div className="flex items-center gap-2 text-sm">
-      <Icon className="h-3.5 w-3.5 text-foreground shrink-0" />
+      <Icon className="h-3.5 w-3.5 text-blue-500 shrink-0" />
       <span className="text-muted-foreground">{label}</span>
     </div>
   )
@@ -216,11 +216,11 @@ function ShippingVisual() {
         <span className="text-primary-foreground text-sm font-medium">Checkout — Shipping Options</span>
       </div>
       <div className="p-6 space-y-4">
-        <div className="rounded-lg bg-muted border border-border p-3 flex items-center gap-2">
-          <HiOutlineClock className="h-5 w-5 text-foreground shrink-0" />
+        <div className="rounded-lg bg-emerald-50 border border-emerald-200 p-3 flex items-center gap-2">
+          <HiOutlineClock className="h-5 w-5 text-emerald-600 shrink-0" />
           <div>
-            <p className="text-xs font-semibold text-foreground">Order by 2:00 PM ET — Ships Today!</p>
-            <p className="text-[11px] text-muted-foreground">Same-day fulfillment guaranteed</p>
+            <p className="text-xs font-semibold text-emerald-800">Order by 2:00 PM ET — Ships Today!</p>
+            <p className="text-[11px] text-emerald-600">Same-day fulfillment guaranteed</p>
           </div>
         </div>
 
@@ -248,15 +248,15 @@ function ShippingVisual() {
 
         <div className="flex items-center gap-3 pt-2 border-t border-border">
           <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
-            <HiOutlineShieldCheck className="h-3.5 w-3.5 text-foreground" />
+            <HiOutlineShieldCheck className="h-3.5 w-3.5 text-blue-500" />
             <span>Shop Promise</span>
           </div>
           <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
-            <HiOutlineTruck className="h-3.5 w-3.5 text-foreground" />
+            <HiOutlineTruck className="h-3.5 w-3.5 text-emerald-500" />
             <span>Real-time tracking</span>
           </div>
           <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
-            <HiOutlineCheckCircle className="h-3.5 w-3.5 text-foreground" />
+            <HiOutlineCheckCircle className="h-3.5 w-3.5 text-emerald-500" />
             <span>Delivery date</span>
           </div>
         </div>
@@ -282,23 +282,23 @@ function ShippingOption({
     <div
       className={`rounded-lg border p-3 flex items-center justify-between transition-all ${
         selected
-          ? "border-foreground/30 bg-muted/50 ring-1 ring-border"
+          ? "border-blue-300 bg-blue-50/50 ring-1 ring-blue-100"
           : "border-border hover:border-border/80"
       }`}
     >
       <div className="flex items-center gap-3">
         <div
           className={`h-4 w-4 rounded-full border-2 flex items-center justify-center ${
-            selected ? "border-foreground" : "border-muted-foreground/30"
+            selected ? "border-blue-500" : "border-muted-foreground/30"
           }`}
         >
-          {selected && <div className="h-2 w-2 rounded-full bg-foreground" />}
+          {selected && <div className="h-2 w-2 rounded-full bg-blue-500" />}
         </div>
         <div>
           <div className="flex items-center gap-2">
             <p className="text-sm font-medium">{label}</p>
             {badge && (
-              <span className="text-[10px] font-medium px-1.5 py-0.5 rounded bg-muted text-foreground">
+              <span className="text-[10px] font-medium px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-700">
                 {badge}
               </span>
             )}
@@ -306,7 +306,7 @@ function ShippingOption({
           <p className="text-xs text-muted-foreground">{eta}</p>
         </div>
       </div>
-      <span className={`text-sm font-medium ${price === "Free" ? "text-foreground" : ""}`}>{price}</span>
+      <span className={`text-sm font-medium ${price === "Free" ? "text-emerald-600" : ""}`}>{price}</span>
     </div>
   )
 }
@@ -315,14 +315,14 @@ function ShippingOption({
 function BrandingVisual() {
   return (
     <div className="rounded-2xl border border-border bg-card shadow-xl overflow-hidden animate-float">
-      <div className="bg-primary px-6 py-4">
+      <div className="bg-gradient-to-r from-purple-600 to-blue-600 px-6 py-4">
         <span className="text-white text-sm font-medium">Your Brand — Unboxing Experience</span>
       </div>
       <div className="p-6 space-y-4">
         <div className="rounded-lg border border-border bg-muted/30 p-4">
           <div className="flex gap-3">
-            <div className="w-16 h-16 rounded-lg bg-muted border border-border flex items-center justify-center shrink-0">
-              <HiOutlineCube className="h-7 w-7 text-foreground" />
+            <div className="w-16 h-16 rounded-lg bg-gradient-to-br from-purple-100 to-blue-100 border border-purple-200 flex items-center justify-center shrink-0">
+              <HiOutlineCube className="h-7 w-7 text-purple-500" />
             </div>
             <div className="flex-1 space-y-1.5">
               <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">What&apos;s inside</p>
@@ -336,8 +336,8 @@ function BrandingVisual() {
 
         <div className="rounded-lg border border-border bg-background p-4">
           <div className="flex items-center gap-2 mb-3">
-            <div className="h-8 w-8 rounded-full bg-muted flex items-center justify-center">
-              <HiOutlineEnvelope className="h-4 w-4 text-foreground" />
+            <div className="h-8 w-8 rounded-full bg-purple-100 flex items-center justify-center">
+              <HiOutlineEnvelope className="h-4 w-4 text-purple-600" />
             </div>
             <div>
               <p className="text-xs font-medium">Branded Tracking Email</p>
@@ -346,14 +346,14 @@ function BrandingVisual() {
           </div>
           <div className="rounded border border-border bg-muted/20 p-3 space-y-2">
             <div className="flex items-center gap-2">
-              <div className="h-5 w-5 rounded bg-foreground flex items-center justify-center">
+              <div className="h-5 w-5 rounded bg-purple-600 flex items-center justify-center">
                 <span className="text-white text-[9px] font-bold">YB</span>
               </div>
               <span className="text-xs font-medium">Your order has shipped!</span>
             </div>
             <div className="h-1.5 w-3/4 rounded bg-muted-foreground/10" />
             <div className="h-1.5 w-1/2 rounded bg-muted-foreground/10" />
-            <div className="mt-2 h-7 w-24 rounded bg-foreground flex items-center justify-center">
+            <div className="mt-2 h-7 w-24 rounded bg-purple-600 flex items-center justify-center">
               <span className="text-white text-[10px] font-medium">Track Order</span>
             </div>
           </div>
@@ -361,15 +361,15 @@ function BrandingVisual() {
 
         <div className="rounded-lg border border-border bg-background p-3 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <div className="h-8 w-8 rounded-full bg-muted flex items-center justify-center">
-              <HiOutlineSwatch className="h-4 w-4 text-foreground" />
+            <div className="h-8 w-8 rounded-full bg-purple-100 flex items-center justify-center">
+              <HiOutlineSwatch className="h-4 w-4 text-purple-600" />
             </div>
             <div>
               <p className="text-xs font-medium">Branded Returns Portal</p>
               <p className="text-[11px] text-muted-foreground">Custom colors, logo, and messaging</p>
             </div>
           </div>
-          <Badge variant="secondary" className="text-[10px] bg-muted text-foreground border-0">
+          <Badge variant="secondary" className="text-[10px] bg-purple-100 text-purple-700 border-0">
             <HiOutlineSparkles className="h-3 w-3 mr-0.5" />
             Branded
           </Badge>
@@ -382,7 +382,7 @@ function BrandingVisual() {
 function BrandItem({ label }: { label: string }) {
   return (
     <div className="flex items-center gap-1.5">
-      <HiOutlineCheckCircle className="h-3 w-3 text-foreground shrink-0" />
+      <HiOutlineCheckCircle className="h-3 w-3 text-purple-500 shrink-0" />
       <span className="text-xs text-muted-foreground">{label}</span>
     </div>
   )
@@ -403,7 +403,7 @@ export function Onboarding({
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         {/* Header */}
         <div className="max-w-2xl mx-auto text-center mb-16">
-          <p className="text-sm font-semibold text-muted-foreground uppercase tracking-widest mb-3">{label}</p>
+          <p className="text-sm font-semibold text-blue-600 mb-3">{label}</p>
           <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">
             {heading}
           </h2>
@@ -432,7 +432,7 @@ export function Onboarding({
                       i === activeStep
                         ? `${colors.activeDot} text-white`
                         : i < activeStep
-                          ? "bg-foreground text-white"
+                          ? "bg-emerald-500 text-white"
                           : "bg-muted text-muted-foreground"
                     }`}
                   >
@@ -482,7 +482,7 @@ export function Onboarding({
             {activeStep < steps.length - 1 && (
               <button
                 onClick={() => setActiveStep(activeStep + 1)}
-                className="mt-8 inline-flex items-center gap-2 text-sm font-medium text-foreground hover:text-foreground/80 transition-colors"
+                className="mt-8 inline-flex items-center gap-2 text-sm font-medium text-blue-600 hover:text-blue-700 transition-colors"
               >
                 Next: {steps[activeStep + 1].title}
                 <HiOutlineArrowRight className="h-4 w-4" />

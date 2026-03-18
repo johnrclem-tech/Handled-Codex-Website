@@ -15,7 +15,7 @@ export function Platform() {
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         {/* Section header */}
         <div className="max-w-2xl mx-auto text-center mb-20">
-          <p className="text-sm font-semibold text-muted-foreground uppercase tracking-widest mb-3">Platform</p>
+          <p className="text-sm font-semibold text-blue-600 mb-3">Platform</p>
           <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">
             Built like software. Runs like magic.
           </h2>
@@ -84,7 +84,7 @@ function FeaturePill({
 }) {
   return (
     <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-background border border-border/60 text-sm">
-      <Icon className="h-4 w-4 text-foreground shrink-0" />
+      <Icon className="h-4 w-4 text-blue-500 shrink-0" />
       <span className="text-sm">{label}</span>
     </div>
   )

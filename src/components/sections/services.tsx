@@ -15,48 +15,48 @@ const services = [
     title: "DTC Fulfillment",
     description:
       "Fast, accurate shipping tailored to your brand. Same-day fulfillment for orders by 12PM, with custom packaging and branded unboxing experiences.",
-    color: "text-foreground",
-    bg: "bg-muted",
+    color: "text-blue-500",
+    bg: "bg-blue-50",
   },
   {
     icon: HiOutlineBuildingStorefront,
     title: "B2B & Retail",
     description:
       "Ship wholesale and retail orders with precision. EDI-compliant, Amazon-ready packaging, labeling, and routing for Target, Costco, Walmart, and more.",
-    color: "text-foreground",
-    bg: "bg-muted",
+    color: "text-purple-500",
+    bg: "bg-purple-50",
   },
   {
     icon: HiOutlineGlobeAlt,
     title: "Omnichannel",
     description:
       "Unified fulfillment across every channel. Seamlessly manage DTC, marketplace, and wholesale orders from a single platform.",
-    color: "text-foreground",
-    bg: "bg-muted",
+    color: "text-cyan-500",
+    bg: "bg-cyan-50",
   },
   {
     icon: HiOutlineSparkles,
     title: "Kitting & Assembly",
     description:
       "Custom bundles, multi-SKU kits, and subscription boxes built with care. Elevate your unboxing with inserts, wraps, and branded materials.",
-    color: "text-foreground",
-    bg: "bg-muted",
+    color: "text-amber-500",
+    bg: "bg-amber-50",
   },
   {
     icon: HiOutlineTruck,
     title: "2-Day Ground",
     description:
       "Affordable 2-day delivery from our bi-coastal warehouse network. LA and NJ locations cover 95%+ of the US within 2 business days.",
-    color: "text-foreground",
-    bg: "bg-muted",
+    color: "text-emerald-500",
+    bg: "bg-emerald-50",
   },
   {
     icon: HiOutlineArrowPath,
     title: "Returns Management",
     description:
       "Streamlined, branded returns portal for your customers. Automatic restocking, quality inspection, and real-time inventory updates.",
-    color: "text-foreground",
-    bg: "bg-muted",
+    color: "text-rose-500",
+    bg: "bg-rose-50",
   },
 ]
 
@@ -66,7 +66,7 @@ export function Services() {
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         {/* Section header */}
         <div className="max-w-2xl mx-auto text-center mb-16">
-          <p className="text-sm font-semibold text-muted-foreground uppercase tracking-widest mb-3">Services</p>
+          <p className="text-sm font-semibold text-blue-600 mb-3">Services</p>
           <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">
             Everything you need to ship at scale
           </h2>

@@ -10,14 +10,14 @@ export function Hero() {
     <section className="relative pt-32 pb-20 lg:pt-40 lg:pb-32 overflow-hidden">
       {/* Background grid */}
       <div className="absolute inset-0 grid-bg" />
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[600px] bg-gradient-to-b from-muted/80 to-transparent rounded-full blur-3xl -z-10" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[600px] bg-gradient-to-b from-blue-50/80 to-transparent rounded-full blur-3xl -z-10" />
 
       <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           {/* Left - Copy */}
           <div className="max-w-2xl">
             <Badge variant="secondary" className="mb-6 gap-1.5 px-3 py-1 text-xs font-medium">
-              <HiOutlineBolt className="h-3.5 w-3.5 text-foreground" />
+              <HiOutlineBolt className="h-3.5 w-3.5 text-blue-500" />
               Now offering 2-day ground nationwide
             </Badge>
 

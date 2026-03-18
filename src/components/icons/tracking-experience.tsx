@@ -68,8 +68,8 @@ export function TrackingExperience() {
             <span className="text-xs font-medium">Los Angeles, CA</span>
           </div>
           <div className="relative h-2 bg-border rounded-full overflow-hidden">
-            <div className="absolute inset-y-0 left-0 w-3/5 bg-gradient-to-r from-foreground to-muted-foreground rounded-full" />
-            <div className="absolute top-1/2 -translate-y-1/2 left-[58%] h-3 w-3 rounded-full bg-foreground border-2 border-white shadow-sm" />
+            <div className="absolute inset-y-0 left-0 w-3/5 bg-gradient-to-r from-blue-500 to-blue-400 rounded-full" />
+            <div className="absolute top-1/2 -translate-y-1/2 left-[58%] h-3 w-3 rounded-full bg-blue-500 border-2 border-white shadow-sm" />
           </div>
           <p className="text-xs text-muted-foreground mt-2 text-center">In transit — Columbus, OH</p>
         </div>
@@ -98,7 +98,7 @@ function TimelineStep({
           completed
             ? "bg-emerald-100 text-emerald-600"
             : active
-              ? "bg-muted text-foreground"
+              ? "bg-blue-100 text-blue-600"
               : "bg-muted text-muted-foreground"
         }`}
       >
