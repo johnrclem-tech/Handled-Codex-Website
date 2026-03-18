@@ -1,6 +1,6 @@
 "use client"
 
-import React from "react"
+import React, { useEffect, useRef, useState } from "react"
 import {
   SiShopify,
   SiWoo,
@@ -19,9 +19,24 @@ import {
   SiUps,
   SiFedex,
   SiTiktok,
+  SiDhl,
+  SiSage,
+  SiZendesk,
+  SiSalesforce,
+  SiHubspot,
+  SiIntercom,
+  SiMailchimp,
+  SiSlack,
+  SiWhatsapp,
 } from "react-icons/si"
-import { FaAmazon } from "react-icons/fa"
-import { HiOutlineCube, HiOutlineLink, HiOutlineBolt } from "react-icons/hi2"
+import { FaAmazon, FaMagento } from "react-icons/fa6"
+import {
+  HiOutlineEnvelope,
+  HiOutlineBuildingOffice,
+  HiOutlineChatBubbleLeftRight,
+  HiOutlineBookOpen,
+  HiOutlineTruck,
+} from "react-icons/hi2"
 
 export interface IntegrationItem {
   name: string
@@ -29,134 +44,145 @@ export interface IntegrationItem {
   color: string
 }
 
-export interface IntegrationBullet {
-  icon: React.ComponentType<{ className?: string }>
-  title: string
-  description: string
-}
-
 export interface IntegrationsProps {
   label?: string
   heading: string
   description: string
-  bullets: IntegrationBullet[]
   integrations?: IntegrationItem[]
 }
 
 export const defaultIntegrations: IntegrationItem[] = [
+  // Row 1 — Ecommerce & Marketplaces
   { name: "Shopify", icon: SiShopify, color: "text-[#96BF48]" },
   { name: "Amazon", icon: FaAmazon, color: "text-[#FF9900]" },
   { name: "WooCommerce", icon: SiWoo, color: "text-[#96588A]" },
   { name: "BigCommerce", icon: SiBigcommerce, color: "text-[#121118]" },
+  { name: "Magento", icon: FaMagento, color: "text-[#EE672F]" },
   { name: "Wix", icon: SiWix, color: "text-[#0C6EFC]" },
+  { name: "Squarespace", icon: SiSquarespace, color: "text-[#000000]" },
+  { name: "Square", icon: SiSquare, color: "text-[#006AFF]" },
   { name: "Etsy", icon: SiEtsy, color: "text-[#F1641E]" },
   { name: "eBay", icon: SiEbay, color: "text-[#E53238]" },
   { name: "Walmart", icon: SiWalmart, color: "text-[#0071DC]" },
-  { name: "Square", icon: SiSquare, color: "text-[#006AFF]" },
-  { name: "Squarespace", icon: SiSquarespace, color: "text-[#000000]" },
   { name: "Target", icon: SiTarget, color: "text-[#CC0000]" },
   { name: "TikTok Shop", icon: SiTiktok, color: "text-[#000000]" },
-  { name: "QuickBooks", icon: SiQuickbooks, color: "text-[#2CA01C]" },
-  { name: "Xero", icon: SiXero, color: "text-[#13B5EA]" },
-  { name: "AfterShip", icon: SiAftership, color: "text-[#9B59B6]" },
+  { name: "Salesforce", icon: SiSalesforce, color: "text-[#00A1E0]" },
+  { name: "HubSpot", icon: SiHubspot, color: "text-[#FF7A59]" },
+  { name: "Zendesk", icon: SiZendesk, color: "text-[#03363D]" },
+  { name: "Intercom", icon: SiIntercom, color: "text-[#6AFDEF]" },
+  // Row 2 — Shipping, Accounting, Marketing, Comms
   { name: "USPS", icon: SiUsps, color: "text-[#333366]" },
   { name: "UPS", icon: SiUps, color: "text-[#351C15]" },
   { name: "FedEx", icon: SiFedex, color: "text-[#4D148C]" },
+  { name: "DHL", icon: SiDhl, color: "text-[#FFCC00]" },
+  { name: "Royal Mail", icon: HiOutlineTruck, color: "text-[#E2001A]" },
+  { name: "AfterShip", icon: SiAftership, color: "text-[#9B59B6]" },
+  { name: "QuickBooks", icon: SiQuickbooks, color: "text-[#2CA01C]" },
+  { name: "Xero", icon: SiXero, color: "text-[#13B5EA]" },
+  { name: "FreshBooks", icon: HiOutlineBookOpen, color: "text-[#0075DD]" },
+  { name: "Sage", icon: SiSage, color: "text-[#00D639]" },
+  { name: "NetSuite", icon: HiOutlineBuildingOffice, color: "text-[#1B3E59]" },
+  { name: "Klaviyo", icon: HiOutlineEnvelope, color: "text-[#000000]" },
+  { name: "Mailchimp", icon: SiMailchimp, color: "text-[#FFE01B]" },
+  { name: "Gorgias", icon: HiOutlineChatBubbleLeftRight, color: "text-[#1F1F46]" },
+  { name: "Slack", icon: SiSlack, color: "text-[#4A154B]" },
+  { name: "WhatsApp", icon: SiWhatsapp, color: "text-[#25D366]" },
 ]
 
-export const defaultIntegrationBullets: IntegrationBullet[] = [
-  {
-    icon: HiOutlineBolt,
-    title: "One-click setup",
-    description: "Most shopping carts can be connected in minutes, not days.",
-  },
-  {
-    icon: HiOutlineLink,
-    title: "Real-time sync",
-    description:
-      "Orders, inventory, and tracking data sync bidirectionally in real-time.",
-  },
-  {
-    icon: HiOutlineCube,
-    title: "Multi-channel ready",
-    description:
-      "Manage DTC, wholesale, and marketplace orders from one dashboard.",
-  },
-]
+function ScrollingRow({
+  items,
+  direction,
+}: {
+  items: IntegrationItem[]
+  direction: "left" | "right"
+}) {
+  const scrollRef = useRef<HTMLDivElement>(null)
+  const [isPaused, setIsPaused] = useState(false)
+
+  useEffect(() => {
+    const el = scrollRef.current
+    if (!el) return
+
+    let animationId: number
+    let position = 0
+    const speed = direction === "left" ? 0.4 : -0.4
+
+    function animate() {
+      if (!isPaused && el) {
+        position += speed
+        const halfWidth = el.scrollWidth / 2
+        if (direction === "left" && position >= halfWidth) {
+          position -= halfWidth
+        } else if (direction === "right" && position <= -halfWidth) {
+          position += halfWidth
+        }
+        el.style.transform = `translateX(${-position}px)`
+      }
+      animationId = requestAnimationFrame(animate)
+    }
+
+    animationId = requestAnimationFrame(animate)
+    return () => cancelAnimationFrame(animationId)
+  }, [isPaused, direction])
+
+  // Double the items for seamless loop
+  const doubled = [...items, ...items]
+
+  return (
+    <div
+      className="overflow-hidden"
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
+    >
+      <div ref={scrollRef} className="flex gap-3 w-max will-change-transform">
+        {doubled.map((integration, i) => (
+          <div
+            key={`${integration.name}-${i}`}
+            className="group flex flex-col items-center justify-center w-28 h-24 rounded-xl border border-border/60 bg-card hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 shrink-0"
+          >
+            <integration.icon
+              className={`h-7 w-7 ${integration.color} mb-2 group-hover:scale-110 transition-transform`}
+            />
+            <span className="text-xs font-medium text-center leading-tight px-1">
+              {integration.name}
+            </span>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
 
 export function Integrations({
   label = "Integrations",
   heading,
   description,
-  bullets,
   integrations = defaultIntegrations,
 }: IntegrationsProps) {
+  const midpoint = Math.ceil(integrations.length / 2)
+  const row1 = integrations.slice(0, midpoint)
+  const row2 = integrations.slice(midpoint)
+
   return (
-    <section id="integrations" className="py-24 lg:py-32">
+    <section id="integrations" className="py-24 lg:py-32 overflow-hidden">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
-          {/* Left - Copy */}
-          <div>
-            <p className="text-sm font-semibold text-blue-600 mb-3">{label}</p>
-            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">
-              {heading}
-            </h2>
-            <p className="mt-4 text-lg text-muted-foreground leading-relaxed">
-              {description}
-            </p>
-
-            <div className="mt-8 space-y-4">
-              {bullets.map((bullet) => (
-                <IntegrationFeature
-                  key={bullet.title}
-                  icon={bullet.icon}
-                  title={bullet.title}
-                  description={bullet.description}
-                />
-              ))}
-            </div>
-          </div>
-
-          {/* Right - Integration grid */}
-          <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-3 gap-3">
-            {integrations.map((integration) => (
-              <div
-                key={integration.name}
-                className="group flex flex-col items-center justify-center p-4 rounded-xl border border-border/60 bg-card hover:shadow-md hover:-translate-y-0.5 transition-all duration-300"
-              >
-                <integration.icon
-                  className={`h-7 w-7 ${integration.color} mb-2 group-hover:scale-110 transition-transform`}
-                />
-                <span className="text-xs font-medium text-center leading-tight">
-                  {integration.name}
-                </span>
-              </div>
-            ))}
-          </div>
+        {/* Centered header */}
+        <div className="max-w-2xl mx-auto text-center mb-14">
+          <p className="text-sm font-semibold text-blue-600 mb-3">{label}</p>
+          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">
+            {heading}
+          </h2>
+          <p className="mt-4 text-lg text-muted-foreground leading-relaxed">
+            {description}
+          </p>
         </div>
       </div>
-    </section>
-  )
-}
 
-function IntegrationFeature({
-  icon: Icon,
-  title,
-  description,
-}: {
-  icon: React.ComponentType<{ className?: string }>
-  title: string
-  description: string
-}) {
-  return (
-    <div className="flex gap-3">
-      <div className="h-8 w-8 rounded-lg bg-blue-50 flex items-center justify-center shrink-0">
-        <Icon className="h-4 w-4 text-blue-500" />
+      {/* Full-width scrolling rows */}
+      <div className="space-y-3">
+        <ScrollingRow items={row1} direction="left" />
+        <ScrollingRow items={row2} direction="right" />
       </div>
-      <div>
-        <p className="text-sm font-semibold">{title}</p>
-        <p className="text-sm text-muted-foreground">{description}</p>
-      </div>
-    </div>
+    </section>
   )
 }
