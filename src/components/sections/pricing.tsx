@@ -1,11 +1,6 @@
 import React from "react"
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import {
-  HiOutlineCheckCircle,
-  HiOutlineArrowRight,
-} from "react-icons/hi2"
+import { HiOutlineCheckCircle } from "react-icons/hi2"
 import { Warehouse, PackageCheck, Truck, Sparkles } from "lucide-react"
 
 const plans = [
@@ -67,15 +62,6 @@ const plans = [
   },
 ]
 
-const included = [
-  "No minimums or setup fees",
-  "Dedicated account manager",
-  "Real-time dashboard access",
-  "Custom branded packaging",
-  "Bi-coastal warehouse network",
-  "Performance SLA guarantees",
-]
-
 export function Pricing() {
   return (
     <section id="pricing" className="py-24 lg:py-32">
@@ -123,36 +109,6 @@ export function Pricing() {
           ))}
         </div>
 
-        {/* Included features + CTA */}
-        <div className="rounded-2xl border border-border bg-muted/30 p-8 lg:p-12">
-          <div className="grid lg:grid-cols-2 gap-8 items-center">
-            <div>
-              <h3 className="text-xl font-bold mb-2">Everything included</h3>
-              <p className="text-muted-foreground mb-6">
-                Every Handled plan comes with the tools and support you need to deliver at scale.
-              </p>
-              <div className="grid sm:grid-cols-2 gap-3">
-                {included.map((item) => (
-                  <div key={item} className="flex items-center gap-2">
-                    <HiOutlineCheckCircle className="h-4 w-4 text-emerald-500 shrink-0" />
-                    <span className="text-sm">{item}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-            <div className="text-center lg:text-right">
-              <p className="text-muted-foreground text-sm mb-4">
-                Most brands are fully onboarded within 7–10 business days.
-              </p>
-              <Button size="lg" asChild>
-                <Link href="/contact-sales">
-                  Get a custom quote
-                  <HiOutlineArrowRight className="h-4 w-4" />
-                </Link>
-              </Button>
-            </div>
-          </div>
-        </div>
       </div>
     </section>
   )
