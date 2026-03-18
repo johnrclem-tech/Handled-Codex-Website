@@ -1,5 +1,4 @@
 import React from "react"
-import { Card, CardContent } from "@/components/ui/card"
 import { HiStar } from "react-icons/hi2"
 
 const testimonials = [
@@ -62,7 +61,42 @@ function Initials({ name }: { name: string }) {
   )
 }
 
+function TestimonialCard({ t, featured = false }: { t: (typeof testimonials)[number]; featured?: boolean }) {
+  return (
+    <div
+      className={`rounded-xl border bg-background p-6 hover:shadow-md transition-all duration-300 ${
+        featured
+          ? "border-blue-200 bg-gradient-to-br from-blue-50/50 to-background shadow-sm"
+          : "border-border/60"
+      }`}
+    >
+      <div className="flex items-center justify-between mb-4">
+        <StarRating rating={t.rating} />
+        <span className="text-xs font-medium text-blue-600 bg-blue-50 px-2 py-0.5 rounded-full">
+          {t.title}
+        </span>
+      </div>
+      <blockquote className={`text-muted-foreground leading-relaxed ${featured ? "text-base" : "text-sm"}`}>
+        &ldquo;{t.content}&rdquo;
+      </blockquote>
+      <div className="mt-5 flex items-center gap-3 pt-4 border-t border-border/40">
+        <Initials name={t.name} />
+        <div>
+          <p className="text-sm font-medium">{t.name}</p>
+          <p className="text-xs text-muted-foreground">Google Review</p>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 export function Testimonials() {
+  // Layout: featured card on the left, 2 stacked on the right (top row)
+  // Then 3 cards across the bottom — but we have 5, so: 1 featured + 2 stacked | 2 bottom centered
+  const featured = testimonials[2] // Lisa — longest, most compelling review
+  const topRight = [testimonials[0], testimonials[1]]
+  const bottom = [testimonials[3], testimonials[4]]
+
   return (
     <section id="testimonials" className="py-24 lg:py-32 bg-muted/30">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
@@ -77,27 +111,24 @@ export function Testimonials() {
           </p>
         </div>
 
-        <div className="columns-1 sm:columns-2 lg:columns-3 gap-6 space-y-6">
-          {testimonials.map((t) => (
-            <Card
-              key={t.name}
-              className="break-inside-avoid border-border/60 hover:shadow-md transition-all duration-300"
-            >
-              <CardContent className="p-6">
-                <StarRating rating={t.rating} />
-                <p className="mt-3 font-semibold">{t.title}</p>
-                <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
-                  &ldquo;{t.content}&rdquo;
-                </p>
-                <div className="mt-4 flex items-center gap-3 pt-4 border-t border-border/60">
-                  <Initials name={t.name} />
-                  <div>
-                    <p className="text-sm font-medium">{t.name}</p>
-                    <p className="text-xs text-muted-foreground">Google Review</p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+        {/* Top row: featured left + 2 stacked right */}
+        <div className="grid lg:grid-cols-5 gap-6 mb-6">
+          <div className="lg:col-span-3 flex">
+            <div className="w-full flex flex-col">
+              <TestimonialCard t={featured} featured />
+            </div>
+          </div>
+          <div className="lg:col-span-2 grid gap-6">
+            {topRight.map((t) => (
+              <TestimonialCard key={t.name} t={t} />
+            ))}
+          </div>
+        </div>
+
+        {/* Bottom row: 2 cards centered */}
+        <div className="grid sm:grid-cols-2 gap-6 max-w-4xl mx-auto">
+          {bottom.map((t) => (
+            <TestimonialCard key={t.name} t={t} />
           ))}
         </div>
       </div>
