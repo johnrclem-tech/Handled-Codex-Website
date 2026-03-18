@@ -27,6 +27,7 @@ import {
   HiOutlineTag,
 } from "react-icons/hi2"
 import { ApparelOnboarding } from "@/components/sections/onboarding-apparel"
+import { ApparelPricing } from "@/components/sections/pricing-apparel"
 
 export const metadata: Metadata = {
   title: "Apparel Fulfillment Services | 3PL for Clothing Brands — Handled",
@@ -740,6 +741,8 @@ export default function ApparelFulfillmentPage() {
             </div>
           </div>
         </section>
+
+        <ApparelPricing />
 
         {/* CTA Section */}
         <section className="py-24 lg:py-32">

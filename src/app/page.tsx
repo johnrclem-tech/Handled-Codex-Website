@@ -5,7 +5,7 @@ import { Platform } from "@/components/sections/platform"
 import { Integrations } from "@/components/sections/integrations"
 import { Onboarding, defaultOnboardingSteps } from "@/components/sections/onboarding"
 import { Guarantees } from "@/components/sections/guarantees"
-import { Pricing } from "@/components/sections/pricing"
+import { Pricing, defaultPricingPlans } from "@/components/sections/pricing"
 import { Testimonials } from "@/components/sections/testimonials"
 import { Company } from "@/components/sections/company"
 import { CTA } from "@/components/sections/cta"
@@ -26,7 +26,11 @@ export default function Home() {
           steps={defaultOnboardingSteps}
         />
         <Guarantees />
-        <Pricing />
+        <Pricing
+          heading="Transparent pricing that scales with you"
+          description="No surprise fees. No minimums. Just clean, usage-based pricing whether you ship 50 or 50,000 orders a month."
+          plans={defaultPricingPlans}
+        />
         <Testimonials />
         <Company />
         <CTA />

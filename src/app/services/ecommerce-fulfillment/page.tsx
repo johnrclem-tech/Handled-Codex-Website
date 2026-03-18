@@ -28,6 +28,7 @@ import {
 } from "react-icons/hi2"
 import { SiShopify } from "react-icons/si"
 import { EcommerceOnboarding } from "@/components/sections/onboarding-ecommerce"
+import { EcommercePricing } from "@/components/sections/pricing-ecommerce"
 
 export const metadata: Metadata = {
   title: "Ecommerce Fulfillment Services | 3PL for Online Brands — Handled",
@@ -685,6 +686,8 @@ export default function EcommerceFulfillmentPage() {
             </div>
           </div>
         </section>
+
+        <EcommercePricing />
 
         {/* CTA Section */}
         <section className="py-24 lg:py-32">

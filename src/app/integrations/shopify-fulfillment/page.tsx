@@ -24,6 +24,7 @@ import {
 } from "react-icons/hi2"
 import { SiShopify } from "react-icons/si"
 import { ShopifyOnboarding } from "@/components/sections/onboarding-shopify"
+import { ShopifyPricing } from "@/components/sections/pricing-shopify"
 
 export const metadata: Metadata = {
   title: "Shopify Fulfillment Services | 3PL for Shopify Brands — Handled",
@@ -544,6 +545,8 @@ export default function ShopifyFulfillmentPage() {
             </div>
           </div>
         </section>
+
+        <ShopifyPricing />
 
         {/* CTA Section */}
         <section className="py-24 lg:py-32">

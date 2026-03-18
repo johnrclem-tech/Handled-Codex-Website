@@ -1,9 +1,26 @@
+"use client"
+
 import React from "react"
 import { Card, CardContent } from "@/components/ui/card"
 import { HiOutlineCheckCircle } from "react-icons/hi2"
 import { Warehouse, PackageCheck, Truck, Sparkles } from "lucide-react"
 
-const plans = [
+export interface PricingPlan {
+  name: string
+  icon: React.ReactNode
+  description: string
+  target: string
+  features: string[]
+}
+
+export interface PricingProps {
+  label?: string
+  heading: string
+  description: string
+  plans: PricingPlan[]
+}
+
+export const defaultPricingPlans: PricingPlan[] = [
   {
     name: "Storage",
     icon: <Warehouse className="h-6 w-6" />,
@@ -62,19 +79,23 @@ const plans = [
   },
 ]
 
-export function Pricing() {
+export function Pricing({
+  label = "Pricing",
+  heading,
+  description,
+  plans,
+}: PricingProps) {
   return (
     <section id="pricing" className="py-24 lg:py-32">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         {/* Header */}
         <div className="max-w-2xl mx-auto text-center mb-16">
-          <p className="text-sm font-semibold text-blue-600 mb-3">Pricing</p>
+          <p className="text-sm font-semibold text-blue-600 mb-3">{label}</p>
           <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">
-            Transparent pricing that scales with you
+            {heading}
           </h2>
           <p className="mt-4 text-lg text-muted-foreground">
-            No surprise fees. No minimums. Just clean, usage-based pricing whether you
-            ship 50 or 50,000 orders a month.
+            {description}
           </p>
         </div>
 
