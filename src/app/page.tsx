@@ -8,7 +8,7 @@ import { Guarantees, defaultGuarantees } from "@/components/sections/guarantees"
 import { Pricing, defaultPricingPlans } from "@/components/sections/pricing"
 import { Testimonials } from "@/components/sections/testimonials"
 import { Company } from "@/components/sections/company"
-import { CTA } from "@/components/sections/cta"
+import { CTA, defaultCTABenefits } from "@/components/sections/cta"
 import { Footer } from "@/components/sections/footer"
 
 export default function Home() {
@@ -37,7 +37,11 @@ export default function Home() {
         />
         <Testimonials />
         <Company />
-        <CTA />
+        <CTA
+          heading="Get a Fulfillment Quote. Get&nbsp;Growing."
+          description="Get a custom quote today and see how Handled turns shipping into growth."
+          benefits={defaultCTABenefits}
+        />
       </main>
       <Footer />
     </>
