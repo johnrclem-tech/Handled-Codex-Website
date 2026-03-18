@@ -41,7 +41,7 @@ export function ReturnsExperience() {
         {/* Reason */}
         <div className="mb-6">
           <p className="text-sm font-medium mb-2">Return reason</p>
-          <div className="rounded-lg border border-blue-200 bg-blue-50/50 px-3 py-2 text-sm text-blue-700">
+          <div className="rounded-lg border border-border bg-muted/50 px-3 py-2 text-sm text-foreground">
             Size too small — exchange for Large
           </div>
         </div>
@@ -58,7 +58,7 @@ export function ReturnsExperience() {
             icon={HiOutlinePrinter}
             label="Shipping label"
             status="Ready to print"
-            statusColor="text-blue-600 bg-blue-50"
+            statusColor="text-foreground bg-muted"
           />
           <StatusRow
             icon={HiOutlineInboxArrowDown}
@@ -89,12 +89,12 @@ function ReturnItem({
   return (
     <div
       className={`flex items-center gap-3 px-3 py-2.5 rounded-lg border transition-colors ${
-        selected ? "border-blue-200 bg-blue-50/30" : "border-border"
+        selected ? "border-border bg-muted/30" : "border-border"
       }`}
     >
       <div
         className={`h-4 w-4 rounded border-2 flex items-center justify-center ${
-          selected ? "border-blue-500 bg-blue-500" : "border-border"
+          selected ? "border-foreground bg-foreground" : "border-border"
         }`}
       >
         {selected && (

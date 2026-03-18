@@ -29,7 +29,7 @@ export function OrderDashboard() {
           {[40, 65, 45, 80, 55, 90, 70, 95, 60, 85, 75, 100].map((h, i) => (
             <div
               key={i}
-              className="flex-1 rounded-t-sm bg-gradient-to-t from-blue-500 to-blue-400 opacity-80 hover:opacity-100 transition-opacity"
+              className="flex-1 rounded-t-sm bg-gradient-to-t from-foreground to-muted-foreground opacity-80 hover:opacity-100 transition-opacity"
               style={{ height: `${h}%` }}
             />
           ))}
@@ -44,10 +44,10 @@ export function OrderDashboard() {
             color="bg-amber-50 text-amber-700"
           />
           <OrderRow
-            icon={<HiOutlineCube className="h-4 w-4 text-blue-500" />}
+            icon={<HiOutlineCube className="h-4 w-4 text-foreground" />}
             label="Packed"
             count={89}
-            color="bg-blue-50 text-blue-700"
+            color="bg-muted text-foreground"
           />
           <OrderRow
             icon={<HiOutlineTruck className="h-4 w-4 text-purple-500" />}

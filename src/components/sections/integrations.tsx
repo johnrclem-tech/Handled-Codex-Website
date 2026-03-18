@@ -150,7 +150,7 @@ export function Integrations({
         <div className="flex items-center gap-12 max-md:flex-col lg:gap-20">
           {/* Left side — header + CTA */}
           <div className="space-y-5 md:max-w-md lg:max-w-lg shrink-0">
-            <p className="text-sm font-semibold text-blue-600">{label}</p>
+            <p className="text-sm font-semibold text-muted-foreground uppercase tracking-widest">{label}</p>
             <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">
               {heading}
             </h2>
