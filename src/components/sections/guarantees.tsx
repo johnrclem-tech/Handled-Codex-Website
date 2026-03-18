@@ -1,3 +1,5 @@
+"use client"
+
 import React from "react"
 import {
   HiOutlineClock,
@@ -5,7 +7,22 @@ import {
   HiOutlineArrowPath,
 } from "react-icons/hi2"
 
-const guarantees = [
+export interface GuaranteeItem {
+  icon: React.ComponentType<{ className?: string }>
+  title: string
+  description: string
+  metric: string
+  metricLabel: string
+}
+
+export interface GuaranteesProps {
+  label?: string
+  heading: string
+  description: string
+  guarantees: GuaranteeItem[]
+}
+
+export const defaultGuarantees: GuaranteeItem[] = [
   {
     icon: HiOutlineClock,
     title: "Same-Day Shipping",
@@ -32,19 +49,23 @@ const guarantees = [
   },
 ]
 
-export function Guarantees() {
+export function Guarantees({
+  label = "Performance Guarantees",
+  heading,
+  description,
+  guarantees,
+}: GuaranteesProps) {
   return (
     <section className="py-24 lg:py-32 bg-primary text-primary-foreground">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         {/* Header */}
         <div className="max-w-2xl mx-auto text-center mb-16">
-          <p className="text-sm font-semibold text-blue-400 mb-3">Performance Guarantees</p>
+          <p className="text-sm font-semibold text-blue-400 mb-3">{label}</p>
           <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">
-            We put our performance in writing
+            {heading}
           </h2>
           <p className="mt-4 text-lg text-primary-foreground/70">
-            Handled is one of the only 3PLs that backs every SLA with financial accountability.
-            If we miss a guarantee, we pay — not you.
+            {description}
           </p>
         </div>
 

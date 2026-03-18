@@ -26,6 +26,7 @@ import {
 } from "react-icons/hi2"
 import { CosmeticsOnboarding } from "@/components/sections/onboarding-cosmetics"
 import { CosmeticsPricing } from "@/components/sections/pricing-cosmetics"
+import { CosmeticsGuarantees } from "@/components/sections/guarantees-cosmetics"
 
 export const metadata: Metadata = {
   title: "Cosmetics Fulfillment Services | 3PL for Beauty Brands — Handled",
@@ -558,54 +559,7 @@ export default function CosmeticsFulfillmentPage() {
           </div>
         </section>
 
-        {/* Performance Guarantees */}
-        <section className="py-24 lg:py-32 bg-muted/30">
-          <div className="mx-auto max-w-7xl px-6 lg:px-8">
-            <div className="max-w-2xl mx-auto text-center mb-16">
-              <p className="text-sm font-semibold text-rose-500 mb-3">Cosmetics Fulfillment SLAs</p>
-              <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">
-                Performance guarantees built for beauty brands
-              </h2>
-              <p className="mt-4 text-lg text-muted-foreground">
-                For cosmetics brands, fulfillment errors are brand-damaging. Handled is one of the
-                only beauty 3PLs that backs every SLA with financial accountability.
-              </p>
-            </div>
-
-            <div className="grid md:grid-cols-3 gap-8">
-              <Card className="border-border/60 text-center">
-                <CardContent className="p-8">
-                  <HiOutlineClock className="h-8 w-8 text-rose-500 mx-auto mb-4" />
-                  <p className="text-4xl font-bold mb-1">100%</p>
-                  <p className="text-sm text-muted-foreground mb-4">Same-day shipping</p>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    All beauty orders received by 12PM ship the same business day. Guaranteed.
-                  </p>
-                </CardContent>
-              </Card>
-              <Card className="border-border/60 text-center">
-                <CardContent className="p-8">
-                  <HiOutlineShieldCheck className="h-8 w-8 text-purple-500 mx-auto mb-4" />
-                  <p className="text-4xl font-bold mb-1">99.9%</p>
-                  <p className="text-sm text-muted-foreground mb-4">Pick accuracy</p>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    Barcode-verified fulfillment ensures the right shade, size, and product in every order.
-                  </p>
-                </CardContent>
-              </Card>
-              <Card className="border-border/60 text-center">
-                <CardContent className="p-8">
-                  <HiOutlineTruck className="h-8 w-8 text-emerald-500 mx-auto mb-4" />
-                  <p className="text-4xl font-bold mb-1">2-Day</p>
-                  <p className="text-sm text-muted-foreground mb-4">Ground delivery</p>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    Bi-coastal fulfillment centers reach 95%+ of US addresses within 2 business days.
-                  </p>
-                </CardContent>
-              </Card>
-            </div>
-          </div>
-        </section>
+        <CosmeticsGuarantees />
 
         {/* The Brand Experience Section */}
         <section className="py-24 lg:py-32">

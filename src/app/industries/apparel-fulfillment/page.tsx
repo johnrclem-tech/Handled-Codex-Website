@@ -28,6 +28,7 @@ import {
 } from "react-icons/hi2"
 import { ApparelOnboarding } from "@/components/sections/onboarding-apparel"
 import { ApparelPricing } from "@/components/sections/pricing-apparel"
+import { ApparelGuarantees } from "@/components/sections/guarantees-apparel"
 
 export const metadata: Metadata = {
   title: "Apparel Fulfillment Services | 3PL for Clothing Brands — Handled",
@@ -601,54 +602,7 @@ export default function ApparelFulfillmentPage() {
           </div>
         </section>
 
-        {/* Performance Guarantees */}
-        <section className="py-24 lg:py-32 bg-muted/30">
-          <div className="mx-auto max-w-7xl px-6 lg:px-8">
-            <div className="max-w-2xl mx-auto text-center mb-16">
-              <p className="text-sm font-semibold text-indigo-500 mb-3">Apparel Fulfillment SLAs</p>
-              <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">
-                Performance guarantees built for fashion brands
-              </h2>
-              <p className="mt-4 text-lg text-muted-foreground">
-                In apparel, a wrong size or late delivery means a guaranteed return. Handled is one
-                of the only clothing 3PLs that backs every SLA with financial accountability.
-              </p>
-            </div>
-
-            <div className="grid md:grid-cols-3 gap-8">
-              <Card className="border-border/60 text-center">
-                <CardContent className="p-8">
-                  <HiOutlineClock className="h-8 w-8 text-indigo-500 mx-auto mb-4" />
-                  <p className="text-4xl font-bold mb-1">100%</p>
-                  <p className="text-sm text-muted-foreground mb-4">Same-day shipping</p>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    All apparel orders received by 12PM ship the same business day. Guaranteed.
-                  </p>
-                </CardContent>
-              </Card>
-              <Card className="border-border/60 text-center">
-                <CardContent className="p-8">
-                  <HiOutlineShieldCheck className="h-8 w-8 text-purple-500 mx-auto mb-4" />
-                  <p className="text-4xl font-bold mb-1">99.9%</p>
-                  <p className="text-sm text-muted-foreground mb-4">Pick accuracy</p>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    Barcode-verified fulfillment ensures the right size, color, and style in every order.
-                  </p>
-                </CardContent>
-              </Card>
-              <Card className="border-border/60 text-center">
-                <CardContent className="p-8">
-                  <HiOutlineTruck className="h-8 w-8 text-emerald-500 mx-auto mb-4" />
-                  <p className="text-4xl font-bold mb-1">2-Day</p>
-                  <p className="text-sm text-muted-foreground mb-4">Ground delivery</p>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    Bi-coastal fulfillment centers reach 95%+ of US addresses within 2 business days.
-                  </p>
-                </CardContent>
-              </Card>
-            </div>
-          </div>
-        </section>
+        <ApparelGuarantees />
 
         {/* DTC vs B2B Fulfillment */}
         <section className="py-24 lg:py-32">

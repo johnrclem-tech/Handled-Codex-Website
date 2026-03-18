@@ -25,6 +25,7 @@ import {
 import { SiShopify } from "react-icons/si"
 import { ShopifyOnboarding } from "@/components/sections/onboarding-shopify"
 import { ShopifyPricing } from "@/components/sections/pricing-shopify"
+import { ShopifyGuarantees } from "@/components/sections/guarantees-shopify"
 
 export const metadata: Metadata = {
   title: "Shopify Fulfillment Services | 3PL for Shopify Brands — Handled",
@@ -401,55 +402,7 @@ export default function ShopifyFulfillmentPage() {
           </div>
         </section>
 
-        {/* Performance Guarantees */}
-        <section className="py-24 lg:py-32 bg-muted/30">
-          <div className="mx-auto max-w-7xl px-6 lg:px-8">
-            <div className="max-w-2xl mx-auto text-center mb-16">
-              <p className="text-sm font-semibold text-blue-600 mb-3">Shopify Fulfillment SLAs</p>
-              <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">
-                Fulfillment guarantees backed by real accountability
-              </h2>
-              <p className="mt-4 text-lg text-muted-foreground">
-                Most Shopify 3PLs promise fast shipping. Handled puts it in writing — with financial
-                penalties if we don&apos;t deliver. That&apos;s the difference between a fulfillment
-                vendor and a fulfillment partner.
-              </p>
-            </div>
-
-            <div className="grid md:grid-cols-3 gap-8">
-              <Card className="border-border/60 text-center">
-                <CardContent className="p-8">
-                  <HiOutlineClock className="h-8 w-8 text-blue-500 mx-auto mb-4" />
-                  <p className="text-4xl font-bold mb-1">100%</p>
-                  <p className="text-sm text-muted-foreground mb-4">Same-day shipping</p>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    All Shopify orders received by 12PM ship the same business day. Guaranteed.
-                  </p>
-                </CardContent>
-              </Card>
-              <Card className="border-border/60 text-center">
-                <CardContent className="p-8">
-                  <HiOutlineShieldCheck className="h-8 w-8 text-purple-500 mx-auto mb-4" />
-                  <p className="text-4xl font-bold mb-1">99.9%</p>
-                  <p className="text-sm text-muted-foreground mb-4">Pick accuracy</p>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    Barcode-verified fulfillment ensures the right product in every Shopify order, every time.
-                  </p>
-                </CardContent>
-              </Card>
-              <Card className="border-border/60 text-center">
-                <CardContent className="p-8">
-                  <HiOutlineTruck className="h-8 w-8 text-emerald-500 mx-auto mb-4" />
-                  <p className="text-4xl font-bold mb-1">2-Day</p>
-                  <p className="text-sm text-muted-foreground mb-4">Ground delivery</p>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    Bi-coastal fulfillment centers reach 95%+ of US addresses within 2 business days.
-                  </p>
-                </CardContent>
-              </Card>
-            </div>
-          </div>
-        </section>
+        <ShopifyGuarantees />
 
         {/* Shopify Fulfillment Use Cases */}
         <section className="py-24 lg:py-32">

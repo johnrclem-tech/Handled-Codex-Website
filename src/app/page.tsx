@@ -4,7 +4,7 @@ import { Services } from "@/components/sections/services"
 import { Platform } from "@/components/sections/platform"
 import { Integrations } from "@/components/sections/integrations"
 import { Onboarding, defaultOnboardingSteps } from "@/components/sections/onboarding"
-import { Guarantees } from "@/components/sections/guarantees"
+import { Guarantees, defaultGuarantees } from "@/components/sections/guarantees"
 import { Pricing, defaultPricingPlans } from "@/components/sections/pricing"
 import { Testimonials } from "@/components/sections/testimonials"
 import { Company } from "@/components/sections/company"
@@ -25,7 +25,11 @@ export default function Home() {
           description="We make launching Shopify fulfillment predictable and fast."
           steps={defaultOnboardingSteps}
         />
-        <Guarantees />
+        <Guarantees
+          heading="We put our performance in writing"
+          description="Handled is one of the only 3PLs that backs every SLA with financial accountability. If we miss a guarantee, we pay — not you."
+          guarantees={defaultGuarantees}
+        />
         <Pricing
           heading="Transparent pricing that scales with you"
           description="No surprise fees. No minimums. Just clean, usage-based pricing whether you ship 50 or 50,000 orders a month."
