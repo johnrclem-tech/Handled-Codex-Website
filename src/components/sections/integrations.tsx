@@ -147,7 +147,7 @@ function ScrollingRow({
             className="group flex flex-col items-center justify-center w-28 h-24 rounded-xl border border-border/60 bg-card hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 shrink-0"
           >
             <integration.icon
-              className={`h-9 w-9 ${integration.color} mb-2 group-hover:scale-110 transition-transform`}
+              className={`h-9 max-w-14 ${integration.color} mb-2 group-hover:scale-110 transition-transform`}
             />
             <span className="text-xs font-medium text-center leading-tight px-1">
               {integration.name}
