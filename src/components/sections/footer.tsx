@@ -12,6 +12,7 @@ const footerLinks = {
   ],
   Industries: [
     { name: "Cosmetics Fulfillment", href: "/industries/cosmetics-fulfillment" },
+    { name: "Apparel Fulfillment", href: "/industries/apparel-fulfillment" },
   ],
   Integrations: [
     { name: "Shopify Fulfillment", href: "/integrations/shopify-fulfillment" },
