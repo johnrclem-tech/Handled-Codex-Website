@@ -68,6 +68,8 @@ export function Testimonials() {
   const [canScrollLeft, setCanScrollLeft] = useState(false)
   const [canScrollRight, setCanScrollRight] = useState(true)
   const [activeIndex, setActiveIndex] = useState(0)
+  const [isPaused, setIsPaused] = useState(false)
+  const autoScrollTimer = useRef<ReturnType<typeof setInterval> | null>(null)
 
   const checkScroll = useCallback(() => {
     const el = scrollRef.current
@@ -75,11 +77,34 @@ export function Testimonials() {
     setCanScrollLeft(el.scrollLeft > 4)
     setCanScrollRight(el.scrollLeft < el.scrollWidth - el.clientWidth - 4)
 
-    // Determine active dot based on scroll position
     const cardWidth = el.scrollWidth / testimonials.length
     const index = Math.round(el.scrollLeft / cardWidth)
     setActiveIndex(Math.min(index, testimonials.length - 1))
   }, [])
+
+  const scrollToNext = useCallback(() => {
+    const el = scrollRef.current
+    if (!el) return
+    const atEnd = el.scrollLeft >= el.scrollWidth - el.clientWidth - 4
+    if (atEnd) {
+      el.scrollTo({ left: 0, behavior: "smooth" })
+    } else {
+      const cardWidth = el.querySelector<HTMLElement>(":scope > div")?.offsetWidth ?? 360
+      el.scrollBy({ left: cardWidth + 24, behavior: "smooth" })
+    }
+  }, [])
+
+  // Auto-scroll interval
+  useEffect(() => {
+    if (isPaused) {
+      if (autoScrollTimer.current) clearInterval(autoScrollTimer.current)
+      return
+    }
+    autoScrollTimer.current = setInterval(scrollToNext, 4000)
+    return () => {
+      if (autoScrollTimer.current) clearInterval(autoScrollTimer.current)
+    }
+  }, [isPaused, scrollToNext])
 
   useEffect(() => {
     const el = scrollRef.current
@@ -115,42 +140,26 @@ export function Testimonials() {
 
   return (
     <section id="testimonials" className="py-24 lg:py-32 bg-muted/30">
+      {/* Centered header */}
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        {/* Header with nav arrows */}
-        <div className="flex items-end justify-between mb-12">
-          <div className="max-w-2xl">
-            <p className="text-sm font-semibold text-blue-600 mb-3">Testimonials</p>
-            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">
-              Trusted by brands that demand more
-            </h2>
-            <p className="mt-4 text-lg text-muted-foreground">
-              Don&apos;t take our word for it — hear from the brands that trust Handled
-              with their fulfillment.
-            </p>
-          </div>
-          <div className="hidden sm:flex gap-2">
-            <button
-              onClick={() => scroll("left")}
-              disabled={!canScrollLeft}
-              className="h-10 w-10 rounded-full border border-border/60 bg-background flex items-center justify-center hover:bg-muted transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
-              aria-label="Previous testimonial"
-            >
-              <HiChevronLeft className="h-5 w-5" />
-            </button>
-            <button
-              onClick={() => scroll("right")}
-              disabled={!canScrollRight}
-              className="h-10 w-10 rounded-full border border-border/60 bg-background flex items-center justify-center hover:bg-muted transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
-              aria-label="Next testimonial"
-            >
-              <HiChevronRight className="h-5 w-5" />
-            </button>
-          </div>
+        <div className="max-w-2xl mx-auto text-center mb-12">
+          <p className="text-sm font-semibold text-blue-600 mb-3">Testimonials</p>
+          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">
+            Trusted by brands that demand more
+          </h2>
+          <p className="mt-4 text-lg text-muted-foreground">
+            Don&apos;t take our word for it — hear from the brands that trust Handled
+            with their fulfillment.
+          </p>
         </div>
       </div>
 
-      {/* Carousel — breaks out of container for edge-to-edge scroll */}
-      <div className="relative">
+      {/* Carousel — pauses on hover */}
+      <div
+        className="relative"
+        onMouseEnter={() => setIsPaused(true)}
+        onMouseLeave={() => setIsPaused(false)}
+      >
         <div
           ref={scrollRef}
           className="flex gap-6 overflow-x-auto scroll-smooth snap-x snap-mandatory pl-6 lg:pl-[max(1.5rem,calc((100vw-80rem)/2+2rem))] pr-6 pb-2 -mb-2"
@@ -179,7 +188,6 @@ export function Testimonials() {
               </div>
             </div>
           ))}
-          {/* Spacer to allow last card to scroll fully into view */}
           <div className="shrink-0 w-1" aria-hidden="true" />
         </div>
 
@@ -192,18 +200,36 @@ export function Testimonials() {
         )}
       </div>
 
-      {/* Dot indicators */}
-      <div className="flex justify-center gap-2 mt-8">
-        {testimonials.map((t, i) => (
-          <button
-            key={t.name}
-            onClick={() => scrollToIndex(i)}
-            className={`h-2 rounded-full transition-all duration-300 ${
-              i === activeIndex ? "w-6 bg-blue-600" : "w-2 bg-border hover:bg-muted-foreground/40"
-            }`}
-            aria-label={`Go to testimonial from ${t.name}`}
-          />
-        ))}
+      {/* Controls: arrows + dots */}
+      <div className="flex items-center justify-center gap-4 mt-8">
+        <button
+          onClick={() => scroll("left")}
+          disabled={!canScrollLeft}
+          className="h-9 w-9 rounded-full border border-border/60 bg-background flex items-center justify-center hover:bg-muted transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+          aria-label="Previous testimonial"
+        >
+          <HiChevronLeft className="h-4 w-4" />
+        </button>
+        <div className="flex gap-2">
+          {testimonials.map((t, i) => (
+            <button
+              key={t.name}
+              onClick={() => scrollToIndex(i)}
+              className={`h-2 rounded-full transition-all duration-300 ${
+                i === activeIndex ? "w-6 bg-blue-600" : "w-2 bg-border hover:bg-muted-foreground/40"
+              }`}
+              aria-label={`Go to testimonial from ${t.name}`}
+            />
+          ))}
+        </div>
+        <button
+          onClick={() => scroll("right")}
+          disabled={!canScrollRight}
+          className="h-9 w-9 rounded-full border border-border/60 bg-background flex items-center justify-center hover:bg-muted transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+          aria-label="Next testimonial"
+        >
+          <HiChevronRight className="h-4 w-4" />
+        </button>
       </div>
     </section>
   )
