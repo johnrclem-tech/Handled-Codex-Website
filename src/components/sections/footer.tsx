@@ -4,7 +4,7 @@ import { Separator } from "@/components/ui/separator"
 
 const footerLinks = {
   Services: [
-    { name: "DTC Fulfillment", href: "/services/ecommerce-fulfillment" },
+    { name: "Ecommerce Fulfillment", href: "/services/ecommerce-fulfillment" },
     { name: "B2B & Retail", href: "/services/b2b-fulfillment" },
     { name: "Omnichannel", href: "/services/omnichannel-fulfillment" },
     { name: "Pick & Pack", href: "/services/pick-and-pack" },
