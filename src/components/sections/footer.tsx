@@ -10,6 +10,9 @@ const footerLinks = {
     { name: "Pick & Pack", href: "/services/pick-and-pack" },
     { name: "Returns", href: "/services/returns" },
   ],
+  Industries: [
+    { name: "Cosmetics Fulfillment", href: "/industries/cosmetics-fulfillment" },
+  ],
   Integrations: [
     { name: "Shopify Fulfillment", href: "/integrations/shopify-fulfillment" },
     { name: "Amazon", href: "/integrations/amazon" },
@@ -35,7 +38,7 @@ export function Footer() {
   return (
     <footer className="bg-muted/30 border-t border-border">
       <div className="mx-auto max-w-7xl px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-8">
+        <div className="grid grid-cols-2 md:grid-cols-6 gap-8">
           {/* Brand */}
           <div className="col-span-2 md:col-span-1">
             <Link href="/" className="flex items-center gap-1.5 mb-4">
