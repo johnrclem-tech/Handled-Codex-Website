@@ -91,10 +91,10 @@ export const defaultIntegrations: IntegrationItem[] = [
 
 function ScrollingRow({
   items,
-  direction,
+  speed = 0.4,
 }: {
   items: IntegrationItem[]
-  direction: "left" | "right"
+  speed?: number
 }) {
   const scrollRef = useRef<HTMLDivElement>(null)
   const [isPaused, setIsPaused] = useState(false)
@@ -105,16 +105,13 @@ function ScrollingRow({
 
     let animationId: number
     let position = 0
-    const speed = direction === "left" ? 0.4 : -0.4
 
     function animate() {
       if (!isPaused && el) {
         position += speed
         const halfWidth = el.scrollWidth / 2
-        if (direction === "left" && position >= halfWidth) {
+        if (position >= halfWidth) {
           position -= halfWidth
-        } else if (direction === "right" && position <= -halfWidth) {
-          position += halfWidth
         }
         el.style.transform = `translateX(${-position}px)`
       }
@@ -123,7 +120,7 @@ function ScrollingRow({
 
     animationId = requestAnimationFrame(animate)
     return () => cancelAnimationFrame(animationId)
-  }, [isPaused, direction])
+  }, [isPaused, speed])
 
   // Double the items for seamless loop
   const doubled = [...items, ...items]
@@ -180,8 +177,8 @@ export function Integrations({
 
       {/* Full-width scrolling rows */}
       <div className="space-y-3">
-        <ScrollingRow items={row1} direction="left" />
-        <ScrollingRow items={row2} direction="right" />
+        <ScrollingRow items={row1} speed={0.4} />
+        <ScrollingRow items={row2} speed={0.3} />
       </div>
     </section>
   )
