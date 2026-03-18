@@ -18,7 +18,31 @@ import {
 } from "react-icons/hi2"
 import { SiShopify } from "react-icons/si"
 
-const steps = [
+export type OnboardingStepColor = "blue" | "emerald" | "purple"
+
+export interface OnboardingBullet {
+  icon: React.ComponentType<{ className?: string }>
+  text: string
+}
+
+export interface OnboardingStep {
+  number: string
+  badge: string
+  title: string
+  description: string
+  bullets: OnboardingBullet[]
+  color: OnboardingStepColor
+}
+
+export interface OnboardingProps {
+  label?: string
+  heading: string
+  description: string
+  steps: OnboardingStep[]
+}
+
+// Default steps for the homepage (Shopify-focused)
+export const defaultOnboardingSteps: OnboardingStep[] = [
   {
     number: "1",
     badge: "Week 1",
@@ -39,7 +63,7 @@ const steps = [
         text: "Self-service returns portal handles refunds and exchanges seamlessly",
       },
     ],
-    color: "blue" as const,
+    color: "blue",
   },
   {
     number: "2",
@@ -61,7 +85,7 @@ const steps = [
         text: "Shop Promise badges boost trust, urgency, and conversions",
       },
     ],
-    color: "emerald" as const,
+    color: "emerald",
   },
   {
     number: "3",
@@ -83,7 +107,7 @@ const steps = [
         text: "A branded self-serve returns portal reflects your standards to the very end",
       },
     ],
-    color: "purple" as const,
+    color: "purple",
   },
 ]
 
@@ -120,7 +144,7 @@ const colorMap = {
   },
 }
 
-/* ── Step 1 Visual: Shopify Integration Dashboard ── */
+/* ── Step 1 Visual: Integration Dashboard ── */
 function IntegrationVisual() {
   return (
     <div className="rounded-2xl border border-border bg-card shadow-xl overflow-hidden animate-float">
@@ -129,14 +153,12 @@ function IntegrationVisual() {
         <span className="text-white text-sm font-medium">Shopify × Handled — Connected</span>
       </div>
       <div className="p-6 space-y-4">
-        {/* Sync status indicators */}
         <div className="space-y-3">
           <SyncRow label="Orders" status="Syncing in real-time" active />
           <SyncRow label="Inventory" status="2,847 SKUs synced" active />
           <SyncRow label="Tracking" status="Auto-push enabled" active />
         </div>
 
-        {/* Shopify Flow automations */}
         <div className="mt-4 rounded-lg border border-border bg-muted/30 p-4">
           <p className="text-xs font-semibold text-muted-foreground mb-3 uppercase tracking-wider">
             Active Automations
@@ -148,7 +170,6 @@ function IntegrationVisual() {
           </div>
         </div>
 
-        {/* Returns widget */}
         <div className="rounded-lg border border-border bg-background p-3 flex items-center justify-between">
           <div className="flex items-center gap-2">
             <div className="h-8 w-8 rounded-full bg-blue-100 flex items-center justify-center">
@@ -195,7 +216,6 @@ function ShippingVisual() {
         <span className="text-primary-foreground text-sm font-medium">Checkout — Shipping Options</span>
       </div>
       <div className="p-6 space-y-4">
-        {/* Order cutoff banner */}
         <div className="rounded-lg bg-emerald-50 border border-emerald-200 p-3 flex items-center gap-2">
           <HiOutlineClock className="h-5 w-5 text-emerald-600 shrink-0" />
           <div>
@@ -204,7 +224,6 @@ function ShippingVisual() {
           </div>
         </div>
 
-        {/* Shipping options */}
         <div className="space-y-2">
           <ShippingOption
             label="Standard Shipping"
@@ -227,7 +246,6 @@ function ShippingVisual() {
           />
         </div>
 
-        {/* Trust badges */}
         <div className="flex items-center gap-3 pt-2 border-t border-border">
           <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
             <HiOutlineShieldCheck className="h-3.5 w-3.5 text-blue-500" />
@@ -301,7 +319,6 @@ function BrandingVisual() {
         <span className="text-white text-sm font-medium">Your Brand — Unboxing Experience</span>
       </div>
       <div className="p-6 space-y-4">
-        {/* Package mockup */}
         <div className="rounded-lg border border-border bg-muted/30 p-4">
           <div className="flex gap-3">
             <div className="w-16 h-16 rounded-lg bg-gradient-to-br from-purple-100 to-blue-100 border border-purple-200 flex items-center justify-center shrink-0">
@@ -317,7 +334,6 @@ function BrandingVisual() {
           </div>
         </div>
 
-        {/* Tracking email preview */}
         <div className="rounded-lg border border-border bg-background p-4">
           <div className="flex items-center gap-2 mb-3">
             <div className="h-8 w-8 rounded-full bg-purple-100 flex items-center justify-center">
@@ -343,7 +359,6 @@ function BrandingVisual() {
           </div>
         </div>
 
-        {/* Returns portal badge */}
         <div className="rounded-lg border border-border bg-background p-3 flex items-center justify-between">
           <div className="flex items-center gap-2">
             <div className="h-8 w-8 rounded-full bg-purple-100 flex items-center justify-center">
@@ -374,7 +389,12 @@ function BrandItem({ label }: { label: string }) {
 }
 
 /* ── Main Export ── */
-export function Onboarding() {
+export function Onboarding({
+  label = "Onboarding",
+  heading,
+  description,
+  steps,
+}: OnboardingProps) {
   const [activeStep, setActiveStep] = useState(0)
   const visuals = [<IntegrationVisual key="1" />, <ShippingVisual key="2" />, <BrandingVisual key="3" />]
 
@@ -383,12 +403,12 @@ export function Onboarding() {
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         {/* Header */}
         <div className="max-w-2xl mx-auto text-center mb-16">
-          <p className="text-sm font-semibold text-blue-600 mb-3">Onboarding</p>
+          <p className="text-sm font-semibold text-blue-600 mb-3">{label}</p>
           <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">
-            Onboard your Shopify fulfillment in 2&nbsp;weeks
+            {heading}
           </h2>
           <p className="mt-4 text-lg text-muted-foreground">
-            We make launching Shopify fulfillment predictable and fast.
+            {description}
           </p>
         </div>
 

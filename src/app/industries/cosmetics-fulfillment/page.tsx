@@ -24,6 +24,7 @@ import {
   HiOutlineClipboardDocumentCheck,
   HiOutlineExclamationTriangle,
 } from "react-icons/hi2"
+import { CosmeticsOnboarding } from "@/components/sections/onboarding-cosmetics"
 
 export const metadata: Metadata = {
   title: "Cosmetics Fulfillment Services | 3PL for Beauty Brands — Handled",
@@ -653,6 +654,8 @@ export default function CosmeticsFulfillmentPage() {
             </div>
           </div>
         </section>
+
+        <CosmeticsOnboarding />
 
         {/* FAQ Section */}
         <section className="py-24 lg:py-32 bg-muted/30">

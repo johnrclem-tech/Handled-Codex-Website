@@ -3,7 +3,7 @@ import { Hero } from "@/components/sections/hero"
 import { Services } from "@/components/sections/services"
 import { Platform } from "@/components/sections/platform"
 import { Integrations } from "@/components/sections/integrations"
-import { Onboarding } from "@/components/sections/onboarding"
+import { Onboarding, defaultOnboardingSteps } from "@/components/sections/onboarding"
 import { Guarantees } from "@/components/sections/guarantees"
 import { Pricing } from "@/components/sections/pricing"
 import { Testimonials } from "@/components/sections/testimonials"
@@ -20,7 +20,11 @@ export default function Home() {
         <Services />
         <Platform />
         <Integrations />
-        <Onboarding />
+        <Onboarding
+          heading="Onboard your Shopify fulfillment in 2&nbsp;weeks"
+          description="We make launching Shopify fulfillment predictable and fast."
+          steps={defaultOnboardingSteps}
+        />
         <Guarantees />
         <Pricing />
         <Testimonials />

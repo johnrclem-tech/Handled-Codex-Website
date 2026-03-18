@@ -27,6 +27,7 @@ import {
   HiOutlineCircleStack,
 } from "react-icons/hi2"
 import { SiShopify } from "react-icons/si"
+import { EcommerceOnboarding } from "@/components/sections/onboarding-ecommerce"
 
 export const metadata: Metadata = {
   title: "Ecommerce Fulfillment Services | 3PL for Online Brands — Handled",
@@ -659,56 +660,7 @@ export default function EcommerceFulfillmentPage() {
           </div>
         </section>
 
-        {/* Onboarding */}
-        <section className="py-24 lg:py-32">
-          <div className="mx-auto max-w-7xl px-6 lg:px-8">
-            <div className="grid lg:grid-cols-2 gap-16 items-center">
-              <div>
-                <p className="text-sm font-semibold text-blue-600 mb-3">Fast Onboarding</p>
-                <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">
-                  From sign-up to shipping in days, not months
-                </h2>
-                <p className="mt-4 text-muted-foreground leading-relaxed">
-                  Switching ecommerce fulfillment providers doesn&apos;t have to be painful. Handled&apos;s
-                  onboarding process is designed to get your online store connected and shipping
-                  fast — with a dedicated onboarding manager guiding you through every step.
-                </p>
-                <ul className="mt-6 space-y-3">
-                  {[
-                    "Connect your ecommerce platform in minutes",
-                    "Ship inventory to our fulfillment centers",
-                    "Receiving and shelving within 48 hours",
-                    "Configure packaging, shipping rules, and preferences",
-                    "Test orders to verify accuracy and presentation",
-                    "Go live — orders start flowing automatically",
-                  ].map((item) => (
-                    <li key={item} className="flex items-center gap-2 text-sm text-muted-foreground">
-                      <HiOutlineCheckCircle className="h-4 w-4 text-emerald-500 shrink-0" />
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-                <div className="mt-8">
-                  <Button size="lg" asChild>
-                    <Link href="/contact-sales">
-                      Start onboarding
-                      <HiOutlineArrowRight className="h-4 w-4" />
-                    </Link>
-                  </Button>
-                </div>
-              </div>
-              <div className="rounded-2xl bg-gradient-to-br from-blue-50 to-cyan-50 p-12 flex items-center justify-center">
-                <div className="text-center space-y-4">
-                  <HiOutlineRocketLaunch className="h-16 w-16 text-blue-400 mx-auto" />
-                  <p className="text-2xl font-bold text-foreground">Fast Onboarding</p>
-                  <p className="text-sm text-muted-foreground max-w-xs">
-                    Dedicated onboarding manager gets your ecommerce fulfillment live in days
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
+        <EcommerceOnboarding />
 
         {/* FAQ Section */}
         <section className="py-24 lg:py-32 bg-muted/30">
