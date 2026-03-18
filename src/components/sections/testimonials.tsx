@@ -1,5 +1,7 @@
-import React from "react"
-import { HiStar } from "react-icons/hi2"
+"use client"
+
+import React, { useRef, useState, useEffect, useCallback } from "react"
+import { HiStar, HiChevronLeft, HiChevronRight } from "react-icons/hi2"
 
 const testimonials = [
   {
@@ -61,76 +63,147 @@ function Initials({ name }: { name: string }) {
   )
 }
 
-function TestimonialCard({ t, featured = false }: { t: (typeof testimonials)[number]; featured?: boolean }) {
-  return (
-    <div
-      className={`rounded-xl border bg-background p-6 hover:shadow-md transition-all duration-300 ${
-        featured
-          ? "border-blue-200 bg-gradient-to-br from-blue-50/50 to-background shadow-sm"
-          : "border-border/60"
-      }`}
-    >
-      <div className="flex items-center justify-between mb-4">
-        <StarRating rating={t.rating} />
-        <span className="text-xs font-medium text-blue-600 bg-blue-50 px-2 py-0.5 rounded-full">
-          {t.title}
-        </span>
-      </div>
-      <blockquote className={`text-muted-foreground leading-relaxed ${featured ? "text-base" : "text-sm"}`}>
-        &ldquo;{t.content}&rdquo;
-      </blockquote>
-      <div className="mt-5 flex items-center gap-3 pt-4 border-t border-border/40">
-        <Initials name={t.name} />
-        <div>
-          <p className="text-sm font-medium">{t.name}</p>
-          <p className="text-xs text-muted-foreground">Google Review</p>
-        </div>
-      </div>
-    </div>
-  )
-}
-
 export function Testimonials() {
-  // Layout: featured card on the left, 2 stacked on the right (top row)
-  // Then 3 cards across the bottom — but we have 5, so: 1 featured + 2 stacked | 2 bottom centered
-  const featured = testimonials[2] // Lisa — longest, most compelling review
-  const topRight = [testimonials[0], testimonials[1]]
-  const bottom = [testimonials[3], testimonials[4]]
+  const scrollRef = useRef<HTMLDivElement>(null)
+  const [canScrollLeft, setCanScrollLeft] = useState(false)
+  const [canScrollRight, setCanScrollRight] = useState(true)
+  const [activeIndex, setActiveIndex] = useState(0)
+
+  const checkScroll = useCallback(() => {
+    const el = scrollRef.current
+    if (!el) return
+    setCanScrollLeft(el.scrollLeft > 4)
+    setCanScrollRight(el.scrollLeft < el.scrollWidth - el.clientWidth - 4)
+
+    // Determine active dot based on scroll position
+    const cardWidth = el.scrollWidth / testimonials.length
+    const index = Math.round(el.scrollLeft / cardWidth)
+    setActiveIndex(Math.min(index, testimonials.length - 1))
+  }, [])
+
+  useEffect(() => {
+    const el = scrollRef.current
+    if (!el) return
+    checkScroll()
+    el.addEventListener("scroll", checkScroll, { passive: true })
+    window.addEventListener("resize", checkScroll)
+    return () => {
+      el.removeEventListener("scroll", checkScroll)
+      window.removeEventListener("resize", checkScroll)
+    }
+  }, [checkScroll])
+
+  const scroll = (direction: "left" | "right") => {
+    const el = scrollRef.current
+    if (!el) return
+    const cardWidth = el.querySelector<HTMLElement>(":scope > div")?.offsetWidth ?? 360
+    const gap = 24
+    el.scrollBy({
+      left: direction === "left" ? -(cardWidth + gap) : cardWidth + gap,
+      behavior: "smooth",
+    })
+  }
+
+  const scrollToIndex = (index: number) => {
+    const el = scrollRef.current
+    if (!el) return
+    const card = el.children[index] as HTMLElement | undefined
+    if (card) {
+      el.scrollTo({ left: card.offsetLeft - 24, behavior: "smooth" })
+    }
+  }
 
   return (
     <section id="testimonials" className="py-24 lg:py-32 bg-muted/30">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="max-w-2xl mx-auto text-center mb-16">
-          <p className="text-sm font-semibold text-blue-600 mb-3">Testimonials</p>
-          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">
-            Trusted by brands that demand more
-          </h2>
-          <p className="mt-4 text-lg text-muted-foreground">
-            Don&apos;t take our word for it — hear from the brands that trust Handled
-            with their fulfillment.
-          </p>
+        {/* Header with nav arrows */}
+        <div className="flex items-end justify-between mb-12">
+          <div className="max-w-2xl">
+            <p className="text-sm font-semibold text-blue-600 mb-3">Testimonials</p>
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">
+              Trusted by brands that demand more
+            </h2>
+            <p className="mt-4 text-lg text-muted-foreground">
+              Don&apos;t take our word for it — hear from the brands that trust Handled
+              with their fulfillment.
+            </p>
+          </div>
+          <div className="hidden sm:flex gap-2">
+            <button
+              onClick={() => scroll("left")}
+              disabled={!canScrollLeft}
+              className="h-10 w-10 rounded-full border border-border/60 bg-background flex items-center justify-center hover:bg-muted transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+              aria-label="Previous testimonial"
+            >
+              <HiChevronLeft className="h-5 w-5" />
+            </button>
+            <button
+              onClick={() => scroll("right")}
+              disabled={!canScrollRight}
+              className="h-10 w-10 rounded-full border border-border/60 bg-background flex items-center justify-center hover:bg-muted transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+              aria-label="Next testimonial"
+            >
+              <HiChevronRight className="h-5 w-5" />
+            </button>
+          </div>
         </div>
+      </div>
 
-        {/* Top row: featured left + 2 stacked right */}
-        <div className="grid lg:grid-cols-5 gap-6 mb-6">
-          <div className="lg:col-span-3 flex">
-            <div className="w-full flex flex-col">
-              <TestimonialCard t={featured} featured />
+      {/* Carousel — breaks out of container for edge-to-edge scroll */}
+      <div className="relative">
+        <div
+          ref={scrollRef}
+          className="flex gap-6 overflow-x-auto scroll-smooth snap-x snap-mandatory pl-6 lg:pl-[max(1.5rem,calc((100vw-80rem)/2+2rem))] pr-6 pb-2 -mb-2"
+          style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+        >
+          {testimonials.map((t) => (
+            <div
+              key={t.name}
+              className="snap-start shrink-0 w-[min(85vw,360px)] rounded-xl border border-border/60 bg-background p-6 hover:shadow-md transition-all duration-300 flex flex-col"
+            >
+              <div className="flex items-center justify-between mb-4">
+                <StarRating rating={t.rating} />
+                <span className="text-xs font-medium text-blue-600 bg-blue-50 px-2 py-0.5 rounded-full">
+                  {t.title}
+                </span>
+              </div>
+              <blockquote className="text-sm text-muted-foreground leading-relaxed flex-1">
+                &ldquo;{t.content}&rdquo;
+              </blockquote>
+              <div className="mt-5 flex items-center gap-3 pt-4 border-t border-border/40">
+                <Initials name={t.name} />
+                <div>
+                  <p className="text-sm font-medium">{t.name}</p>
+                  <p className="text-xs text-muted-foreground">Google Review</p>
+                </div>
+              </div>
             </div>
-          </div>
-          <div className="lg:col-span-2 grid gap-6">
-            {topRight.map((t) => (
-              <TestimonialCard key={t.name} t={t} />
-            ))}
-          </div>
+          ))}
+          {/* Spacer to allow last card to scroll fully into view */}
+          <div className="shrink-0 w-1" aria-hidden="true" />
         </div>
 
-        {/* Bottom row: 2 cards centered */}
-        <div className="grid sm:grid-cols-2 gap-6 max-w-4xl mx-auto">
-          {bottom.map((t) => (
-            <TestimonialCard key={t.name} t={t} />
-          ))}
-        </div>
+        {/* Fade edges */}
+        {canScrollLeft && (
+          <div className="absolute inset-y-0 left-0 w-12 bg-gradient-to-r from-muted/30 to-transparent pointer-events-none" />
+        )}
+        {canScrollRight && (
+          <div className="absolute inset-y-0 right-0 w-12 bg-gradient-to-l from-muted/30 to-transparent pointer-events-none" />
+        )}
+      </div>
+
+      {/* Dot indicators */}
+      <div className="flex justify-center gap-2 mt-8">
+        {testimonials.map((t, i) => (
+          <button
+            key={t.name}
+            onClick={() => scrollToIndex(i)}
+            className={`h-2 rounded-full transition-all duration-300 ${
+              i === activeIndex ? "w-6 bg-blue-600" : "w-2 bg-border hover:bg-muted-foreground/40"
+            }`}
+            aria-label={`Go to testimonial from ${t.name}`}
+          />
+        ))}
       </div>
     </section>
   )
