@@ -92,9 +92,11 @@ export const defaultIntegrations: IntegrationItem[] = [
 function ScrollingRow({
   items,
   speed = 0.4,
+  reverse = false,
 }: {
   items: IntegrationItem[]
   speed?: number
+  reverse?: boolean
 }) {
   const scrollRef = useRef<HTMLDivElement>(null)
   const [isPaused, setIsPaused] = useState(false)
@@ -104,14 +106,21 @@ function ScrollingRow({
     if (!el) return
 
     let animationId: number
-    let position = 0
+    const halfWidth = el.scrollWidth / 2
+    let position = reverse ? halfWidth : 0
 
     function animate() {
       if (!isPaused && el) {
-        position += speed
-        const halfWidth = el.scrollWidth / 2
-        if (position >= halfWidth) {
-          position -= halfWidth
+        if (reverse) {
+          position -= speed
+          if (position <= 0) {
+            position += halfWidth
+          }
+        } else {
+          position += speed
+          if (position >= halfWidth) {
+            position -= halfWidth
+          }
         }
         el.style.transform = `translateX(${-position}px)`
       }
@@ -120,7 +129,7 @@ function ScrollingRow({
 
     animationId = requestAnimationFrame(animate)
     return () => cancelAnimationFrame(animationId)
-  }, [isPaused, speed])
+  }, [isPaused, speed, reverse])
 
   // Double the items for seamless loop
   const doubled = [...items, ...items]
@@ -138,7 +147,7 @@ function ScrollingRow({
             className="group flex flex-col items-center justify-center w-28 h-24 rounded-xl border border-border/60 bg-card hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 shrink-0"
           >
             <integration.icon
-              className={`h-7 w-7 ${integration.color} mb-2 group-hover:scale-110 transition-transform`}
+              className={`h-9 w-9 ${integration.color} mb-2 group-hover:scale-110 transition-transform`}
             />
             <span className="text-xs font-medium text-center leading-tight px-1">
               {integration.name}
@@ -178,7 +187,7 @@ export function Integrations({
       {/* Full-width scrolling rows */}
       <div className="space-y-3">
         <ScrollingRow items={row1} speed={0.4} />
-        <ScrollingRow items={row2} speed={0.3} />
+        <ScrollingRow items={row2} speed={0.3} reverse />
       </div>
     </section>
   )
