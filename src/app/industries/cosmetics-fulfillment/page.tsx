@@ -28,6 +28,7 @@ import { CosmeticsOnboarding } from "@/components/sections/onboarding-cosmetics"
 import { CosmeticsPricing } from "@/components/sections/pricing-cosmetics"
 import { CosmeticsGuarantees } from "@/components/sections/guarantees-cosmetics"
 import { CosmeticsCTA } from "@/components/sections/cta-cosmetics"
+import { CosmeticsIntegrations } from "@/components/sections/integrations-cosmetics"
 
 export const metadata: Metadata = {
   title: "Cosmetics Fulfillment Services | 3PL for Beauty Brands — Handled",
@@ -610,6 +611,8 @@ export default function CosmeticsFulfillmentPage() {
             </div>
           </div>
         </section>
+
+        <CosmeticsIntegrations />
 
         <CosmeticsOnboarding />
 

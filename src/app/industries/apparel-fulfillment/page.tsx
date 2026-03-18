@@ -30,6 +30,7 @@ import { ApparelOnboarding } from "@/components/sections/onboarding-apparel"
 import { ApparelPricing } from "@/components/sections/pricing-apparel"
 import { ApparelGuarantees } from "@/components/sections/guarantees-apparel"
 import { ApparelCTA } from "@/components/sections/cta-apparel"
+import { ApparelIntegrations } from "@/components/sections/integrations-apparel"
 
 export const metadata: Metadata = {
   title: "Apparel Fulfillment Services | 3PL for Clothing Brands — Handled",
@@ -670,6 +671,8 @@ export default function ApparelFulfillmentPage() {
             </div>
           </div>
         </section>
+
+        <ApparelIntegrations />
 
         <ApparelOnboarding />
 

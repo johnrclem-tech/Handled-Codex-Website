@@ -27,6 +27,7 @@ import { ShopifyOnboarding } from "@/components/sections/onboarding-shopify"
 import { ShopifyPricing } from "@/components/sections/pricing-shopify"
 import { ShopifyGuarantees } from "@/components/sections/guarantees-shopify"
 import { ShopifyCTA } from "@/components/sections/cta-shopify"
+import { ShopifyIntegrations } from "@/components/sections/integrations-shopify"
 
 export const metadata: Metadata = {
   title: "Shopify Fulfillment Services | 3PL for Shopify Brands — Handled",
@@ -473,6 +474,8 @@ export default function ShopifyFulfillmentPage() {
             </div>
           </div>
         </section>
+
+        <ShopifyIntegrations />
 
         <ShopifyOnboarding />
 

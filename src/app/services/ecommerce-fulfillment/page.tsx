@@ -31,6 +31,7 @@ import { EcommerceOnboarding } from "@/components/sections/onboarding-ecommerce"
 import { EcommercePricing } from "@/components/sections/pricing-ecommerce"
 import { EcommerceGuarantees } from "@/components/sections/guarantees-ecommerce"
 import { EcommerceCTA } from "@/components/sections/cta-ecommerce"
+import { EcommerceIntegrations } from "@/components/sections/integrations-ecommerce"
 
 export const metadata: Metadata = {
   title: "Ecommerce Fulfillment Services | 3PL for Online Brands — Handled",
@@ -485,62 +486,7 @@ export default function EcommerceFulfillmentPage() {
           </div>
         </section>
 
-        {/* Platform Integrations */}
-        <section className="py-24 lg:py-32 bg-muted/30">
-          <div className="mx-auto max-w-7xl px-6 lg:px-8">
-            <div className="max-w-2xl mx-auto text-center mb-16">
-              <p className="text-sm font-semibold text-blue-600 mb-3">Ecommerce Integrations</p>
-              <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">
-                Connect your store in minutes, start shipping in days
-              </h2>
-              <p className="mt-4 text-lg text-muted-foreground">
-                Handled integrates natively with all major ecommerce platforms. Orders, inventory,
-                and tracking sync automatically — no manual data entry, no CSV uploads, no middleware.
-              </p>
-            </div>
-
-            <div className="flex flex-wrap justify-center gap-3 mb-12">
-              {platforms.map((platform) => (
-                <span
-                  key={platform}
-                  className="inline-flex items-center rounded-lg border border-border/60 bg-background px-4 py-2.5 text-sm font-medium"
-                >
-                  {platform}
-                </span>
-              ))}
-            </div>
-
-            <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-              <div className="text-center">
-                <div className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-blue-50 mb-4">
-                  <HiOutlineCodeBracket className="h-6 w-6 text-blue-500" />
-                </div>
-                <h3 className="font-semibold mb-2">One-Click Connect</h3>
-                <p className="text-sm text-muted-foreground">
-                  Install our app or connect via API — your products and order history sync automatically.
-                </p>
-              </div>
-              <div className="text-center">
-                <div className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-emerald-50 mb-4">
-                  <HiOutlineCircleStack className="h-6 w-6 text-emerald-500" />
-                </div>
-                <h3 className="font-semibold mb-2">Real-Time Sync</h3>
-                <p className="text-sm text-muted-foreground">
-                  Orders flow in instantly, inventory updates in real time, tracking pushes back automatically.
-                </p>
-              </div>
-              <div className="text-center">
-                <div className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-purple-50 mb-4">
-                  <HiOutlineRocketLaunch className="h-6 w-6 text-purple-500" />
-                </div>
-                <h3 className="font-semibold mb-2">Ship in Days</h3>
-                <p className="text-sm text-muted-foreground">
-                  Fast onboarding gets your ecommerce store connected and shipping within days, not months.
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
+        <EcommerceIntegrations />
 
         <EcommerceGuarantees />
 

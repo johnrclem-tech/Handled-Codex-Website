@@ -2,7 +2,7 @@ import { Navbar } from "@/components/sections/navbar"
 import { Hero } from "@/components/sections/hero"
 import { Services } from "@/components/sections/services"
 import { Platform } from "@/components/sections/platform"
-import { Integrations } from "@/components/sections/integrations"
+import { Integrations, defaultIntegrationBullets } from "@/components/sections/integrations"
 import { Onboarding, defaultOnboardingSteps } from "@/components/sections/onboarding"
 import { Guarantees, defaultGuarantees } from "@/components/sections/guarantees"
 import { Pricing, defaultPricingPlans } from "@/components/sections/pricing"
@@ -19,7 +19,11 @@ export default function Home() {
         <Hero />
         <Services />
         <Platform />
-        <Integrations />
+        <Integrations
+          heading="Connect your store in under 24 hours"
+          description="Handled integrates seamlessly with the platforms and tools you already use. One-click connections to Shopify, Amazon, ShipStation, and dozens more."
+          bullets={defaultIntegrationBullets}
+        />
         <Onboarding
           heading="Onboard your Shopify fulfillment in 2&nbsp;weeks"
           description="We make launching Shopify fulfillment predictable and fast."
