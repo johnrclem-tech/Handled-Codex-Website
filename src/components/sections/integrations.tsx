@@ -1,6 +1,9 @@
 "use client"
 
-import React, { useEffect, useRef, useState } from "react"
+import React from "react"
+import Link from "next/link"
+import { Button } from "@/components/ui/button"
+import { HiOutlineArrowRight } from "react-icons/hi2"
 import {
   SiShopify,
   SiWoo,
@@ -48,11 +51,12 @@ export interface IntegrationsProps {
   label?: string
   heading: string
   description: string
+  ctaText?: string
+  ctaHref?: string
   integrations?: IntegrationItem[]
 }
 
 export const defaultIntegrations: IntegrationItem[] = [
-  // Row 1 — Ecommerce & Marketplaces
   { name: "Shopify", icon: SiShopify, color: "text-[#96BF48]" },
   { name: "Amazon", icon: FaAmazon, color: "text-[#FF9900]" },
   { name: "WooCommerce", icon: SiWoo, color: "text-[#96588A]" },
@@ -70,7 +74,6 @@ export const defaultIntegrations: IntegrationItem[] = [
   { name: "HubSpot", icon: SiHubspot, color: "text-[#FF7A59]" },
   { name: "Zendesk", icon: SiZendesk, color: "text-[#03363D]" },
   { name: "Intercom", icon: SiIntercom, color: "text-[#6AFDEF]" },
-  // Row 2 — Shipping, Accounting, Marketing, Comms
   { name: "USPS", icon: SiUsps, color: "text-[#333366]" },
   { name: "UPS", icon: SiUps, color: "text-[#351C15]" },
   { name: "FedEx", icon: SiFedex, color: "text-[#4D148C]" },
@@ -89,105 +92,96 @@ export const defaultIntegrations: IntegrationItem[] = [
   { name: "WhatsApp", icon: SiWhatsapp, color: "text-[#25D366]" },
 ]
 
-function ScrollingRow({
+function IntegrationCard({ integration }: { integration: IntegrationItem }) {
+  return (
+    <div className="flex flex-col items-center justify-center w-20 h-20 rounded-xl border border-border/60 bg-card hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 shrink-0">
+      <integration.icon
+        className={`h-8 w-8 ${integration.color} mb-1.5 group-hover:scale-110 transition-transform`}
+      />
+      <span className="text-[10px] font-medium text-muted-foreground text-center leading-tight px-1 truncate max-w-full">
+        {integration.name}
+      </span>
+    </div>
+  )
+}
+
+function VerticalMarquee({
   items,
-  speed = 0.4,
   reverse = false,
 }: {
   items: IntegrationItem[]
-  speed?: number
   reverse?: boolean
 }) {
-  const scrollRef = useRef<HTMLDivElement>(null)
-  const [isPaused, setIsPaused] = useState(false)
-
-  useEffect(() => {
-    const el = scrollRef.current
-    if (!el) return
-
-    let animationId: number
-    const halfWidth = el.scrollWidth / 2
-    let position = reverse ? halfWidth : 0
-
-    function animate() {
-      if (!isPaused && el) {
-        if (reverse) {
-          position -= speed
-          if (position <= 0) {
-            position += halfWidth
-          }
-        } else {
-          position += speed
-          if (position >= halfWidth) {
-            position -= halfWidth
-          }
-        }
-        el.style.transform = `translateX(${-position}px)`
-      }
-      animationId = requestAnimationFrame(animate)
-    }
-
-    animationId = requestAnimationFrame(animate)
-    return () => cancelAnimationFrame(animationId)
-  }, [isPaused, speed, reverse])
-
-  // Double the items for seamless loop
   const doubled = [...items, ...items]
-
   return (
-    <div
-      className="overflow-hidden"
-      onMouseEnter={() => setIsPaused(true)}
-      onMouseLeave={() => setIsPaused(false)}
-    >
-      <div ref={scrollRef} className="flex gap-3 w-max will-change-transform">
+    <div className="relative overflow-hidden h-[540px]">
+      <div
+        className={`flex flex-col gap-3 ${reverse ? "animate-marquee-down" : "animate-marquee-up"}`}
+      >
         {doubled.map((integration, i) => (
-          <div
-            key={`${integration.name}-${i}`}
-            className="group flex flex-col items-center justify-center w-28 h-24 rounded-xl border border-border/60 bg-card hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 shrink-0"
-          >
-            <integration.icon
-              className={`h-10 w-10 ${integration.color} mb-2 group-hover:scale-110 transition-transform`}
-            />
-            <span className="text-xs font-medium text-center leading-tight px-1">
-              {integration.name}
-            </span>
-          </div>
+          <IntegrationCard key={`${integration.name}-${i}`} integration={integration} />
         ))}
       </div>
     </div>
   )
 }
 
+function splitIntoColumns(items: IntegrationItem[], cols: number): IntegrationItem[][] {
+  const columns: IntegrationItem[][] = Array.from({ length: cols }, () => [])
+  items.forEach((item, i) => {
+    columns[i % cols].push(item)
+  })
+  return columns
+}
+
 export function Integrations({
   label = "Integrations",
   heading,
   description,
+  ctaText = "Get a fulfillment quote",
+  ctaHref = "/contact-sales",
   integrations = defaultIntegrations,
 }: IntegrationsProps) {
-  const midpoint = Math.ceil(integrations.length / 2)
-  const row1 = integrations.slice(0, midpoint)
-  const row2 = integrations.slice(midpoint)
+  const columns = splitIntoColumns(integrations, 4)
 
   return (
     <section id="integrations" className="py-24 lg:py-32 overflow-hidden">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        {/* Centered header */}
-        <div className="max-w-2xl mx-auto text-center mb-14">
-          <p className="text-sm font-semibold text-blue-600 mb-3">{label}</p>
-          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">
-            {heading}
-          </h2>
-          <p className="mt-4 text-lg text-muted-foreground leading-relaxed">
-            {description}
-          </p>
-        </div>
-      </div>
+        <div className="flex items-center gap-12 max-md:flex-col lg:gap-20">
+          {/* Left side — header + CTA */}
+          <div className="space-y-5 md:max-w-md lg:max-w-lg shrink-0">
+            <p className="text-sm font-semibold text-blue-600">{label}</p>
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">
+              {heading}
+            </h2>
+            <p className="text-lg text-muted-foreground leading-relaxed">
+              {description}
+            </p>
+            <div className="pt-2">
+              <Button size="lg" asChild>
+                <Link href={ctaHref}>
+                  {ctaText}
+                  <HiOutlineArrowRight className="h-4 w-4" />
+                </Link>
+              </Button>
+            </div>
+          </div>
 
-      {/* Full-width scrolling rows */}
-      <div className="space-y-3">
-        <ScrollingRow items={row1} speed={0.4} />
-        <ScrollingRow items={row2} speed={0.3} reverse />
+          {/* Right side — vertical scrolling columns */}
+          <div className="relative grid shrink-0 grid-cols-3 gap-3 lg:grid-cols-4">
+            {/* Top/bottom fade overlays */}
+            <div className="absolute top-0 z-10 h-1/4 w-full bg-gradient-to-b from-background to-transparent pointer-events-none" />
+            <div className="absolute bottom-0 z-10 h-1/4 w-full bg-gradient-to-t from-background to-transparent pointer-events-none" />
+
+            {columns.slice(0, 3).map((col, i) => (
+              <VerticalMarquee key={i} items={col} reverse={i % 2 === 1} />
+            ))}
+            {/* 4th column hidden on smaller screens */}
+            <div className="hidden lg:block">
+              <VerticalMarquee items={columns[3]} reverse />
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   )
