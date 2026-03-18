@@ -4,6 +4,7 @@ import React, { useState } from "react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { HiOutlineBars3, HiOutlineXMark } from "react-icons/hi2"
+import { Layers } from "lucide-react"
 
 const navigation = [
   { name: "Services", href: "#services" },
@@ -24,7 +25,7 @@ export function Navbar() {
           <Link href="/" className="flex items-center gap-2">
             <div className="flex items-center gap-1.5">
               <div className="h-8 w-8 rounded-lg bg-primary flex items-center justify-center">
-                <span className="text-primary-foreground font-bold text-lg">H</span>
+                <Layers className="h-5 w-5 text-primary-foreground" />
               </div>
               <span className="text-xl font-bold tracking-tight">Handled</span>
             </div>
