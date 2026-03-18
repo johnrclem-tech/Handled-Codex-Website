@@ -7,6 +7,7 @@ import { Onboarding, defaultOnboardingSteps } from "@/components/sections/onboar
 import { Guarantees, defaultGuarantees } from "@/components/sections/guarantees"
 import { Pricing, defaultPricingPlans } from "@/components/sections/pricing"
 import { Testimonials } from "@/components/sections/testimonials"
+import { Customers } from "@/components/sections/customers"
 import { Company } from "@/components/sections/company"
 import { CTA, defaultCTABenefits } from "@/components/sections/cta"
 import { Footer } from "@/components/sections/footer"
@@ -39,6 +40,7 @@ export default function Home() {
           plans={defaultPricingPlans}
         />
         <Testimonials />
+        <Customers />
         <Company />
         <CTA
           heading="Get a Fulfillment Quote. Get&nbsp;Growing."
