@@ -29,6 +29,7 @@ import { CosmeticsPricing } from "@/components/sections/pricing-cosmetics"
 import { CosmeticsGuarantees } from "@/components/sections/guarantees-cosmetics"
 import { CosmeticsCTA } from "@/components/sections/cta-cosmetics"
 import { CosmeticsIntegrations } from "@/components/sections/integrations-cosmetics"
+import { Customers } from "@/components/sections/customers"
 
 export const metadata: Metadata = {
   title: "Cosmetics Fulfillment Services | 3PL for Beauty Brands — Handled",
@@ -639,6 +640,12 @@ export default function CosmeticsFulfillmentPage() {
             </div>
           </div>
         </section>
+
+        <Customers
+          label="Beauty Brands We Fulfill"
+          heading="Trusted by cosmetics and skincare brands"
+          description="From indie skincare startups to established beauty brands, cosmetics companies trust Handled with their beauty fulfillment and logistics."
+        />
 
         <CosmeticsPricing />
 

@@ -31,6 +31,7 @@ import { ApparelPricing } from "@/components/sections/pricing-apparel"
 import { ApparelGuarantees } from "@/components/sections/guarantees-apparel"
 import { ApparelCTA } from "@/components/sections/cta-apparel"
 import { ApparelIntegrations } from "@/components/sections/integrations-apparel"
+import { Customers } from "@/components/sections/customers"
 
 export const metadata: Metadata = {
   title: "Apparel Fulfillment Services | 3PL for Clothing Brands — Handled",
@@ -699,6 +700,12 @@ export default function ApparelFulfillmentPage() {
             </div>
           </div>
         </section>
+
+        <Customers
+          label="Apparel Brands We Fulfill"
+          heading="Trusted by clothing and fashion brands"
+          description="From streetwear startups to established fashion labels, apparel brands trust Handled with their clothing fulfillment and logistics."
+        />
 
         <ApparelPricing />
 

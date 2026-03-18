@@ -62,6 +62,12 @@ const customers = [
 const firstHalf = customers.slice(0, Math.ceil(customers.length / 2))
 const secondHalf = customers.slice(Math.ceil(customers.length / 2))
 
+interface CustomersProps {
+  label?: string
+  heading?: string
+  description?: string
+}
+
 function MarqueeRow({ items, reverse = false }: { items: string[]; reverse?: boolean }) {
   const doubled = [...items, ...items]
   return (
@@ -82,18 +88,21 @@ function MarqueeRow({ items, reverse = false }: { items: string[]; reverse?: boo
   )
 }
 
-export function Customers() {
+export function Customers({
+  label = "Our Customers",
+  heading = "Trusted by growing brands everywhere",
+  description = "From emerging DTC startups to established brands, businesses across every category trust Handled with their fulfillment.",
+}: CustomersProps) {
   return (
     <section id="customers" className="py-24 lg:py-32 bg-background overflow-hidden">
       <div className="mx-auto max-w-7xl px-6 lg:px-8 mb-12">
         <div className="max-w-2xl mx-auto text-center">
-          <p className="text-sm font-semibold text-blue-600 mb-3">Our Customers</p>
+          <p className="text-sm font-semibold text-blue-600 mb-3">{label}</p>
           <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">
-            Trusted by growing brands everywhere
+            {heading}
           </h2>
           <p className="mt-4 text-lg text-muted-foreground">
-            From emerging DTC startups to established brands, businesses across every
-            category trust Handled with their fulfillment.
+            {description}
           </p>
         </div>
       </div>

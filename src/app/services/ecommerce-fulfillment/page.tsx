@@ -32,6 +32,7 @@ import { EcommercePricing } from "@/components/sections/pricing-ecommerce"
 import { EcommerceGuarantees } from "@/components/sections/guarantees-ecommerce"
 import { EcommerceCTA } from "@/components/sections/cta-ecommerce"
 import { EcommerceIntegrations } from "@/components/sections/integrations-ecommerce"
+import { Customers } from "@/components/sections/customers"
 
 export const metadata: Metadata = {
   title: "Ecommerce Fulfillment Services | 3PL for Online Brands — Handled",
@@ -587,6 +588,12 @@ export default function EcommerceFulfillmentPage() {
             </div>
           </div>
         </section>
+
+        <Customers
+          label="Ecommerce Brands We Fulfill"
+          heading="Trusted by online brands across every category"
+          description="From emerging DTC startups to established ecommerce brands, online businesses trust Handled with their order fulfillment and logistics."
+        />
 
         <EcommercePricing />
 

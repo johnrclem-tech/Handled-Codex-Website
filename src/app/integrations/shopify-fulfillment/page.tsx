@@ -28,6 +28,7 @@ import { ShopifyPricing } from "@/components/sections/pricing-shopify"
 import { ShopifyGuarantees } from "@/components/sections/guarantees-shopify"
 import { ShopifyCTA } from "@/components/sections/cta-shopify"
 import { ShopifyIntegrations } from "@/components/sections/integrations-shopify"
+import { Customers } from "@/components/sections/customers"
 
 export const metadata: Metadata = {
   title: "Shopify Fulfillment Services | 3PL for Shopify Brands — Handled",
@@ -502,6 +503,12 @@ export default function ShopifyFulfillmentPage() {
             </div>
           </div>
         </section>
+
+        <Customers
+          label="Shopify Brands We Fulfill"
+          heading="Trusted by Shopify stores of every size"
+          description="From fast-growing DTC startups to high-volume Shopify Plus stores, ecommerce brands trust Handled with their Shopify fulfillment."
+        />
 
         <ShopifyPricing />
 
