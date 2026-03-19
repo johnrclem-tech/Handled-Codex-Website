@@ -97,7 +97,7 @@ function MarqueeRow({ items, reverse = false }: { items: string[]; reverse?: boo
         {doubled.map((name, i) => (
           <div
             key={`${name}-${i}`}
-            className="shrink-0 text-base font-medium text-muted-foreground/70 hover:text-foreground transition-colors duration-200"
+            className="shrink-0 text-lg font-medium text-muted-foreground/70 hover:text-foreground transition-colors duration-200"
           >
             {name}
           </div>
@@ -225,9 +225,8 @@ export function TestimonialsCustomers() {
         </div>
 
         {/* Full-width marquee */}
-        <div className="flex flex-col gap-4">
-          <MarqueeRow items={firstHalf} />
-          <MarqueeRow items={secondHalf} reverse />
+        <div>
+          <MarqueeRow items={customers} />
         </div>
       </div>
     </section>
