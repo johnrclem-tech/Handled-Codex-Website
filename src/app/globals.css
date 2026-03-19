@@ -123,11 +123,11 @@ html {
 }
 
 .animate-marquee {
-  animation: marquee 120s linear infinite;
+  animation: marquee 180s linear infinite;
 }
 
 .animate-marquee-reverse {
-  animation: marquee-reverse 120s linear infinite;
+  animation: marquee-reverse 180s linear infinite;
 }
 
 /* Vertical marquee animations for integration columns */
