@@ -44,9 +44,9 @@ const Pricing = ({ plans }: { plans: Plan[] }) => {
                     >
                       <plan.icon />
                     </div>
-                    <h2 className={cn('text-2xl font-bold tracking-tight', { 'text-primary-foreground': plan.isHighlighted })}>
+                    <h1 className={cn('text-3xl font-bold tracking-tight', { 'text-primary-foreground': plan.isHighlighted })}>
                       {plan.name}
-                    </h2>
+                    </h1>
                     <p className={cn('text-muted-foreground', { 'text-primary-foreground': plan.isHighlighted })}>
                       {plan.description}
                     </p>
