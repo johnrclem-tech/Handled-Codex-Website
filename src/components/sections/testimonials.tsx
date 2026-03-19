@@ -143,11 +143,11 @@ export function Testimonials() {
       {/* Centered header */}
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="max-w-2xl mx-auto text-center mb-12">
-          <p className="text-sm font-semibold text-blue-600 mb-3">Testimonials</p>
-          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">
+          <p className="section-label mb-3">Testimonials</p>
+          <h2 className="section-heading">
             Trusted by brands that demand more
           </h2>
-          <p className="mt-4 text-lg text-muted-foreground">
+          <p className="section-description">
             Don&apos;t take our word for it — hear from the brands that trust Handled
             with their fulfillment.
           </p>
@@ -176,7 +176,7 @@ export function Testimonials() {
                   {t.title}
                 </span>
               </div>
-              <blockquote className="text-sm text-muted-foreground leading-relaxed flex-1">
+              <blockquote className="card-description flex-1">
                 &ldquo;{t.content}&rdquo;
               </blockquote>
               <div className="mt-5 flex items-center gap-3 pt-4 border-t border-border/40">

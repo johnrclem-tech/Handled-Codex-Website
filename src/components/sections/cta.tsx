@@ -3,7 +3,6 @@
 import React, { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { Badge } from "@/components/ui/badge"
 import {
   HiOutlineArrowRight,
   HiOutlineClock,
@@ -79,12 +78,7 @@ export function CTA({
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
               {/* Left side — content + benefits */}
               <div>
-                <Badge
-                  variant="secondary"
-                  className="mb-6 gap-1.5 px-3 py-1 text-xs font-medium bg-white/10 text-white border-white/20 hover:bg-white/15"
-                >
-                  {label}
-                </Badge>
+                <p className="section-label-light mb-6">{label}</p>
 
                 <h2 className="section-heading text-primary-foreground">
                   {heading}
@@ -103,10 +97,10 @@ export function CTA({
                         </div>
                       </div>
                       <div>
-                        <h3 className="font-semibold text-primary-foreground uppercase tracking-wide text-sm">
+                        <h3 className="card-title text-primary-foreground uppercase tracking-wide text-sm">
                           {benefit.title}
                         </h3>
-                        <p className="mt-1 text-sm text-primary-foreground/60 leading-relaxed">
+                        <p className="mt-1 card-description text-primary-foreground/60">
                           {benefit.description}
                         </p>
                       </div>
@@ -122,19 +116,19 @@ export function CTA({
                     <div className="inline-flex h-14 w-14 items-center justify-center rounded-full bg-emerald-100 mb-4">
                       <HiOutlineRocketLaunch className="h-7 w-7 text-emerald-600" />
                     </div>
-                    <h3 className="text-xl font-bold text-foreground">
+                    <h3 className="card-title text-foreground">
                       Quote request received!
                     </h3>
-                    <p className="mt-2 text-sm text-muted-foreground">
+                    <p className="mt-2 card-description">
                       We&apos;ll get back to you within 1 business day with a custom quote.
                     </p>
                   </div>
                 ) : (
                   <>
-                    <h3 className="text-xl font-bold text-foreground mb-1">
+                    <h3 className="card-title text-foreground mb-1">
                       Get your free quote
                     </h3>
-                    <p className="text-sm text-muted-foreground mb-6">
+                    <p className="card-description mb-6">
                       Fill out the form and we&apos;ll be in touch within 1 business day.
                     </p>
 

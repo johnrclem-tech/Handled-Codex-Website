@@ -97,11 +97,11 @@ export function Customers({
     <section id="customers" className="py-24 lg:py-32 bg-background overflow-hidden">
       <div className="mx-auto max-w-7xl px-6 lg:px-8 mb-12">
         <div className="max-w-2xl mx-auto text-center">
-          <p className="text-sm font-semibold text-blue-600 mb-3">{label}</p>
-          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">
+          <p className="section-label mb-3">{label}</p>
+          <h2 className="section-heading">
             {heading}
           </h2>
-          <p className="mt-4 text-lg text-muted-foreground">
+          <p className="section-description">
             {description}
           </p>
         </div>

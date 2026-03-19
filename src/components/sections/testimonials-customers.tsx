@@ -184,7 +184,7 @@ export function TestimonialsCustomers() {
                     : "opacity-100 scale-100"
                 }`}
               >
-                <span className="text-sm font-semibold text-blue-600 uppercase tracking-wide block mb-3">
+                <span className="section-label uppercase tracking-wide block mb-3">
                   {activeTestimonial.title}
                 </span>
                 <StarRating rating={activeTestimonial.rating} />
@@ -218,7 +218,7 @@ export function TestimonialsCustomers() {
           </div>
           {/* Customer Marquee Label */}
           <div className="mt-24 pt-12 border-t border-border/60">
-            <p className="text-sm font-semibold text-blue-600 uppercase tracking-wide mb-8 text-center">
+            <p className="section-label uppercase tracking-wide mb-8 text-center">
               Trusted by growing brands everywhere
             </p>
           </div>
