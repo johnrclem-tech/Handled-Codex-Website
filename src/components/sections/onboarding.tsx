@@ -403,11 +403,11 @@ export function Onboarding({
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         {/* Header */}
         <div className="max-w-2xl mx-auto text-center mb-16">
-          <p className="text-sm font-semibold text-blue-600 mb-3">{label}</p>
-          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">
+          <p className="section-label mb-3">{label}</p>
+          <h2 className="section-heading">
             {heading}
           </h2>
-          <p className="mt-4 text-lg text-muted-foreground">
+          <p className="section-description">
             {description}
           </p>
         </div>
@@ -472,7 +472,7 @@ export function Onboarding({
                     <div className={`h-8 w-8 rounded-lg ${colors.iconBg} flex items-center justify-center shrink-0 mt-0.5`}>
                       <bullet.icon className={`h-4 w-4 ${colors.text}`} />
                     </div>
-                    <p className="text-sm text-muted-foreground leading-relaxed pt-1">{bullet.text}</p>
+                    <p className="feature-text leading-relaxed pt-1">{bullet.text}</p>
                   </div>
                 )
               })}

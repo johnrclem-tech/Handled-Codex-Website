@@ -29,11 +29,11 @@ export function Company() {
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         {/* Header */}
         <div className="max-w-2xl mx-auto text-center mb-16">
-          <p className="text-sm font-semibold text-blue-600 mb-3">Company</p>
-          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">
+          <p className="section-label mb-3">Company</p>
+          <h2 className="section-heading">
             Built by operators, for operators
           </h2>
-          <p className="mt-4 text-lg text-muted-foreground">
+          <p className="section-description">
             Founded by former leaders at Stamps.com, ShipStation, and Auctane — Handled was
             created to bring software-grade transparency and accountability to fulfillment.
           </p>
@@ -53,7 +53,7 @@ export function Company() {
               </div>
               <h3 className="font-semibold">{leader.name}</h3>
               <p className="text-sm text-blue-600 mb-3">{leader.role}</p>
-              <p className="text-sm text-muted-foreground leading-relaxed">{leader.bio}</p>
+              <p className="card-description">{leader.bio}</p>
             </div>
           ))}
         </div>
@@ -66,7 +66,7 @@ export function Company() {
             </div>
             <div>
               <p className="font-semibold mb-1">Bi-Coastal Network</p>
-              <p className="text-sm text-muted-foreground">
+              <p className="feature-text">
                 Fulfillment centers in Los Angeles and New Jersey — covering 95%+ of the US
                 within 2-day ground shipping.
               </p>
@@ -78,7 +78,7 @@ export function Company() {
             </div>
             <div>
               <p className="font-semibold mb-1">Dedicated Partners</p>
-              <p className="text-sm text-muted-foreground">
+              <p className="feature-text">
                 Every client gets a dedicated fulfillment partner — a real person inside the
                 warehouse who works on your account every day.
               </p>
@@ -90,7 +90,7 @@ export function Company() {
             </div>
             <div>
               <p className="font-semibold mb-1">Fast Onboarding</p>
-              <p className="text-sm text-muted-foreground">
+              <p className="feature-text">
                 Most brands are fully onboarded in 7–10 business days. Connect your store,
                 send inventory, and start shipping.
               </p>

@@ -86,10 +86,10 @@ export function CTA({
                   {label}
                 </Badge>
 
-                <h2 className="text-3xl sm:text-4xl font-bold text-primary-foreground tracking-tight">
+                <h2 className="section-heading text-primary-foreground">
                   {heading}
                 </h2>
-                <p className="mt-4 text-lg text-primary-foreground/70">
+                <p className="section-description-light">
                   {description}
                 </p>
 

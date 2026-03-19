@@ -150,11 +150,11 @@ export function Integrations({
         <div className="flex items-center gap-12 max-md:flex-col lg:gap-20">
           {/* Left side — header + CTA */}
           <div className="space-y-5 md:max-w-md lg:max-w-lg shrink-0">
-            <p className="text-sm font-semibold text-blue-600">{label}</p>
-            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">
+            <p className="section-label">{label}</p>
+            <h2 className="section-heading">
               {heading}
             </h2>
-            <p className="text-lg text-muted-foreground leading-relaxed">
+            <p className="section-description">
               {description}
             </p>
             <div className="pt-2">

@@ -66,11 +66,11 @@ export function Services() {
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         {/* Section header */}
         <div className="max-w-2xl mx-auto text-center mb-16">
-          <p className="text-sm font-semibold text-blue-600 mb-3">Services</p>
-          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">
+          <p className="section-label mb-3">Services</p>
+          <h2 className="section-heading">
             Everything you need to ship at scale
           </h2>
-          <p className="mt-4 text-lg text-muted-foreground">
+          <p className="section-description">
             From pick and pack to branded experiences, we handle the entire post-purchase
             journey so you can focus on growing your brand.
           </p>
@@ -89,8 +89,8 @@ export function Services() {
                 >
                   <service.icon className={`h-5 w-5 ${service.color}`} />
                 </div>
-                <h3 className="font-semibold text-lg mb-2">{service.title}</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">
+                <h3 className="card-title mb-2">{service.title}</h3>
+                <p className="card-description">
                   {service.description}
                 </p>
               </CardContent>

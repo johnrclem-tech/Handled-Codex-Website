@@ -131,7 +131,7 @@ export function TestimonialsCustomers() {
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           {/* Section Label */}
           <div className="flex items-center gap-4 mb-16">
-            <span className="text-sm font-semibold text-blue-600 uppercase tracking-wide">
+            <span className="section-label uppercase tracking-wide">
               Testimonials
             </span>
             <div className="flex-1 h-px bg-border/60" />

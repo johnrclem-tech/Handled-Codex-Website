@@ -15,11 +15,11 @@ export function Platform() {
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         {/* Section header */}
         <div className="max-w-2xl mx-auto text-center mb-20">
-          <p className="text-sm font-semibold text-blue-600 mb-3">Platform</p>
-          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">
+          <p className="section-label mb-3">Platform</p>
+          <h2 className="section-heading">
             Built like software. Runs like magic.
           </h2>
-          <p className="mt-4 text-lg text-muted-foreground">
+          <p className="section-description">
             Real-time visibility, automated workflows, and performance analytics
             that put you in control of your supply chain.
           </p>
@@ -96,7 +96,7 @@ function ProcessStep({ step, label }: { step: string; label: string }) {
       <div className="h-6 w-6 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">
         {step}
       </div>
-      <p className="text-sm text-muted-foreground">{label}</p>
+      <p className="feature-text">{label}</p>
     </div>
   )
 }

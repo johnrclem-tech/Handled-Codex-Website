@@ -148,3 +148,36 @@ html {
 .animate-marquee-down {
   animation: marquee-down 25s linear infinite;
 }
+
+/* Section typography utilities */
+.section-label {
+  @apply text-sm font-semibold text-blue-600;
+}
+
+.section-label-light {
+  @apply text-sm font-semibold text-blue-400;
+}
+
+.section-heading {
+  @apply text-3xl sm:text-4xl font-bold tracking-tight;
+}
+
+.section-description {
+  @apply mt-4 text-lg text-muted-foreground;
+}
+
+.section-description-light {
+  @apply mt-4 text-lg text-primary-foreground/70;
+}
+
+.card-title {
+  @apply font-semibold text-lg;
+}
+
+.card-description {
+  @apply text-sm text-muted-foreground leading-relaxed;
+}
+
+.feature-text {
+  @apply text-sm text-muted-foreground;
+}

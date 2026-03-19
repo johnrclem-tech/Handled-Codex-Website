@@ -90,11 +90,11 @@ export function Pricing({
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         {/* Header */}
         <div className="max-w-2xl mx-auto text-center mb-16">
-          <p className="text-sm font-semibold text-blue-600 mb-3">{label}</p>
-          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">
+          <p className="section-label mb-3">{label}</p>
+          <h2 className="section-heading">
             {heading}
           </h2>
-          <p className="mt-4 text-lg text-muted-foreground">
+          <p className="section-description">
             {description}
           </p>
         </div>
@@ -110,8 +110,8 @@ export function Pricing({
                 <div className="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-muted mb-4">
                   {plan.icon}
                 </div>
-                <h3 className="font-semibold text-lg mb-1">{plan.name}</h3>
-                <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
+                <h3 className="card-title mb-1">{plan.name}</h3>
+                <p className="card-description mb-4">
                   {plan.description}
                 </p>
                 <p className="text-xs font-semibold text-blue-600 uppercase tracking-wide mb-3">
@@ -121,7 +121,7 @@ export function Pricing({
                   {plan.features.map((feature) => (
                     <li key={feature} className="flex items-center gap-2">
                       <HiOutlineCheckCircle className="h-4 w-4 text-emerald-500 shrink-0" />
-                      <span className="text-sm text-muted-foreground">{feature}</span>
+                      <span className="feature-text">{feature}</span>
                     </li>
                   ))}
                 </ul>

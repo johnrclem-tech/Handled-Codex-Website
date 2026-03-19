@@ -60,11 +60,11 @@ export function Guarantees({
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         {/* Header */}
         <div className="max-w-2xl mx-auto text-center mb-16">
-          <p className="text-sm font-semibold text-blue-400 mb-3">{label}</p>
-          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">
+          <p className="section-label-light mb-3">{label}</p>
+          <h2 className="section-heading">
             {heading}
           </h2>
-          <p className="mt-4 text-lg text-primary-foreground/70">
+          <p className="section-description-light">
             {description}
           </p>
         </div>
@@ -77,8 +77,8 @@ export function Guarantees({
               className="rounded-xl border border-primary-foreground/10 bg-primary-foreground/5 p-6 hover:bg-primary-foreground/[0.08] transition-colors"
             >
               <item.icon className="h-8 w-8 text-blue-400 mb-4" />
-              <h3 className="text-lg font-semibold mb-2">{item.title}</h3>
-              <p className="text-sm text-primary-foreground/60 leading-relaxed mb-6">
+              <h3 className="card-title mb-2">{item.title}</h3>
+              <p className="card-description text-primary-foreground/60 mb-6">
                 {item.description}
               </p>
               <div className="pt-4 border-t border-primary-foreground/10">

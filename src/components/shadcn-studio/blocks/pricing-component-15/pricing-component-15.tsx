@@ -19,9 +19,9 @@ const Pricing = ({ plans }: { plans: Plan[] }) => {
     <div className='bg-muted py-8 sm:py-16 lg:py-24'>
       <div className='mx-auto max-w-7xl space-y-12 px-4 sm:space-y-16 sm:px-6 lg:gap-24 lg:space-y-24 lg:px-8'>
         <div className='flex flex-col items-center gap-4 text-center'>
-          <p className='text-primary text-sm font-medium tracking-wide uppercase'>Pricing</p>
-          <h2 className='text-2xl font-semibold sm:text-3xl lg:text-4xl'>Choose the right plan for you</h2>
-          <p className='text-muted-foreground text-xl'>
+          <p className='section-label'>Pricing</p>
+          <h2 className='section-heading'>Choose the right plan for you</h2>
+          <p className='section-description'>
             Find the ideal plan that fits your budget and goals. Make informed choices with ease.
           </p>
         </div>
@@ -48,7 +48,7 @@ const Pricing = ({ plans }: { plans: Plan[] }) => {
                     <h1 className={cn('text-3xl font-bold tracking-tight', { 'text-primary-foreground': plan.isHighlighted })}>
                       {plan.name}
                     </h1>
-                    <p className={cn('text-muted-foreground', { 'text-primary-foreground': plan.isHighlighted })}>
+                    <p className={cn('card-description', { 'text-primary-foreground': plan.isHighlighted })}>
                       {plan.description}
                     </p>
                   </div>
@@ -66,7 +66,7 @@ const Pricing = ({ plans }: { plans: Plan[] }) => {
                             })}
                           />
                         </div>
-                        <span className={cn({ 'text-primary-foreground': plan.isHighlighted })}>{feature}</span>
+                        <span className={cn('feature-text', { 'text-primary-foreground': plan.isHighlighted })}>{feature}</span>
                       </div>
                     ))}
                   </div>
