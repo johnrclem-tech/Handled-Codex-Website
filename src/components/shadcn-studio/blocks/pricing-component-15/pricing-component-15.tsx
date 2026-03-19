@@ -44,17 +44,9 @@ const Pricing = ({ plans }: { plans: Plan[] }) => {
                     >
                       <plan.icon />
                     </div>
-                    <Badge className='w-fit uppercase' variant={plan.isHighlighted ? 'secondary' : 'default'}>
+                    <h3 className={cn('text-xl font-bold tracking-tight', { 'text-primary-foreground': plan.isHighlighted })}>
                       {plan.name}
-                    </Badge>
-                    <div className='flex gap-1.5'>
-                      <span className={cn('text-lg font-medium', { 'text-primary-foreground': plan.isHighlighted })}>
-                        $
-                      </span>
-                      <span className={cn('text-5xl font-semibold', { 'text-primary-foreground': plan.isHighlighted })}>
-                        <NumberTicker startValue={0} value={plan.price} />
-                      </span>
-                    </div>
+                    </h3>
                     <p className={cn('text-muted-foreground', { 'text-primary-foreground': plan.isHighlighted })}>
                       {plan.description}
                     </p>

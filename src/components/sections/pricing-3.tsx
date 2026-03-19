@@ -15,7 +15,6 @@ const plans = [
       "Climate-controlled space",
       "Real-time inventory sync",
       "Smart bin organization",
-      "Scale up/down monthly",
     ],
   },
   {
@@ -30,6 +29,7 @@ const plans = [
       "Same-day dispatch",
       "Dashboard transparency",
       "High-volume scalability",
+      "Custom packaging options",
     ],
     isHighlighted: true,
   },
@@ -44,7 +44,6 @@ const plans = [
       "Regional & national reach",
       "Optimized routing",
       "Dynamic label generation",
-      "Global shipping options",
     ],
   },
 ]
