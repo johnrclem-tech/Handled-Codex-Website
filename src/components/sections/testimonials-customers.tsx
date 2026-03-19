@@ -217,24 +217,15 @@ export function TestimonialsCustomers() {
               </div>
             </div>
           </div>
-        </div>
-      </div>
-
-      {/* Customers */}
-      <div className="py-24 lg:py-32 bg-background">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8 mb-12">
-          <div className="max-w-2xl mx-auto text-center">
-            <p className="text-sm font-semibold text-blue-600 mb-3">Our Customers</p>
-            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">
+          {/* Customer Marquee Label */}
+          <div className="mt-24 pt-12 border-t border-border/60">
+            <p className="text-sm font-semibold text-blue-600 uppercase tracking-wide mb-8 text-center">
               Trusted by growing brands everywhere
-            </h2>
-            <p className="mt-4 text-lg text-muted-foreground">
-              From emerging DTC startups to established brands, businesses across every
-              category trust Handled with their fulfillment.
             </p>
           </div>
         </div>
 
+        {/* Full-width marquee */}
         <div className="flex flex-col gap-4">
           <MarqueeRow items={firstHalf} />
           <MarqueeRow items={secondHalf} reverse />
