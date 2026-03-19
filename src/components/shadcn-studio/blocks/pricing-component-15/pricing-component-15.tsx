@@ -70,7 +70,7 @@ const Pricing = ({ plans }: { plans: Plan[] }) => {
                       </div>
                     ))}
                   </div>
-                  <Button size='lg' className='rounded-full' variant={plan.isHighlighted ? 'secondary' : 'outline'} asChild>
+                  <Button size='lg' variant={plan.isHighlighted ? 'secondary' : 'outline'} asChild>
                     <Link href='#get-a-quote'>
                       Get a Quote
                       <ArrowRightIcon />
