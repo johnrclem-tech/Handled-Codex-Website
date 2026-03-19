@@ -97,7 +97,7 @@ function MarqueeRow({ items, reverse = false }: { items: string[]; reverse?: boo
         {doubled.map((name, i) => (
           <div
             key={`${name}-${i}`}
-            className="shrink-0 rounded-lg border border-border/50 bg-background px-5 py-3 text-sm font-medium text-muted-foreground hover:text-foreground hover:border-blue-200 hover:bg-blue-50/50 transition-colors duration-200"
+            className="shrink-0 text-sm font-medium text-muted-foreground/70 hover:text-foreground transition-colors duration-200"
           >
             {name}
           </div>
@@ -151,7 +151,7 @@ export function TestimonialsCustomers() {
                     : "opacity-100 translate-y-0"
                 }`}
               >
-                <p className="text-3xl sm:text-4xl lg:text-5xl font-bold leading-[1.15] tracking-tight text-foreground">
+                <p className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight leading-[1.2] text-foreground">
                   &ldquo;{activeTestimonial.content}&rdquo;
                 </p>
               </blockquote>
@@ -171,7 +171,6 @@ export function TestimonialsCustomers() {
                   <p className="text-lg font-medium text-foreground">
                     {activeTestimonial.name}
                   </p>
-                  <p className="text-muted-foreground">Google Review</p>
                 </div>
               </div>
             </div>
