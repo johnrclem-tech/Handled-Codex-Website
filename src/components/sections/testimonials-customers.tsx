@@ -1,7 +1,7 @@
 "use client"
 
-import React, { useRef, useState, useEffect, useCallback } from "react"
-import { HiStar, HiChevronLeft, HiChevronRight } from "react-icons/hi2"
+import { useEffect, useState } from "react"
+import { HiStar } from "react-icons/hi2"
 
 const testimonials = [
   {
@@ -81,20 +81,8 @@ function StarRating({ rating }: { rating: number }) {
   return (
     <div className="flex gap-0.5">
       {Array.from({ length: rating }).map((_, i) => (
-        <HiStar key={i} className="h-4 w-4 text-amber-400" />
+        <HiStar key={i} className="h-5 w-5 text-amber-400" />
       ))}
-    </div>
-  )
-}
-
-function Initials({ name }: { name: string }) {
-  const initials = name
-    .split(" ")
-    .map((n) => n[0])
-    .join("")
-  return (
-    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-100 text-blue-700 font-semibold text-sm shrink-0">
-      {initials}
     </div>
   )
 }
@@ -120,172 +108,115 @@ function MarqueeRow({ items, reverse = false }: { items: string[]; reverse?: boo
 }
 
 export function TestimonialsCustomers() {
-  const scrollRef = useRef<HTMLDivElement>(null)
-  const [canScrollLeft, setCanScrollLeft] = useState(false)
-  const [canScrollRight, setCanScrollRight] = useState(true)
   const [activeIndex, setActiveIndex] = useState(0)
-  const [isPaused, setIsPaused] = useState(false)
-  const autoScrollTimer = useRef<ReturnType<typeof setInterval> | null>(null)
-
-  const checkScroll = useCallback(() => {
-    const el = scrollRef.current
-    if (!el) return
-    setCanScrollLeft(el.scrollLeft > 4)
-    setCanScrollRight(el.scrollLeft < el.scrollWidth - el.clientWidth - 4)
-
-    const cardWidth = el.scrollWidth / testimonials.length
-    const index = Math.round(el.scrollLeft / cardWidth)
-    setActiveIndex(Math.min(index, testimonials.length - 1))
-  }, [])
-
-  const scrollToNext = useCallback(() => {
-    const el = scrollRef.current
-    if (!el) return
-    const atEnd = el.scrollLeft >= el.scrollWidth - el.clientWidth - 4
-    if (atEnd) {
-      el.scrollTo({ left: 0, behavior: "smooth" })
-    } else {
-      const cardWidth = el.querySelector<HTMLElement>(":scope > div")?.offsetWidth ?? 360
-      el.scrollBy({ left: cardWidth + 24, behavior: "smooth" })
-    }
-  }, [])
+  const [isAnimating, setIsAnimating] = useState(false)
 
   useEffect(() => {
-    if (isPaused) {
-      if (autoScrollTimer.current) clearInterval(autoScrollTimer.current)
-      return
-    }
-    autoScrollTimer.current = setInterval(scrollToNext, 4000)
-    return () => {
-      if (autoScrollTimer.current) clearInterval(autoScrollTimer.current)
-    }
-  }, [isPaused, scrollToNext])
+    const interval = setInterval(() => {
+      setIsAnimating(true)
+      setTimeout(() => {
+        setActiveIndex((prev) => (prev + 1) % testimonials.length)
+        setIsAnimating(false)
+      }, 300)
+    }, 5000)
+    return () => clearInterval(interval)
+  }, [])
 
-  useEffect(() => {
-    const el = scrollRef.current
-    if (!el) return
-    checkScroll()
-    el.addEventListener("scroll", checkScroll, { passive: true })
-    window.addEventListener("resize", checkScroll)
-    return () => {
-      el.removeEventListener("scroll", checkScroll)
-      window.removeEventListener("resize", checkScroll)
-    }
-  }, [checkScroll])
-
-  const scroll = (direction: "left" | "right") => {
-    const el = scrollRef.current
-    if (!el) return
-    const cardWidth = el.querySelector<HTMLElement>(":scope > div")?.offsetWidth ?? 360
-    const gap = 24
-    el.scrollBy({
-      left: direction === "left" ? -(cardWidth + gap) : cardWidth + gap,
-      behavior: "smooth",
-    })
-  }
-
-  const scrollToIndex = (index: number) => {
-    const el = scrollRef.current
-    if (!el) return
-    const card = el.children[index] as HTMLElement | undefined
-    if (card) {
-      el.scrollTo({ left: card.offsetLeft - 24, behavior: "smooth" })
-    }
-  }
+  const activeTestimonial = testimonials[activeIndex]
 
   return (
     <section id="testimonials" className="py-24 lg:py-32 overflow-hidden">
       {/* Testimonials */}
       <div className="bg-muted/30 py-24 lg:py-32">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="max-w-2xl mx-auto text-center mb-12">
-            <p className="text-sm font-semibold text-blue-600 mb-3">Testimonials</p>
-            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">
-              Trusted by brands that demand more
-            </h2>
-            <p className="mt-4 text-lg text-muted-foreground">
-              Don&apos;t take our word for it — hear from the brands that trust Handled
-              with their fulfillment.
-            </p>
+          {/* Section Label */}
+          <div className="flex items-center gap-4 mb-16">
+            <span className="text-sm font-semibold text-blue-600 uppercase tracking-wide">
+              Testimonials
+            </span>
+            <div className="flex-1 h-px bg-border/60" />
+            <span className="font-mono text-xs text-muted-foreground">
+              {String(activeIndex + 1).padStart(2, "0")} /{" "}
+              {String(testimonials.length).padStart(2, "0")}
+            </span>
           </div>
-        </div>
 
-        {/* Carousel */}
-        <div
-          className="relative"
-          onMouseEnter={() => setIsPaused(true)}
-          onMouseLeave={() => setIsPaused(false)}
-        >
-          <div
-            ref={scrollRef}
-            className="flex gap-6 overflow-x-auto scroll-smooth snap-x snap-mandatory pl-6 lg:pl-[max(1.5rem,calc((100vw-80rem)/2+2rem))] pr-6 pb-2 -mb-2"
-            style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
-          >
-            {testimonials.map((t) => (
-              <div
-                key={t.name}
-                className="snap-start shrink-0 w-[min(85vw,360px)] rounded-xl border border-border/60 bg-background p-6 hover:shadow-md transition-all duration-300 flex flex-col"
+          {/* Main Quote */}
+          <div className="grid lg:grid-cols-12 gap-12 lg:gap-20">
+            <div className="lg:col-span-8">
+              <blockquote
+                className={`transition-all duration-300 ${
+                  isAnimating
+                    ? "opacity-0 translate-y-4"
+                    : "opacity-100 translate-y-0"
+                }`}
               >
-                <div className="flex items-center justify-between mb-4">
-                  <StarRating rating={t.rating} />
-                  <span className="text-xs font-medium text-blue-600 bg-blue-50 px-2 py-0.5 rounded-full">
-                    {t.title}
+                <p className="text-3xl sm:text-4xl lg:text-5xl font-bold leading-[1.15] tracking-tight text-foreground">
+                  &ldquo;{activeTestimonial.content}&rdquo;
+                </p>
+              </blockquote>
+
+              {/* Author */}
+              <div
+                className={`mt-12 flex items-center gap-5 transition-all duration-300 delay-100 ${
+                  isAnimating ? "opacity-0" : "opacity-100"
+                }`}
+              >
+                <div className="flex h-14 w-14 items-center justify-center rounded-full bg-blue-100 border border-blue-200">
+                  <span className="text-xl font-semibold text-blue-700">
+                    {activeTestimonial.name.charAt(0)}
                   </span>
                 </div>
-                <blockquote className="text-sm text-muted-foreground leading-relaxed flex-1">
-                  &ldquo;{t.content}&rdquo;
-                </blockquote>
-                <div className="mt-5 flex items-center gap-3 pt-4 border-t border-border/40">
-                  <Initials name={t.name} />
-                  <div>
-                    <p className="text-sm font-medium">{t.name}</p>
-                    <p className="text-xs text-muted-foreground">Google Review</p>
-                  </div>
+                <div>
+                  <p className="text-lg font-medium text-foreground">
+                    {activeTestimonial.name}
+                  </p>
+                  <p className="text-muted-foreground">Google Review</p>
                 </div>
               </div>
-            ))}
-            <div className="shrink-0 w-1" aria-hidden="true" />
-          </div>
+            </div>
 
-          {/* Fade edges */}
-          {canScrollLeft && (
-            <div className="absolute inset-y-0 left-0 w-12 bg-gradient-to-r from-muted/30 to-transparent pointer-events-none" />
-          )}
-          {canScrollRight && (
-            <div className="absolute inset-y-0 right-0 w-12 bg-gradient-to-l from-muted/30 to-transparent pointer-events-none" />
-          )}
-        </div>
-
-        {/* Controls */}
-        <div className="flex items-center justify-center gap-4 mt-8">
-          <button
-            onClick={() => scroll("left")}
-            disabled={!canScrollLeft}
-            className="h-9 w-9 rounded-full border border-border/60 bg-background flex items-center justify-center hover:bg-muted transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
-            aria-label="Previous testimonial"
-          >
-            <HiChevronLeft className="h-4 w-4" />
-          </button>
-          <div className="flex gap-2">
-            {testimonials.map((t, i) => (
-              <button
-                key={t.name}
-                onClick={() => scrollToIndex(i)}
-                className={`h-2 rounded-full transition-all duration-300 ${
-                  i === activeIndex ? "w-6 bg-blue-600" : "w-2 bg-border hover:bg-muted-foreground/40"
+            {/* Metric Highlight */}
+            <div className="lg:col-span-4 flex flex-col justify-center">
+              <div
+                className={`p-8 rounded-xl border border-border/60 bg-background transition-all duration-300 ${
+                  isAnimating
+                    ? "opacity-0 scale-95"
+                    : "opacity-100 scale-100"
                 }`}
-                aria-label={`Go to testimonial from ${t.name}`}
-              />
-            ))}
+              >
+                <span className="text-sm font-semibold text-blue-600 uppercase tracking-wide block mb-3">
+                  {activeTestimonial.title}
+                </span>
+                <StarRating rating={activeTestimonial.rating} />
+                <p className="mt-4 text-sm text-muted-foreground leading-relaxed">
+                  5-star Google Review
+                </p>
+              </div>
+
+              {/* Navigation Dots */}
+              <div className="flex gap-2 mt-8">
+                {testimonials.map((_, idx) => (
+                  <button
+                    key={idx}
+                    onClick={() => {
+                      setIsAnimating(true)
+                      setTimeout(() => {
+                        setActiveIndex(idx)
+                        setIsAnimating(false)
+                      }, 300)
+                    }}
+                    className={`h-2 rounded-full transition-all duration-300 ${
+                      idx === activeIndex
+                        ? "w-8 bg-blue-600"
+                        : "w-2 bg-border hover:bg-muted-foreground/40"
+                    }`}
+                    aria-label={`Go to testimonial from ${testimonials[idx].name}`}
+                  />
+                ))}
+              </div>
+            </div>
           </div>
-          <button
-            onClick={() => scroll("right")}
-            disabled={!canScrollRight}
-            className="h-9 w-9 rounded-full border border-border/60 bg-background flex items-center justify-center hover:bg-muted transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
-            aria-label="Next testimonial"
-          >
-            <HiChevronRight className="h-4 w-4" />
-          </button>
         </div>
       </div>
 
