@@ -33,8 +33,8 @@ export function Hero() {
 
             <div className="mt-8 flex flex-col sm:flex-row gap-3">
               <Button size="lg" asChild>
-                <Link href="/contact-sales">
-                  Start shipping
+                <Link href="#get-a-quote">
+                  Get a Quote
                   <HiOutlineArrowRight className="h-4 w-4" />
                 </Link>
               </Button>

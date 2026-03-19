@@ -1,4 +1,5 @@
 import type { ComponentType } from 'react'
+import Link from 'next/link'
 import { ArrowRightIcon } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
@@ -69,9 +70,11 @@ const Pricing = ({ plans }: { plans: Plan[] }) => {
                       </div>
                     ))}
                   </div>
-                  <Button size='lg' className='rounded-full' variant={plan.isHighlighted ? 'secondary' : 'outline'}>
-                    Get started
-                    <ArrowRightIcon />
+                  <Button size='lg' className='rounded-full' variant={plan.isHighlighted ? 'secondary' : 'outline'} asChild>
+                    <Link href='#get-a-quote'>
+                      Get a Quote
+                      <ArrowRightIcon />
+                    </Link>
                   </Button>
                 </CardContent>
               </Card>

@@ -3,7 +3,7 @@
 import React, { useState } from "react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { HiOutlineBars3, HiOutlineXMark } from "react-icons/hi2"
+import { HiOutlineBars3, HiOutlineXMark, HiOutlineArrowRight } from "react-icons/hi2"
 import { Layers } from "lucide-react"
 
 const navigation = [
@@ -50,7 +50,10 @@ export function Navbar() {
               <Link href="/login">Log In</Link>
             </Button>
             <Button size="sm" asChild>
-              <Link href="/contact-sales">Get Started</Link>
+              <Link href="#get-a-quote">
+                Get a Quote
+                <HiOutlineArrowRight className="h-3.5 w-3.5" />
+              </Link>
             </Button>
           </div>
 
@@ -86,7 +89,10 @@ export function Navbar() {
                   <Link href="/login">Log In</Link>
                 </Button>
                 <Button size="sm" className="flex-1" asChild>
-                  <Link href="/contact-sales">Get Started</Link>
+                  <Link href="#get-a-quote">
+                    Get a Quote
+                    <HiOutlineArrowRight className="h-3.5 w-3.5" />
+                  </Link>
                 </Button>
               </div>
             </div>

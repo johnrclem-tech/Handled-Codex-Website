@@ -139,7 +139,7 @@ export function Integrations({
   heading,
   description,
   ctaText = "Get a fulfillment quote",
-  ctaHref = "/contact-sales",
+  ctaHref = "#get-a-quote",
   integrations = defaultIntegrations,
 }: IntegrationsProps) {
   const columns = splitIntoColumns(integrations, 4)
