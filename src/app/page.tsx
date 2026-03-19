@@ -6,6 +6,7 @@ import { Integrations } from "@/components/sections/integrations"
 import { Onboarding, defaultOnboardingSteps } from "@/components/sections/onboarding"
 import { Guarantees, defaultGuarantees } from "@/components/sections/guarantees"
 import { Pricing, defaultPricingPlans } from "@/components/sections/pricing"
+import { Pricing3 } from "@/components/sections/pricing-3"
 import { TestimonialsCustomers } from "@/components/sections/testimonials-customers"
 import { Company } from "@/components/sections/company"
 import { CTA, defaultCTABenefits } from "@/components/sections/cta"
@@ -38,6 +39,7 @@ export default function Home() {
           description="No surprise fees. No minimums. Just clean, usage-based pricing whether you ship 50 or 50,000 orders a month."
           plans={defaultPricingPlans}
         />
+        <Pricing3 />
         <TestimonialsCustomers />
         <Company />
         <CTA
