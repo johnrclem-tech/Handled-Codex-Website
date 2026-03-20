@@ -793,6 +793,21 @@ export default function ApparelFulfillmentPage() {
           steps={apparelOnboardingSteps}
         />
 
+        <Pricing3
+          label="Apparel Fulfillment Pricing"
+          heading="Transparent apparel fulfillment pricing built for clothing brands"
+          description="No surprise fees. No minimums. Usage-based pricing with high-SKU management, garment-safe handling, and branded packaging included."
+          buttonText="Get an Apparel Quote"
+          buttonHref="#get-a-quote"
+          plans={apparelPricing3Plans}
+        />
+
+        <Customers
+          label="Apparel Brands We Fulfill"
+          heading="Trusted by clothing and fashion brands"
+          description="From streetwear startups to established fashion labels, apparel brands trust Handled with their clothing fulfillment and logistics."
+        />
+
         {/* FAQ Section */}
         <section className="py-24 lg:py-32 bg-muted/30">
           <div className="mx-auto max-w-7xl px-6 lg:px-8">
@@ -816,21 +831,6 @@ export default function ApparelFulfillmentPage() {
             </div>
           </div>
         </section>
-
-        <Customers
-          label="Apparel Brands We Fulfill"
-          heading="Trusted by clothing and fashion brands"
-          description="From streetwear startups to established fashion labels, apparel brands trust Handled with their clothing fulfillment and logistics."
-        />
-
-        <Pricing3
-          label="Apparel Fulfillment Pricing"
-          heading="Transparent apparel fulfillment pricing built for clothing brands"
-          description="No surprise fees. No minimums. Usage-based pricing with high-SKU management, garment-safe handling, and branded packaging included."
-          buttonText="Get an Apparel Quote"
-          buttonHref="#get-a-quote"
-          plans={apparelPricing3Plans}
-        />
 
         <CTA
           label="Get A Quote"

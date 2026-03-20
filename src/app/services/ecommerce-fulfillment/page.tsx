@@ -678,6 +678,21 @@ export default function EcommerceFulfillmentPage() {
           steps={ecommerceOnboardingSteps}
         />
 
+        <Pricing3
+          label="Ecommerce Fulfillment Pricing"
+          heading="Transparent ecommerce fulfillment pricing that scales with your brand"
+          description="No surprise fees. No minimums. Usage-based pricing whether you ship 50 or 50,000 orders a month — across every ecommerce channel."
+          buttonText="Get an Ecommerce Quote"
+          buttonHref="#get-a-quote"
+          plans={ecommercePricing3Plans}
+        />
+
+        <Customers
+          label="Ecommerce Brands We Fulfill"
+          heading="Trusted by online brands across every category"
+          description="From emerging DTC startups to established ecommerce brands, online businesses trust Handled with their order fulfillment and logistics."
+        />
+
         {/* FAQ Section */}
         <section className="py-24 lg:py-32 bg-muted/30">
           <div className="mx-auto max-w-7xl px-6 lg:px-8">
@@ -701,21 +716,6 @@ export default function EcommerceFulfillmentPage() {
             </div>
           </div>
         </section>
-
-        <Customers
-          label="Ecommerce Brands We Fulfill"
-          heading="Trusted by online brands across every category"
-          description="From emerging DTC startups to established ecommerce brands, online businesses trust Handled with their order fulfillment and logistics."
-        />
-
-        <Pricing3
-          label="Ecommerce Fulfillment Pricing"
-          heading="Transparent ecommerce fulfillment pricing that scales with your brand"
-          description="No surprise fees. No minimums. Usage-based pricing whether you ship 50 or 50,000 orders a month — across every ecommerce channel."
-          buttonText="Get an Ecommerce Quote"
-          buttonHref="#get-a-quote"
-          plans={ecommercePricing3Plans}
-        />
 
         <CTA
           label="Get A Quote"

@@ -733,6 +733,21 @@ export default function CosmeticsFulfillmentPage() {
           steps={cosmeticsOnboardingSteps}
         />
 
+        <Pricing3
+          label="Cosmetics Fulfillment Pricing"
+          heading="Transparent cosmetics fulfillment pricing built for beauty brands"
+          description="No surprise fees. No minimums. Usage-based pricing that includes climate-controlled storage, fragile-safe handling, and lot tracking at no extra cost."
+          buttonText="Get a Cosmetics Quote"
+          buttonHref="#get-a-quote"
+          plans={cosmeticsPricing3Plans}
+        />
+
+        <Customers
+          label="Beauty Brands We Fulfill"
+          heading="Trusted by cosmetics and skincare brands"
+          description="From indie skincare startups to established beauty brands, cosmetics companies trust Handled with their beauty fulfillment and logistics."
+        />
+
         {/* FAQ Section */}
         <section className="py-24 lg:py-32 bg-muted/30">
           <div className="mx-auto max-w-7xl px-6 lg:px-8">
@@ -756,21 +771,6 @@ export default function CosmeticsFulfillmentPage() {
             </div>
           </div>
         </section>
-
-        <Customers
-          label="Beauty Brands We Fulfill"
-          heading="Trusted by cosmetics and skincare brands"
-          description="From indie skincare startups to established beauty brands, cosmetics companies trust Handled with their beauty fulfillment and logistics."
-        />
-
-        <Pricing3
-          label="Cosmetics Fulfillment Pricing"
-          heading="Transparent cosmetics fulfillment pricing built for beauty brands"
-          description="No surprise fees. No minimums. Usage-based pricing that includes climate-controlled storage, fragile-safe handling, and lot tracking at no extra cost."
-          buttonText="Get a Cosmetics Quote"
-          buttonHref="#get-a-quote"
-          plans={cosmeticsPricing3Plans}
-        />
 
         <CTA
           label="Get A Quote"

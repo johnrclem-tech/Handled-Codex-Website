@@ -14,6 +14,12 @@ Always use the global typography utility classes defined in `src/app/globals.css
 Use the `-light` variants on primary-background sections (dark backgrounds).
 Do not use inline Tailwind classes for these elements in new sections.
 
+## Content Rules
+
+- The CTA section is always the last section before the Footer.
+- The FAQ section (when present) is always immediately above the CTA section.
+- Typical bottom-of-page order: ... → Pricing → Customers → FAQ → CTA → Footer.
+
 ## Section Component Rules
 
 - One section component per section type (e.g., one `cta.tsx`, one `pricing.tsx`). All content (heading, description, data arrays) is passed as props from `page.tsx`. Do not create page-specific wrapper components.

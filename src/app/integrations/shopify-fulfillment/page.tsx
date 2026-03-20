@@ -596,7 +596,22 @@ export default function ShopifyFulfillmentPage() {
           steps={shopifyOnboardingSteps}
         />
 
-        {/* FAQ Section - SEO rich */}
+        <Pricing3
+          label="Shopify Fulfillment Pricing"
+          heading="Transparent Shopify fulfillment pricing that scales with your store"
+          description="No surprise fees. No minimums. Just clean, usage-based Shopify fulfillment pricing whether you ship 50 or 50,000 orders a month."
+          buttonText="Get a Shopify Quote"
+          buttonHref="#get-a-quote"
+          plans={shopifyPricing3Plans}
+        />
+
+        <Customers
+          label="Shopify Brands We Fulfill"
+          heading="Trusted by Shopify stores of every size"
+          description="From fast-growing DTC startups to high-volume Shopify Plus stores, ecommerce brands trust Handled with their Shopify fulfillment."
+        />
+
+        {/* FAQ Section */}
         <section className="py-24 lg:py-32 bg-muted/30">
           <div className="mx-auto max-w-7xl px-6 lg:px-8">
             <div className="max-w-2xl mx-auto text-center mb-16">
@@ -619,21 +634,6 @@ export default function ShopifyFulfillmentPage() {
             </div>
           </div>
         </section>
-
-        <Customers
-          label="Shopify Brands We Fulfill"
-          heading="Trusted by Shopify stores of every size"
-          description="From fast-growing DTC startups to high-volume Shopify Plus stores, ecommerce brands trust Handled with their Shopify fulfillment."
-        />
-
-        <Pricing3
-          label="Shopify Fulfillment Pricing"
-          heading="Transparent Shopify fulfillment pricing that scales with your store"
-          description="No surprise fees. No minimums. Just clean, usage-based Shopify fulfillment pricing whether you ship 50 or 50,000 orders a month."
-          buttonText="Get a Shopify Quote"
-          buttonHref="#get-a-quote"
-          plans={shopifyPricing3Plans}
-        />
 
         <CTA
           label="Get A Quote"
