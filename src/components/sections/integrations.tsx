@@ -63,11 +63,11 @@ export const defaultIntegrations: IntegrationItem[] = [
 function IntegrationIcon({ integration }: { integration: IntegrationItem }) {
   return (
     <div
-      className="flex items-center justify-center w-16 h-16 rounded-xl border border-border/60 bg-card hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 shrink-0"
+      className="flex items-center justify-center w-20 h-20 rounded-xl border border-border/60 bg-card hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 shrink-0"
       title={integration.name}
     >
       <integration.icon
-        className={`h-9 w-9 ${integration.color} transition-transform`}
+        className={`h-12 w-12 ${integration.color} transition-transform`}
       />
     </div>
   )
