@@ -28,15 +28,15 @@ import {
 } from "react-icons/hi2"
 import { Onboarding } from "@/components/sections/onboarding"
 import { apparelOnboardingSteps } from "@/components/sections/onboarding-data"
-import { Pricing } from "@/components/sections/pricing"
-import type { PricingPlan } from "@/components/sections/pricing"
+import { Pricing3 } from "@/components/sections/pricing-3"
+import type { Pricing3Plan } from "@/components/sections/pricing-3"
 import { Guarantees } from "@/components/sections/guarantees"
 import type { GuaranteeItem } from "@/components/sections/guarantees"
 import { CTA } from "@/components/sections/cta"
 import type { CTABenefit } from "@/components/sections/cta"
 import { Integrations } from "@/components/sections/integrations"
 import { Customers } from "@/components/sections/customers"
-import { Warehouse, PackageCheck, Truck, Sparkles } from "lucide-react"
+import { Warehouse, PackageCheck, Truck } from "lucide-react"
 import {
   HiOutlineBolt,
   HiOutlineCurrencyDollar,
@@ -348,13 +348,12 @@ const apparelGuarantees: GuaranteeItem[] = [
   },
 ]
 
-const apparelPricingPlans: PricingPlan[] = [
+const apparelPricing3Plans: Pricing3Plan[] = [
   {
     name: "Storage",
     icon: Warehouse,
     description:
       "Your apparel inventory is stored with size/color/style organization for maximum picking efficiency. Monthly pallet-based pricing scales with your catalog.",
-    target: "Apparel Warehousing:",
     features: [
       "Size/color variant organization",
       "Garment rack & shelf storage",
@@ -368,7 +367,6 @@ const apparelPricingPlans: PricingPlan[] = [
     icon: PackageCheck,
     description:
       "Every clothing order is picked with barcode verification to ensure the right size, color, and style. Per-order pricing grows only when your sales do.",
-    target: "Order Processing:",
     features: [
       "Barcode-verified pick & pack",
       "Size/color accuracy guarantee",
@@ -376,33 +374,19 @@ const apparelPricingPlans: PricingPlan[] = [
       "Garment-safe handling",
       "Flash sale scalability",
     ],
+    isHighlighted: true,
   },
   {
     name: "Shipping",
     icon: Truck,
     description:
       "We optimize every apparel order for speed and cost. Per-shipment pricing based on carrier, service level, and package dimensions.",
-    target: "Apparel Shipping:",
     features: [
       "Discounted carrier rates",
       "2-day ground nationwide",
       "Poly mailer optimization",
       "Auto tracking updates",
       "B2B pallet shipping",
-    ],
-  },
-  {
-    name: "Projects",
-    icon: Sparkles,
-    description:
-      "From seasonal collection launches to branded packaging and wholesale prep, per-project pricing covers your fashion brand's custom needs.",
-    target: "Custom Workflows:",
-    features: [
-      "Branded poly mailers & tissue",
-      "Garment bag packaging",
-      "Hang tag & label application",
-      "Apparel returns processing",
-      "Retail-ready wholesale prep",
     ],
   },
 ]
@@ -839,11 +823,13 @@ export default function ApparelFulfillmentPage() {
           description="From streetwear startups to established fashion labels, apparel brands trust Handled with their clothing fulfillment and logistics."
         />
 
-        <Pricing
+        <Pricing3
           label="Apparel Fulfillment Pricing"
           heading="Transparent apparel fulfillment pricing built for clothing brands"
           description="No surprise fees. No minimums. Usage-based pricing with high-SKU management, garment-safe handling, and branded packaging included."
-          plans={apparelPricingPlans}
+          buttonText="Get an Apparel Quote"
+          buttonHref="#get-a-quote"
+          plans={apparelPricing3Plans}
         />
 
         <CTA

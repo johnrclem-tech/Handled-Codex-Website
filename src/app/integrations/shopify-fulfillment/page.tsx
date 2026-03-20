@@ -25,15 +25,15 @@ import {
 import { SiShopify } from "react-icons/si"
 import { Onboarding } from "@/components/sections/onboarding"
 import { shopifyOnboardingSteps } from "@/components/sections/onboarding-data"
-import { Pricing } from "@/components/sections/pricing"
-import type { PricingPlan } from "@/components/sections/pricing"
+import { Pricing3 } from "@/components/sections/pricing-3"
+import type { Pricing3Plan } from "@/components/sections/pricing-3"
 import { Guarantees } from "@/components/sections/guarantees"
 import type { GuaranteeItem } from "@/components/sections/guarantees"
 import { CTA } from "@/components/sections/cta"
 import type { CTABenefit } from "@/components/sections/cta"
 import { Integrations } from "@/components/sections/integrations"
 import { Customers } from "@/components/sections/customers"
-import { Warehouse, PackageCheck, Truck, Sparkles } from "lucide-react"
+import { Warehouse, PackageCheck, Truck } from "lucide-react"
 import {
   HiOutlineCurrencyDollar,
   HiOutlineEnvelope,
@@ -254,13 +254,12 @@ const shopifyGuarantees: GuaranteeItem[] = [
   },
 ]
 
-const shopifyPricingPlans: PricingPlan[] = [
+const shopifyPricing3Plans: Pricing3Plan[] = [
   {
     name: "Storage",
     icon: Warehouse,
     description:
       "Your Shopify inventory is stored securely with real-time sync to your store. Monthly pallet-based pricing means you only pay for the space you use.",
-    target: "Shopify Inventory:",
     features: [
       "Pallet-level storage",
       "Real-time Shopify inventory sync",
@@ -274,7 +273,6 @@ const shopifyPricingPlans: PricingPlan[] = [
     icon: PackageCheck,
     description:
       "Every Shopify order is picked and packed with care. Per-order pricing means your costs only rise when your Shopify sales do.",
-    target: "Order Processing:",
     features: [
       "Barcode-verified pick & pack",
       "Shopify order auto-sync",
@@ -282,33 +280,19 @@ const shopifyPricingPlans: PricingPlan[] = [
       "Dashboard transparency",
       "Flash sale scalability",
     ],
+    isHighlighted: true,
   },
   {
     name: "Shipping",
     icon: Truck,
     description:
       "We optimize every Shopify order for speed and savings. Per-shipment pricing based on the carrier and service level selected at checkout.",
-    target: "Shopify Shipping:",
     features: [
       "Discounted carrier rates",
       "Shop Promise eligible",
       "2-day ground nationwide",
       "Auto tracking push to Shopify",
       "Real-time delivery dates",
-    ],
-  },
-  {
-    name: "Projects",
-    icon: Sparkles,
-    description:
-      "From Shopify subscription kitting to custom branded packaging, per-project pricing is based on complexity and scope.",
-    target: "Custom Workflows:",
-    features: [
-      "Custom kitting/assembly",
-      "Branded unboxing",
-      "Shopify Flow automations",
-      "Returns processing",
-      "Subscription box builds",
     ],
   },
 ]
@@ -642,11 +626,13 @@ export default function ShopifyFulfillmentPage() {
           description="From fast-growing DTC startups to high-volume Shopify Plus stores, ecommerce brands trust Handled with their Shopify fulfillment."
         />
 
-        <Pricing
+        <Pricing3
           label="Shopify Fulfillment Pricing"
           heading="Transparent Shopify fulfillment pricing that scales with your store"
           description="No surprise fees. No minimums. Just clean, usage-based Shopify fulfillment pricing whether you ship 50 or 50,000 orders a month."
-          plans={shopifyPricingPlans}
+          buttonText="Get a Shopify Quote"
+          buttonHref="#get-a-quote"
+          plans={shopifyPricing3Plans}
         />
 
         <CTA

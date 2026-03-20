@@ -1,28 +1,44 @@
 import type { ComponentType } from 'react'
 import Link from 'next/link'
 import { ArrowRightIcon } from 'lucide-react'
-import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { cn } from '@/lib/utils'
-import { NumberTicker } from '@/components/ui/number-ticker'
-type Plan = {
+
+export type Pricing3Plan = {
   name: string
   icon: ComponentType
-  price: number
+  price?: number
   description: string
   features: string[]
   isHighlighted?: boolean
 }
-const Pricing = ({ plans }: { plans: Plan[] }) => {
+
+export type Pricing3Props = {
+  label?: string
+  heading?: string
+  description?: string
+  buttonText?: string
+  buttonHref?: string
+  plans: Pricing3Plan[]
+}
+
+const Pricing3 = ({
+  label = 'Pricing',
+  heading = 'Choose the right plan for you',
+  description: desc = 'Find the ideal plan that fits your budget and goals. Make informed choices with ease.',
+  buttonText = 'Get a Quote',
+  buttonHref = '#get-a-quote',
+  plans,
+}: Pricing3Props) => {
   return (
     <div className='bg-muted py-8 sm:py-16 lg:py-24'>
       <div className='mx-auto max-w-7xl space-y-12 px-4 sm:space-y-16 sm:px-6 lg:gap-24 lg:space-y-24 lg:px-8'>
         <div className='flex flex-col items-center gap-4 text-center'>
-          <p className='section-label'>Pricing</p>
-          <h2 className='section-heading'>Choose the right plan for you</h2>
+          <p className='section-label'>{label}</p>
+          <h2 className='section-heading'>{heading}</h2>
           <p className='section-description'>
-            Find the ideal plan that fits your budget and goals. Make informed choices with ease.
+            {desc}
           </p>
         </div>
         <div className='flex flex-col items-center justify-center gap-0 space-y-8 lg:flex-row'>
@@ -33,7 +49,7 @@ const Pricing = ({ plans }: { plans: Plan[] }) => {
                 className={cn('border-none py-8 shadow-md', {
                   'bg-primary shadow-none, border-none': plan.isHighlighted,
                   'lg:rounded-r-none': index === 0,
-                  'lg:rounded-l-none': index === 2
+                  'lg:rounded-l-none': index === plans.length - 1
                 })}
               >
                 <CardContent className='flex flex-col gap-8 px-8'>
@@ -71,8 +87,8 @@ const Pricing = ({ plans }: { plans: Plan[] }) => {
                     ))}
                   </div>
                   <Button size='lg' variant={plan.isHighlighted ? 'secondary' : 'outline'} asChild>
-                    <Link href='#get-a-quote'>
-                      Get a Quote
+                    <Link href={buttonHref}>
+                      {buttonText}
                       <ArrowRightIcon />
                     </Link>
                   </Button>
@@ -85,4 +101,4 @@ const Pricing = ({ plans }: { plans: Plan[] }) => {
     </div>
   )
 }
-export default Pricing
+export default Pricing3

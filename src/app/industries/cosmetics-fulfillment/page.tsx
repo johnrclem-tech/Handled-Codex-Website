@@ -26,15 +26,15 @@ import {
 } from "react-icons/hi2"
 import { Onboarding } from "@/components/sections/onboarding"
 import { cosmeticsOnboardingSteps } from "@/components/sections/onboarding-data"
-import { Pricing } from "@/components/sections/pricing"
-import type { PricingPlan } from "@/components/sections/pricing"
+import { Pricing3 } from "@/components/sections/pricing-3"
+import type { Pricing3Plan } from "@/components/sections/pricing-3"
 import { Guarantees } from "@/components/sections/guarantees"
 import type { GuaranteeItem } from "@/components/sections/guarantees"
 import { CTA } from "@/components/sections/cta"
 import type { CTABenefit } from "@/components/sections/cta"
 import { Integrations } from "@/components/sections/integrations"
 import { Customers } from "@/components/sections/customers"
-import { Warehouse, PackageCheck, Truck, Sparkles } from "lucide-react"
+import { Warehouse, PackageCheck, Truck } from "lucide-react"
 import {
   HiOutlineBolt,
   HiOutlineCurrencyDollar,
@@ -308,13 +308,12 @@ const cosmeticsGuarantees: GuaranteeItem[] = [
   },
 ]
 
-const cosmeticsPricingPlans: PricingPlan[] = [
+const cosmeticsPricing3Plans: Pricing3Plan[] = [
   {
     name: "Storage",
     icon: Warehouse,
     description:
       "Your beauty inventory is stored in climate-controlled facilities with lot tracking and expiration management. Pay only for the space you need.",
-    target: "Beauty Warehousing:",
     features: [
       "Climate-controlled storage",
       "Lot & expiration tracking",
@@ -328,7 +327,6 @@ const cosmeticsPricingPlans: PricingPlan[] = [
     icon: PackageCheck,
     description:
       "Every cosmetics order is picked with barcode verification and packed with fragile-safe materials. Per-order pricing scales with your beauty brand.",
-    target: "Order Processing:",
     features: [
       "Barcode-verified pick & pack",
       "Fragile-safe packaging",
@@ -336,33 +334,19 @@ const cosmeticsPricingPlans: PricingPlan[] = [
       "Shade-accurate picking",
       "Quality inspection",
     ],
+    isHighlighted: true,
   },
   {
     name: "Shipping",
     icon: Truck,
     description:
       "We optimize every beauty order for speed and product safety. Per-shipment pricing based on carrier, service level, and special handling needs.",
-    target: "Beauty Logistics:",
     features: [
       "Discounted carrier rates",
       "2-day ground nationwide",
       "Fragile item handling",
       "Auto tracking updates",
       "Temperature-safe transit",
-    ],
-  },
-  {
-    name: "Projects",
-    icon: Sparkles,
-    description:
-      "From influencer kit assembly to subscription box builds and seasonal gift sets, per-project pricing covers all your beauty brand's custom needs.",
-    target: "Custom Workflows:",
-    features: [
-      "Influencer & PR kits",
-      "Subscription box assembly",
-      "Branded unboxing design",
-      "Beauty returns processing",
-      "Sample & GWP insertion",
     ],
   },
 ]
@@ -779,11 +763,13 @@ export default function CosmeticsFulfillmentPage() {
           description="From indie skincare startups to established beauty brands, cosmetics companies trust Handled with their beauty fulfillment and logistics."
         />
 
-        <Pricing
+        <Pricing3
           label="Cosmetics Fulfillment Pricing"
           heading="Transparent cosmetics fulfillment pricing built for beauty brands"
           description="No surprise fees. No minimums. Usage-based pricing that includes climate-controlled storage, fragile-safe handling, and lot tracking at no extra cost."
-          plans={cosmeticsPricingPlans}
+          buttonText="Get a Cosmetics Quote"
+          buttonHref="#get-a-quote"
+          plans={cosmeticsPricing3Plans}
         />
 
         <CTA

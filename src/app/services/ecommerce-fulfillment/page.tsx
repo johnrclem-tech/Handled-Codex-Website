@@ -29,15 +29,15 @@ import {
 import { SiShopify } from "react-icons/si"
 import { Onboarding } from "@/components/sections/onboarding"
 import { ecommerceOnboardingSteps } from "@/components/sections/onboarding-data"
-import { Pricing } from "@/components/sections/pricing"
-import type { PricingPlan } from "@/components/sections/pricing"
+import { Pricing3 } from "@/components/sections/pricing-3"
+import type { Pricing3Plan } from "@/components/sections/pricing-3"
 import { Guarantees } from "@/components/sections/guarantees"
 import type { GuaranteeItem } from "@/components/sections/guarantees"
 import { CTA } from "@/components/sections/cta"
 import type { CTABenefit } from "@/components/sections/cta"
 import { Integrations } from "@/components/sections/integrations"
 import { Customers } from "@/components/sections/customers"
-import { Warehouse, PackageCheck, Truck, Sparkles } from "lucide-react"
+import { Warehouse, PackageCheck, Truck } from "lucide-react"
 import {
   HiOutlineCurrencyDollar,
 } from "react-icons/hi2"
@@ -320,13 +320,12 @@ const ecommerceGuarantees: GuaranteeItem[] = [
   },
 ]
 
-const ecommercePricingPlans: PricingPlan[] = [
+const ecommercePricing3Plans: Pricing3Plan[] = [
   {
     name: "Storage",
     icon: Warehouse,
     description:
       "Your ecommerce inventory is stored securely across our bi-coastal warehouse network. Monthly pallet-based pricing means you only pay for the space you use.",
-    target: "Ecommerce Warehousing:",
     features: [
       "Bi-coastal warehouse network",
       "Real-time inventory sync",
@@ -340,7 +339,6 @@ const ecommercePricingPlans: PricingPlan[] = [
     icon: PackageCheck,
     description:
       "Every ecommerce order is picked and packed with 99.9% accuracy. Per-order pricing means your fulfillment costs scale directly with your sales.",
-    target: "Order Processing:",
     features: [
       "Barcode-verified pick & pack",
       "Multi-platform order sync",
@@ -348,33 +346,19 @@ const ecommercePricingPlans: PricingPlan[] = [
       "Dashboard transparency",
       "Peak season scalability",
     ],
+    isHighlighted: true,
   },
   {
     name: "Shipping",
     icon: Truck,
     description:
       "We optimize every ecommerce order for speed and savings with carrier rate shopping and bi-coastal distribution for 2-day ground nationwide.",
-    target: "Ecommerce Shipping:",
     features: [
       "Discounted carrier rates",
       "2-day ground nationwide",
       "Carrier rate shopping",
       "Auto tracking to all channels",
       "International shipping options",
-    ],
-  },
-  {
-    name: "Projects",
-    icon: Sparkles,
-    description:
-      "From subscription box assembly to FBA prep and branded packaging, per-project pricing covers every value-added service your online brand needs.",
-    target: "Custom Workflows:",
-    features: [
-      "Custom kitting/assembly",
-      "Branded unboxing",
-      "FBA prep & labeling",
-      "Returns processing",
-      "Subscription box builds",
     ],
   },
 ]
@@ -724,11 +708,13 @@ export default function EcommerceFulfillmentPage() {
           description="From emerging DTC startups to established ecommerce brands, online businesses trust Handled with their order fulfillment and logistics."
         />
 
-        <Pricing
+        <Pricing3
           label="Ecommerce Fulfillment Pricing"
           heading="Transparent ecommerce fulfillment pricing that scales with your brand"
           description="No surprise fees. No minimums. Usage-based pricing whether you ship 50 or 50,000 orders a month — across every ecommerce channel."
-          plans={ecommercePricingPlans}
+          buttonText="Get an Ecommerce Quote"
+          buttonHref="#get-a-quote"
+          plans={ecommercePricing3Plans}
         />
 
         <CTA
