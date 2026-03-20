@@ -41,9 +41,9 @@ const Pricing3 = ({
             {desc}
           </p>
         </div>
-        <div className='flex flex-col items-center justify-center gap-0 space-y-8 lg:flex-row'>
+        <div className='flex flex-col items-center justify-center space-y-8 lg:flex-row lg:items-stretch lg:space-y-0'>
           {plans.map((plan, index) => (
-            <div className='max-w-lg flex-1' key={index}>
+            <div className='w-full max-w-lg flex-1' key={index}>
               <Card
                 key={index}
                 className={cn('border-none py-8 shadow-md', {
