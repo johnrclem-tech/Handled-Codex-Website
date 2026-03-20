@@ -120,6 +120,7 @@ const colorMap = {
     iconBg: "bg-blue-100",
     progressBar: "bg-blue-500",
     activeDot: "bg-blue-500",
+    line: "bg-blue-500",
   },
   emerald: {
     bg: "bg-emerald-50",
@@ -130,6 +131,7 @@ const colorMap = {
     iconBg: "bg-emerald-100",
     progressBar: "bg-emerald-500",
     activeDot: "bg-emerald-500",
+    line: "bg-emerald-500",
   },
   purple: {
     bg: "bg-purple-50",
@@ -140,6 +142,7 @@ const colorMap = {
     iconBg: "bg-purple-100",
     progressBar: "bg-purple-500",
     activeDot: "bg-purple-500",
+    line: "bg-purple-500",
   },
 }
 
@@ -159,96 +162,124 @@ export function Onboarding({
         {/* Header */}
         <div className="max-w-2xl mx-auto text-center mb-16">
           <p className="section-label mb-3">{label}</p>
-          <h2 className="section-heading">
-            {heading}
-          </h2>
-          <p className="section-description">
-            {description}
-          </p>
+          <h2 className="section-heading">{heading}</h2>
+          <p className="section-description">{description}</p>
         </div>
 
-        {/* Progress bar */}
-        <div className="max-w-2xl mx-auto mb-16">
-          <div className="flex items-center justify-between mb-3">
-            {steps.map((step, i) => {
-              const colors = colorMap[step.color]
-              return (
+        {/* Timeline */}
+        <div className="relative max-w-5xl mx-auto">
+          {steps.map((step, i) => {
+            const colors = colorMap[step.color]
+            const isActive = i === activeStep
+            const isPast = i < activeStep
+            const isLast = i === steps.length - 1
+
+            return (
+              <div key={step.number} className="relative pl-12 lg:pl-16">
+                {/* Vertical line segment */}
+                {!isLast && (
+                  <div
+                    className={`absolute left-[1.1875rem] lg:left-[1.4375rem] top-10 bottom-0 w-0.5 transition-colors duration-500 ${
+                      isPast ? colors.line : "bg-border"
+                    }`}
+                  />
+                )}
+
+                {/* Timeline node */}
                 <button
-                  key={step.number}
                   onClick={() => setActiveStep(i)}
-                  className={`flex items-center gap-2 px-3 py-1.5 rounded-full text-sm font-medium transition-all ${
-                    i === activeStep
-                      ? `${colors.badgeBg}`
-                      : "text-muted-foreground hover:text-foreground"
-                  }`}
+                  className="absolute left-0 lg:left-1 top-0 z-10"
                 >
-                  <span
-                    className={`h-6 w-6 rounded-full flex items-center justify-center text-xs font-bold transition-all ${
-                      i === activeStep
-                        ? `${colors.activeDot} text-white`
-                        : i < activeStep
+                  <div
+                    className={`h-10 w-10 rounded-full border-4 border-background flex items-center justify-center text-sm font-bold transition-all duration-300 shadow-sm ${
+                      isActive
+                        ? `${colors.activeDot} text-white scale-110`
+                        : isPast
                           ? "bg-emerald-500 text-white"
                           : "bg-muted text-muted-foreground"
                     }`}
                   >
-                    {i < activeStep ? "✓" : step.number}
-                  </span>
-                  <span className="hidden sm:inline">{step.title}</span>
-                </button>
-              )
-            })}
-          </div>
-          <div className="h-1 bg-muted rounded-full overflow-hidden">
-            <div
-              className={`h-full rounded-full transition-all duration-500 ${colorMap[steps[activeStep].color].progressBar}`}
-              style={{ width: `${((activeStep + 1) / steps.length) * 100}%` }}
-            />
-          </div>
-        </div>
-
-        {/* Content for active step */}
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          {/* Left: text content */}
-          <div>
-            <Badge variant="secondary" className={`mb-4 ${colorMap[steps[activeStep].color].badgeBg} border-0`}>
-              {steps[activeStep].badge}
-            </Badge>
-            <h3 className="text-2xl sm:text-3xl font-bold mb-4">
-              {steps[activeStep].title}
-            </h3>
-            <p className="text-muted-foreground leading-relaxed mb-8">
-              {steps[activeStep].description}
-            </p>
-            <div className="space-y-4">
-              {steps[activeStep].bullets.map((bullet, i) => {
-                const colors = colorMap[steps[activeStep].color]
-                return (
-                  <div key={i} className="flex items-start gap-3">
-                    <div className={`h-8 w-8 rounded-lg ${colors.iconBg} flex items-center justify-center shrink-0 mt-0.5`}>
-                      <bullet.icon className={`h-4 w-4 ${colors.text}`} />
-                    </div>
-                    <p className="feature-text leading-relaxed pt-1">{bullet.text}</p>
+                    {isPast ? "✓" : step.number}
                   </div>
-                )
-              })}
-            </div>
+                </button>
 
-            {/* Step navigation */}
-            {activeStep < steps.length - 1 && (
-              <button
-                onClick={() => setActiveStep(activeStep + 1)}
-                className="mt-8 inline-flex items-center gap-2 text-sm font-medium text-blue-600 hover:text-blue-700 transition-colors"
-              >
-                Next: {steps[activeStep + 1].title}
-                <HiOutlineArrowRight className="h-4 w-4" />
-              </button>
-            )}
-          </div>
+                {/* Step content */}
+                <div className={`pb-12 ${isLast ? "pb-0" : ""}`}>
+                  {/* Collapsed state */}
+                  {!isActive && (
+                    <button
+                      onClick={() => setActiveStep(i)}
+                      className="group flex items-center gap-3 pt-1.5 text-left"
+                    >
+                      <Badge
+                        variant="secondary"
+                        className={`${isPast ? "bg-emerald-100 text-emerald-700" : "bg-muted text-muted-foreground"} border-0 text-xs`}
+                      >
+                        {step.badge}
+                      </Badge>
+                      <span className="text-lg font-semibold text-muted-foreground group-hover:text-foreground transition-colors">
+                        {step.title}
+                      </span>
+                    </button>
+                  )}
 
-          {/* Right: UX visual */}
-          <div className="flex justify-center">
-            {visuals[activeStep]}
-          </div>
+                  {/* Expanded state */}
+                  {isActive && (
+                    <div className="pt-1">
+                      <Badge
+                        variant="secondary"
+                        className={`mb-4 ${colors.badgeBg} border-0`}
+                      >
+                        {step.badge}
+                      </Badge>
+
+                      <div className="grid lg:grid-cols-2 gap-10 lg:gap-14 items-start">
+                        {/* Text content */}
+                        <div>
+                          <h3 className="text-2xl sm:text-3xl font-bold mb-4">
+                            {step.title}
+                          </h3>
+                          <p className="text-muted-foreground leading-relaxed mb-8">
+                            {step.description}
+                          </p>
+                          <div className="space-y-4">
+                            {step.bullets.map((bullet, j) => (
+                              <div key={j} className="flex items-start gap-3">
+                                <div
+                                  className={`h-8 w-8 rounded-lg ${colors.iconBg} flex items-center justify-center shrink-0 mt-0.5`}
+                                >
+                                  <bullet.icon className={`h-4 w-4 ${colors.text}`} />
+                                </div>
+                                <p className="feature-text leading-relaxed pt-1">
+                                  {bullet.text}
+                                </p>
+                              </div>
+                            ))}
+                          </div>
+
+                          {/* Step navigation */}
+                          {activeStep < steps.length - 1 && (
+                            <button
+                              onClick={() => setActiveStep(activeStep + 1)}
+                              className={`mt-8 inline-flex items-center gap-2 text-sm font-medium ${colors.text} hover:opacity-80 transition-opacity`}
+                            >
+                              Next: {steps[activeStep + 1].title}
+                              <HiOutlineArrowRight className="h-4 w-4" />
+                            </button>
+                          )}
+                        </div>
+
+                        {/* Visual */}
+                        <div className="flex justify-center">
+                          {visuals[i]}
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
+            )
+          })}
         </div>
       </div>
     </section>
