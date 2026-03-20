@@ -1,7 +1,14 @@
 import React from "react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { HiOutlineArrowRight } from "react-icons/hi2"
+import {
+  HiOutlineArrowRight,
+  HiOutlineShoppingCart,
+  HiOutlineTruck,
+  HiOutlineCalculator,
+  HiOutlineChatBubbleLeftRight,
+  HiOutlineMegaphone,
+} from "react-icons/hi2"
 import {
   SiShopify,
   SiWoo,
@@ -34,9 +41,7 @@ import { FaAmazon, FaMagento } from "react-icons/fa6"
 import {
   HiOutlineEnvelope,
   HiOutlineBuildingOffice,
-  HiOutlineChatBubbleLeftRight,
   HiOutlineBookOpen,
-  HiOutlineTruck,
 } from "react-icons/hi2"
 
 export interface IntegrationItem {
@@ -90,6 +95,49 @@ export const defaultIntegrations: IntegrationItem[] = [
   { name: "WhatsApp", icon: SiWhatsapp, color: "text-[#25D366]" },
 ]
 
+const categories = [
+  {
+    label: "Ecommerce Platforms",
+    icon: HiOutlineShoppingCart,
+    color: "bg-blue-500",
+    iconBg: "bg-blue-100",
+    iconColor: "text-blue-600",
+    range: [0, 13] as const,
+  },
+  {
+    label: "CRM & Support",
+    icon: HiOutlineChatBubbleLeftRight,
+    color: "bg-emerald-500",
+    iconBg: "bg-emerald-100",
+    iconColor: "text-emerald-600",
+    range: [13, 17] as const,
+  },
+  {
+    label: "Shipping & Logistics",
+    icon: HiOutlineTruck,
+    color: "bg-purple-500",
+    iconBg: "bg-purple-100",
+    iconColor: "text-purple-600",
+    range: [17, 23] as const,
+  },
+  {
+    label: "Finance & Accounting",
+    icon: HiOutlineCalculator,
+    color: "bg-amber-500",
+    iconBg: "bg-amber-100",
+    iconColor: "text-amber-600",
+    range: [23, 28] as const,
+  },
+  {
+    label: "Marketing & Comms",
+    icon: HiOutlineMegaphone,
+    color: "bg-rose-500",
+    iconBg: "bg-rose-100",
+    iconColor: "text-rose-600",
+    range: [28, 33] as const,
+  },
+]
+
 function IntegrationCard({ integration }: { integration: IntegrationItem }) {
   return (
     <div className="flex flex-col items-center justify-center w-20 h-20 rounded-xl border border-border/60 bg-card hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 shrink-0">
@@ -103,35 +151,6 @@ function IntegrationCard({ integration }: { integration: IntegrationItem }) {
   )
 }
 
-function VerticalMarquee({
-  items,
-  reverse = false,
-}: {
-  items: IntegrationItem[]
-  reverse?: boolean
-}) {
-  const doubled = [...items, ...items]
-  return (
-    <div className="relative overflow-hidden h-[540px]">
-      <div
-        className={`flex flex-col gap-3 ${reverse ? "animate-marquee-down" : "animate-marquee-up"}`}
-      >
-        {doubled.map((integration, i) => (
-          <IntegrationCard key={`${integration.name}-${i}`} integration={integration} />
-        ))}
-      </div>
-    </div>
-  )
-}
-
-function splitIntoColumns(items: IntegrationItem[], cols: number): IntegrationItem[][] {
-  const columns: IntegrationItem[][] = Array.from({ length: cols }, () => [])
-  items.forEach((item, i) => {
-    columns[i % cols].push(item)
-  })
-  return columns
-}
-
 export function Integrations({
   label = "Integrations",
   heading,
@@ -140,45 +159,64 @@ export function Integrations({
   ctaHref = "#get-a-quote",
   integrations = defaultIntegrations,
 }: IntegrationsProps) {
-  const columns = splitIntoColumns(integrations, 4)
-
   return (
     <section id="integrations" className="py-24 lg:py-32 overflow-hidden">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="flex items-center gap-12 max-md:flex-col lg:gap-20">
-          {/* Left side — header + CTA */}
-          <div className="space-y-5 md:max-w-md lg:max-w-lg shrink-0">
-            <p className="section-label">{label}</p>
-            <h2 className="section-heading">
-              {heading}
-            </h2>
-            <p className="section-description">
-              {description}
-            </p>
-            <div className="pt-2">
-              <Button size="lg" asChild>
-                <Link href={ctaHref}>
-                  {ctaText}
-                  <HiOutlineArrowRight className="h-4 w-4" />
-                </Link>
-              </Button>
-            </div>
-          </div>
+        {/* Centered header */}
+        <div className="max-w-2xl mx-auto text-center mb-16 lg:mb-20">
+          <p className="section-label mb-3">{label}</p>
+          <h2 className="section-heading">{heading}</h2>
+          <p className="section-description">{description}</p>
+        </div>
 
-          {/* Right side — vertical scrolling columns */}
-          <div className="relative grid shrink-0 grid-cols-3 gap-3 lg:grid-cols-4">
-            {/* Top/bottom fade overlays */}
-            <div className="absolute top-0 z-10 h-1/4 w-full bg-gradient-to-b from-background to-transparent pointer-events-none" />
-            <div className="absolute bottom-0 z-10 h-1/4 w-full bg-gradient-to-t from-background to-transparent pointer-events-none" />
+        {/* Timeline */}
+        <div className="relative max-w-4xl mx-auto">
+          {/* Vertical line */}
+          <div className="absolute left-5 lg:left-1/2 top-0 bottom-0 w-px bg-border lg:-translate-x-px" />
 
-            {columns.slice(0, 3).map((col, i) => (
-              <VerticalMarquee key={i} items={col} reverse={i % 2 === 1} />
-            ))}
-            {/* 4th column hidden on smaller screens */}
-            <div className="hidden lg:block">
-              <VerticalMarquee items={columns[3]} reverse />
-            </div>
-          </div>
+          {categories.map((cat, i) => {
+            const items = integrations.slice(cat.range[0], cat.range[1])
+            if (items.length === 0) return null
+            const isEven = i % 2 === 0
+
+            return (
+              <div key={cat.label} className="relative mb-16 last:mb-0">
+                {/* Timeline node */}
+                <div className="absolute left-5 lg:left-1/2 -translate-x-1/2 z-10">
+                  <div className={`h-10 w-10 rounded-full ${cat.iconBg} border-4 border-background flex items-center justify-center shadow-sm`}>
+                    <cat.icon className={`h-4 w-4 ${cat.iconColor}`} />
+                  </div>
+                </div>
+
+                {/* Content card — alternates sides on lg */}
+                <div className={`pl-16 lg:pl-0 lg:w-[calc(50%-2rem)] ${isEven ? "lg:mr-auto lg:pr-4" : "lg:ml-auto lg:pl-4"}`}>
+                  <div className="rounded-2xl border border-border/60 bg-card p-6 shadow-sm hover:shadow-md transition-shadow">
+                    <div className="flex items-center gap-2 mb-4">
+                      <div className={`h-1.5 w-1.5 rounded-full ${cat.color}`} />
+                      <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                        {cat.label}
+                      </span>
+                    </div>
+                    <div className="flex flex-wrap gap-2">
+                      {items.map((integration) => (
+                        <IntegrationCard key={integration.name} integration={integration} />
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )
+          })}
+        </div>
+
+        {/* CTA */}
+        <div className="text-center mt-16">
+          <Button size="lg" asChild>
+            <Link href={ctaHref}>
+              {ctaText}
+              <HiOutlineArrowRight className="h-4 w-4" />
+            </Link>
+          </Button>
         </div>
       </div>
     </section>
