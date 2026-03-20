@@ -107,7 +107,15 @@ function MarqueeRow({ items, reverse = false }: { items: string[]; reverse?: boo
   )
 }
 
-export function TestimonialsCustomers() {
+interface TestimonialsCustomersProps {
+  testimonialsLabel?: string
+  customersLabel?: string
+}
+
+export function TestimonialsCustomers({
+  testimonialsLabel = "Testimonials",
+  customersLabel = "Trusted by growing brands everywhere",
+}: TestimonialsCustomersProps) {
   const [activeIndex, setActiveIndex] = useState(0)
   const [isAnimating, setIsAnimating] = useState(false)
 
@@ -132,7 +140,7 @@ export function TestimonialsCustomers() {
           {/* Section Label */}
           <div className="flex items-center gap-4 mb-16">
             <span className="section-label uppercase tracking-wide">
-              Testimonials
+              {testimonialsLabel}
             </span>
             <div className="flex-1 h-px bg-border/60" />
             <span className="font-mono text-xs text-muted-foreground">
@@ -219,7 +227,7 @@ export function TestimonialsCustomers() {
           {/* Customer Marquee Label */}
           <div className="mt-24 pt-12 border-t border-border/60">
             <p className="section-label uppercase tracking-wide mb-8 text-center">
-              Trusted by growing brands everywhere
+              {customersLabel}
             </p>
           </div>
         </div>

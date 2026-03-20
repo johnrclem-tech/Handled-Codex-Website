@@ -35,7 +35,7 @@ import type { GuaranteeItem } from "@/components/sections/guarantees"
 import { CTA } from "@/components/sections/cta"
 import type { CTABenefit } from "@/components/sections/cta"
 import { Integrations } from "@/components/sections/integrations"
-import { Customers } from "@/components/sections/customers"
+import { TestimonialsCustomers } from "@/components/sections/testimonials-customers"
 import { Warehouse, PackageCheck, Truck } from "lucide-react"
 import {
   HiOutlineBolt,
@@ -802,10 +802,9 @@ export default function ApparelFulfillmentPage() {
           plans={apparelPricing3Plans}
         />
 
-        <Customers
-          label="Apparel Brands We Fulfill"
-          heading="Trusted by clothing and fashion brands"
-          description="From streetwear startups to established fashion labels, apparel brands trust Handled with their clothing fulfillment and logistics."
+        <TestimonialsCustomers
+          testimonialsLabel="Apparel Brand Reviews"
+          customersLabel="Trusted by clothing and fashion brands"
         />
 
         {/* FAQ Section */}

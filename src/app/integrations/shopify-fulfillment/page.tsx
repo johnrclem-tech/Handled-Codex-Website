@@ -32,7 +32,7 @@ import type { GuaranteeItem } from "@/components/sections/guarantees"
 import { CTA } from "@/components/sections/cta"
 import type { CTABenefit } from "@/components/sections/cta"
 import { Integrations } from "@/components/sections/integrations"
-import { Customers } from "@/components/sections/customers"
+import { TestimonialsCustomers } from "@/components/sections/testimonials-customers"
 import { Warehouse, PackageCheck, Truck } from "lucide-react"
 import {
   HiOutlineCurrencyDollar,
@@ -605,10 +605,9 @@ export default function ShopifyFulfillmentPage() {
           plans={shopifyPricing3Plans}
         />
 
-        <Customers
-          label="Shopify Brands We Fulfill"
-          heading="Trusted by Shopify stores of every size"
-          description="From fast-growing DTC startups to high-volume Shopify Plus stores, ecommerce brands trust Handled with their Shopify fulfillment."
+        <TestimonialsCustomers
+          testimonialsLabel="Shopify Brand Reviews"
+          customersLabel="Trusted by Shopify stores of every size"
         />
 
         {/* FAQ Section */}

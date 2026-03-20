@@ -33,7 +33,7 @@ import type { GuaranteeItem } from "@/components/sections/guarantees"
 import { CTA } from "@/components/sections/cta"
 import type { CTABenefit } from "@/components/sections/cta"
 import { Integrations } from "@/components/sections/integrations"
-import { Customers } from "@/components/sections/customers"
+import { TestimonialsCustomers } from "@/components/sections/testimonials-customers"
 import { Warehouse, PackageCheck, Truck } from "lucide-react"
 import {
   HiOutlineBolt,
@@ -742,10 +742,9 @@ export default function CosmeticsFulfillmentPage() {
           plans={cosmeticsPricing3Plans}
         />
 
-        <Customers
-          label="Beauty Brands We Fulfill"
-          heading="Trusted by cosmetics and skincare brands"
-          description="From indie skincare startups to established beauty brands, cosmetics companies trust Handled with their beauty fulfillment and logistics."
+        <TestimonialsCustomers
+          testimonialsLabel="Beauty Brand Reviews"
+          customersLabel="Trusted by cosmetics and skincare brands"
         />
 
         {/* FAQ Section */}
