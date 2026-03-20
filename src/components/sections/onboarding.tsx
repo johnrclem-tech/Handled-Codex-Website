@@ -2,6 +2,9 @@
 
 import React, { useState } from "react"
 import { Badge } from "@/components/ui/badge"
+import { IntegrationsUI } from "@/components/ui/integrations-ui"
+import { CheckoutUI } from "@/components/ui/checkout-ui"
+import { BrandingUI } from "@/components/ui/branding-ui"
 import {
   HiOutlineBolt,
   HiOutlineArrowPath,
@@ -9,14 +12,10 @@ import {
   HiOutlineTruck,
   HiOutlineClock,
   HiOutlineShieldCheck,
-  HiOutlineCheckCircle,
-  HiOutlineSparkles,
-  HiOutlineGift,
   HiOutlineEnvelope,
   HiOutlineSwatch,
   HiOutlineArrowRight,
 } from "react-icons/hi2"
-import { SiShopify } from "react-icons/si"
 
 export type OnboardingStepColor = "blue" | "emerald" | "purple"
 
@@ -144,250 +143,6 @@ const colorMap = {
   },
 }
 
-/* ── Step 1 Visual: Integration Dashboard ── */
-function IntegrationVisual() {
-  return (
-    <div className="rounded-2xl border border-border bg-card shadow-xl overflow-hidden animate-float">
-      <div className="bg-[#96bf48] px-6 py-4 flex items-center gap-2">
-        <SiShopify className="h-5 w-5 text-white" />
-        <span className="text-white text-sm font-medium">Shopify × Handled — Connected</span>
-      </div>
-      <div className="p-6 space-y-4">
-        <div className="space-y-3">
-          <SyncRow label="Orders" status="Syncing in real-time" active />
-          <SyncRow label="Inventory" status="2,847 SKUs synced" active />
-          <SyncRow label="Tracking" status="Auto-push enabled" active />
-        </div>
-
-        <div className="mt-4 rounded-lg border border-border bg-muted/30 p-4">
-          <p className="text-xs font-semibold text-muted-foreground mb-3 uppercase tracking-wider">
-            Active Automations
-          </p>
-          <div className="space-y-2">
-            <FlowRow icon={HiOutlineBolt} label="Auto-route orders by region" />
-            <FlowRow icon={HiOutlineArrowPath} label="Restock alerts → Purchase order" />
-            <FlowRow icon={HiOutlineGift} label="Free gift insert on orders $100+" />
-          </div>
-        </div>
-
-        <div className="rounded-lg border border-border bg-background p-3 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <div className="h-8 w-8 rounded-full bg-blue-100 flex items-center justify-center">
-              <HiOutlineArrowPath className="h-4 w-4 text-blue-600" />
-            </div>
-            <div>
-              <p className="text-xs font-medium">Returns Portal</p>
-              <p className="text-[11px] text-muted-foreground">Self-service enabled</p>
-            </div>
-          </div>
-          <Badge variant="secondary" className="text-[10px] bg-emerald-100 text-emerald-700 border-0">Live</Badge>
-        </div>
-      </div>
-    </div>
-  )
-}
-
-function SyncRow({ label, status, active }: { label: string; status: string; active: boolean }) {
-  return (
-    <div className="flex items-center justify-between">
-      <div className="flex items-center gap-2">
-        <div className={`h-2 w-2 rounded-full ${active ? "bg-emerald-500 animate-pulse" : "bg-muted-foreground/30"}`} />
-        <span className="text-sm font-medium">{label}</span>
-      </div>
-      <span className="text-xs text-muted-foreground">{status}</span>
-    </div>
-  )
-}
-
-function FlowRow({ icon: Icon, label }: { icon: React.ComponentType<{ className?: string }>; label: string }) {
-  return (
-    <div className="flex items-center gap-2 text-sm">
-      <Icon className="h-3.5 w-3.5 text-blue-500 shrink-0" />
-      <span className="text-muted-foreground">{label}</span>
-    </div>
-  )
-}
-
-/* ── Step 2 Visual: Checkout / Shipping Experience ── */
-function ShippingVisual() {
-  return (
-    <div className="rounded-2xl border border-border bg-card shadow-xl overflow-hidden animate-float">
-      <div className="bg-primary px-6 py-4">
-        <span className="text-primary-foreground text-sm font-medium">Checkout — Shipping Options</span>
-      </div>
-      <div className="p-6 space-y-4">
-        <div className="rounded-lg bg-emerald-50 border border-emerald-200 p-3 flex items-center gap-2">
-          <HiOutlineClock className="h-5 w-5 text-emerald-600 shrink-0" />
-          <div>
-            <p className="text-xs font-semibold text-emerald-800">Order by 2:00 PM ET — Ships Today!</p>
-            <p className="text-[11px] text-emerald-600">Same-day fulfillment guaranteed</p>
-          </div>
-        </div>
-
-        <div className="space-y-2">
-          <ShippingOption
-            label="Standard Shipping"
-            eta="Arrives Mar 21–22"
-            price="Free"
-            selected
-            badge="Shop Promise"
-          />
-          <ShippingOption
-            label="Express Shipping"
-            eta="Arrives Mar 19"
-            price="$8.99"
-            selected={false}
-          />
-          <ShippingOption
-            label="Overnight"
-            eta="Arrives Mar 18"
-            price="$14.99"
-            selected={false}
-          />
-        </div>
-
-        <div className="flex items-center gap-3 pt-2 border-t border-border">
-          <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
-            <HiOutlineShieldCheck className="h-3.5 w-3.5 text-blue-500" />
-            <span>Shop Promise</span>
-          </div>
-          <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
-            <HiOutlineTruck className="h-3.5 w-3.5 text-emerald-500" />
-            <span>Real-time tracking</span>
-          </div>
-          <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
-            <HiOutlineCheckCircle className="h-3.5 w-3.5 text-emerald-500" />
-            <span>Delivery date</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  )
-}
-
-function ShippingOption({
-  label,
-  eta,
-  price,
-  selected,
-  badge,
-}: {
-  label: string
-  eta: string
-  price: string
-  selected: boolean
-  badge?: string
-}) {
-  return (
-    <div
-      className={`rounded-lg border p-3 flex items-center justify-between transition-all ${
-        selected
-          ? "border-blue-300 bg-blue-50/50 ring-1 ring-blue-100"
-          : "border-border hover:border-border/80"
-      }`}
-    >
-      <div className="flex items-center gap-3">
-        <div
-          className={`h-4 w-4 rounded-full border-2 flex items-center justify-center ${
-            selected ? "border-blue-500" : "border-muted-foreground/30"
-          }`}
-        >
-          {selected && <div className="h-2 w-2 rounded-full bg-blue-500" />}
-        </div>
-        <div>
-          <div className="flex items-center gap-2">
-            <p className="text-sm font-medium">{label}</p>
-            {badge && (
-              <span className="text-[10px] font-medium px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-700">
-                {badge}
-              </span>
-            )}
-          </div>
-          <p className="text-xs text-muted-foreground">{eta}</p>
-        </div>
-      </div>
-      <span className={`text-sm font-medium ${price === "Free" ? "text-emerald-600" : ""}`}>{price}</span>
-    </div>
-  )
-}
-
-/* ── Step 3 Visual: Branded Unboxing Experience ── */
-function BrandingVisual() {
-  return (
-    <div className="rounded-2xl border border-border bg-card shadow-xl overflow-hidden animate-float">
-      <div className="bg-gradient-to-r from-purple-600 to-blue-600 px-6 py-4">
-        <span className="text-white text-sm font-medium">Your Brand — Unboxing Experience</span>
-      </div>
-      <div className="p-6 space-y-4">
-        <div className="rounded-lg border border-border bg-muted/30 p-4">
-          <div className="flex gap-3">
-            <div className="w-16 h-16 rounded-lg bg-gradient-to-br from-purple-100 to-blue-100 border border-purple-200 flex items-center justify-center shrink-0">
-              <HiOutlineCube className="h-7 w-7 text-purple-500" />
-            </div>
-            <div className="flex-1 space-y-1.5">
-              <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">What&apos;s inside</p>
-              <BrandItem label="Custom branded box" />
-              <BrandItem label="Branded tissue paper" />
-              <BrandItem label="Thank-you insert card" />
-              <BrandItem label="Promo sticker pack" />
-            </div>
-          </div>
-        </div>
-
-        <div className="rounded-lg border border-border bg-background p-4">
-          <div className="flex items-center gap-2 mb-3">
-            <div className="h-8 w-8 rounded-full bg-purple-100 flex items-center justify-center">
-              <HiOutlineEnvelope className="h-4 w-4 text-purple-600" />
-            </div>
-            <div>
-              <p className="text-xs font-medium">Branded Tracking Email</p>
-              <p className="text-[11px] text-muted-foreground">Sent automatically at each milestone</p>
-            </div>
-          </div>
-          <div className="rounded border border-border bg-muted/20 p-3 space-y-2">
-            <div className="flex items-center gap-2">
-              <div className="h-5 w-5 rounded bg-purple-600 flex items-center justify-center">
-                <span className="text-white text-[9px] font-bold">YB</span>
-              </div>
-              <span className="text-xs font-medium">Your order has shipped!</span>
-            </div>
-            <div className="h-1.5 w-3/4 rounded bg-muted-foreground/10" />
-            <div className="h-1.5 w-1/2 rounded bg-muted-foreground/10" />
-            <div className="mt-2 h-7 w-24 rounded bg-purple-600 flex items-center justify-center">
-              <span className="text-white text-[10px] font-medium">Track Order</span>
-            </div>
-          </div>
-        </div>
-
-        <div className="rounded-lg border border-border bg-background p-3 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <div className="h-8 w-8 rounded-full bg-purple-100 flex items-center justify-center">
-              <HiOutlineSwatch className="h-4 w-4 text-purple-600" />
-            </div>
-            <div>
-              <p className="text-xs font-medium">Branded Returns Portal</p>
-              <p className="text-[11px] text-muted-foreground">Custom colors, logo, and messaging</p>
-            </div>
-          </div>
-          <Badge variant="secondary" className="text-[10px] bg-purple-100 text-purple-700 border-0">
-            <HiOutlineSparkles className="h-3 w-3 mr-0.5" />
-            Branded
-          </Badge>
-        </div>
-      </div>
-    </div>
-  )
-}
-
-function BrandItem({ label }: { label: string }) {
-  return (
-    <div className="flex items-center gap-1.5">
-      <HiOutlineCheckCircle className="h-3 w-3 text-purple-500 shrink-0" />
-      <span className="text-xs text-muted-foreground">{label}</span>
-    </div>
-  )
-}
-
 /* ── Main Export ── */
 export function Onboarding({
   label = "Onboarding",
@@ -396,7 +151,7 @@ export function Onboarding({
   steps,
 }: OnboardingProps) {
   const [activeStep, setActiveStep] = useState(0)
-  const visuals = [<IntegrationVisual key="1" />, <ShippingVisual key="2" />, <BrandingVisual key="3" />]
+  const visuals = [<IntegrationsUI key="1" />, <CheckoutUI key="2" />, <BrandingUI key="3" />]
 
   return (
     <section id="onboarding" className="py-24 lg:py-32">
