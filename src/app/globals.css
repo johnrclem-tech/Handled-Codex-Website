@@ -131,7 +131,7 @@ html {
 }
 
 .animate-marquee-left {
-  animation: marquee 60s linear infinite;
+  animation: marquee 120s linear infinite;
 }
 
 /* Section typography utilities */
