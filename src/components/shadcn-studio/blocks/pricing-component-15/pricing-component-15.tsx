@@ -86,12 +86,14 @@ const Pricing3 = ({
                       </div>
                     ))}
                   </div>
-                  <Button size='lg' variant={plan.isHighlighted ? 'secondary' : 'outline'} asChild>
-                    <Link href={buttonHref}>
-                      {buttonText}
-                      <ArrowRightIcon />
-                    </Link>
-                  </Button>
+                  {plan.isHighlighted && (
+                    <Button size='lg' variant='secondary' asChild>
+                      <Link href={buttonHref}>
+                        {buttonText}
+                        <ArrowRightIcon />
+                      </Link>
+                    </Button>
+                  )}
                 </CardContent>
               </Card>
             </div>
