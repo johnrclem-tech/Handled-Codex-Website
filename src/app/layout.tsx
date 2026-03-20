@@ -33,6 +33,11 @@ export default function RootLayout({
     <html lang="en">
       <body className="antialiased">
         {children}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `document.addEventListener('click',function(e){var a=e.target.closest('a[href^="#"]');if(!a)return;var id=a.getAttribute('href').slice(1);if(!id)return;var el=document.getElementById(id);if(el){e.preventDefault();el.scrollIntoView({behavior:'smooth'});history.replaceState(null,'','#'+id)}})`,
+          }}
+        />
       </body>
     </html>
   );
