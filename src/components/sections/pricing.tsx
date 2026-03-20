@@ -1,5 +1,3 @@
-"use client"
-
 import React from "react"
 import { Card, CardContent } from "@/components/ui/card"
 import { HiOutlineCheckCircle } from "react-icons/hi2"
@@ -7,7 +5,7 @@ import { Warehouse, PackageCheck, Truck, Sparkles } from "lucide-react"
 
 export interface PricingPlan {
   name: string
-  icon: React.ReactNode
+  icon: React.ComponentType<{ className?: string }>
   description: string
   target: string
   features: string[]
@@ -23,7 +21,7 @@ export interface PricingProps {
 export const defaultPricingPlans: PricingPlan[] = [
   {
     name: "Storage",
-    icon: <Warehouse className="h-6 w-6" />,
+    icon: Warehouse,
     description:
       "Your inventory is stored securely and efficiently, with monthly pallet-based pricing you only pay for the space you need.",
     target: "Facility Ops:",
@@ -37,7 +35,7 @@ export const defaultPricingPlans: PricingPlan[] = [
   },
   {
     name: "Fulfillment",
-    icon: <PackageCheck className="h-6 w-6" />,
+    icon: PackageCheck,
     description:
       "Every order is picked and packed with care, with per-order pricing your costs rise only when your volume does.",
     target: "Order Processing:",
@@ -51,7 +49,7 @@ export const defaultPricingPlans: PricingPlan[] = [
   },
   {
     name: "Shipping",
-    icon: <Truck className="h-6 w-6" />,
+    icon: Truck,
     description:
       "We optimize every order for speed and savings, with per-shipment pricing based on the carrier and service level used.",
     target: "Logistics & Freight:",
@@ -65,7 +63,7 @@ export const defaultPricingPlans: PricingPlan[] = [
   },
   {
     name: "Projects",
-    icon: <Sparkles className="h-6 w-6" />,
+    icon: Sparkles,
     description:
       "From kitting to custom prep work, our per-project pricing is based on the complexity and scope of each project.",
     target: "Custom Workflows:",
@@ -108,7 +106,7 @@ export function Pricing({
             >
               <CardContent className="p-6">
                 <div className="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-muted mb-4">
-                  {plan.icon}
+                  <plan.icon className="h-6 w-6" />
                 </div>
                 <h3 className="card-title mb-1">{plan.name}</h3>
                 <p className="card-description mb-4">

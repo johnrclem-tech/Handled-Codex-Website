@@ -24,12 +24,23 @@ import {
   HiOutlineClipboardDocumentCheck,
   HiOutlineExclamationTriangle,
 } from "react-icons/hi2"
-import { CosmeticsOnboarding } from "@/components/sections/onboarding-cosmetics"
-import { CosmeticsPricing } from "@/components/sections/pricing-cosmetics"
-import { CosmeticsGuarantees } from "@/components/sections/guarantees-cosmetics"
-import { CosmeticsCTA } from "@/components/sections/cta-cosmetics"
-import { CosmeticsIntegrations } from "@/components/sections/integrations-cosmetics"
+import { Onboarding } from "@/components/sections/onboarding"
+import { cosmeticsOnboardingSteps } from "@/components/sections/onboarding-data"
+import { Pricing } from "@/components/sections/pricing"
+import type { PricingPlan } from "@/components/sections/pricing"
+import { Guarantees } from "@/components/sections/guarantees"
+import type { GuaranteeItem } from "@/components/sections/guarantees"
+import { CTA } from "@/components/sections/cta"
+import type { CTABenefit } from "@/components/sections/cta"
+import { Integrations } from "@/components/sections/integrations"
 import { Customers } from "@/components/sections/customers"
+import { Warehouse, PackageCheck, Truck, Sparkles } from "lucide-react"
+import {
+  HiOutlineBolt,
+  HiOutlineCurrencyDollar,
+  HiOutlineEnvelope,
+  HiOutlineRocketLaunch,
+} from "react-icons/hi2"
 
 export const metadata: Metadata = {
   title: "Cosmetics Fulfillment Services | 3PL for Beauty Brands — Handled",
@@ -267,6 +278,113 @@ const faqs = [
     question: "Where are Handled's cosmetics fulfillment centers located?",
     answer:
       "Handled operates fulfillment centers in Los Angeles, CA and northern New Jersey. This bi-coastal warehouse network allows us to reach 95%+ of US customers within 2 business days via ground shipping, keeping your beauty brand's shipping costs low and delivery times fast. Both facilities feature climate-controlled storage for beauty products.",
+  },
+]
+
+const cosmeticsGuarantees: GuaranteeItem[] = [
+  {
+    icon: HiOutlineClock,
+    title: "Same-Day Beauty Shipping",
+    description:
+      "Every cosmetics order received by 12PM local time ships the same day — backed by a financial SLA. Your beauty customers get the fast, reliable delivery premium brands demand.",
+    metric: "100%",
+    metricLabel: "same-day shipping guarantee",
+  },
+  {
+    icon: HiOutlineShieldCheck,
+    title: "Shade-Perfect Accuracy",
+    description:
+      "Barcode-verified picking ensures the right shade, size, and formula ships on every beauty order. In cosmetics, one wrong product means a guaranteed return — our accuracy eliminates that risk.",
+    metric: "99.9%",
+    metricLabel: "cosmetics pick accuracy",
+  },
+  {
+    icon: HiOutlineArrowPath,
+    title: "Same-Day Beauty Restock",
+    description:
+      "Returned and replenished beauty inventory is inspected, restocked, and available for sale the same day it arrives — with lot tracking and FIFO rotation maintained automatically.",
+    metric: "Same-day",
+    metricLabel: "restock & lot sync guarantee",
+  },
+]
+
+const cosmeticsPricingPlans: PricingPlan[] = [
+  {
+    name: "Storage",
+    icon: Warehouse,
+    description:
+      "Your beauty inventory is stored in climate-controlled facilities with lot tracking and expiration management. Pay only for the space you need.",
+    target: "Beauty Warehousing:",
+    features: [
+      "Climate-controlled storage",
+      "Lot & expiration tracking",
+      "FIFO inventory rotation",
+      "Real-time inventory sync",
+      "Scale up/down monthly",
+    ],
+  },
+  {
+    name: "Fulfillment",
+    icon: PackageCheck,
+    description:
+      "Every cosmetics order is picked with barcode verification and packed with fragile-safe materials. Per-order pricing scales with your beauty brand.",
+    target: "Order Processing:",
+    features: [
+      "Barcode-verified pick & pack",
+      "Fragile-safe packaging",
+      "Same-day dispatch",
+      "Shade-accurate picking",
+      "Quality inspection",
+    ],
+  },
+  {
+    name: "Shipping",
+    icon: Truck,
+    description:
+      "We optimize every beauty order for speed and product safety. Per-shipment pricing based on carrier, service level, and special handling needs.",
+    target: "Beauty Logistics:",
+    features: [
+      "Discounted carrier rates",
+      "2-day ground nationwide",
+      "Fragile item handling",
+      "Auto tracking updates",
+      "Temperature-safe transit",
+    ],
+  },
+  {
+    name: "Projects",
+    icon: Sparkles,
+    description:
+      "From influencer kit assembly to subscription box builds and seasonal gift sets, per-project pricing covers all your beauty brand's custom needs.",
+    target: "Custom Workflows:",
+    features: [
+      "Influencer & PR kits",
+      "Subscription box assembly",
+      "Branded unboxing design",
+      "Beauty returns processing",
+      "Sample & GWP insertion",
+    ],
+  },
+]
+
+const cosmeticsCtaBenefits: CTABenefit[] = [
+  {
+    icon: HiOutlineClock,
+    title: "Save Time",
+    description:
+      "No more tracking down tracking. We handle the busywork — climate-controlled storage, lot tracking, fragile packing — so you can get back to building your beauty brand.",
+  },
+  {
+    icon: HiOutlineCurrencyDollar,
+    title: "Save Money",
+    description:
+      "Smarter shipping, fewer damaged-product claims, and pricing that flexes with your beauty brand. No minimums. No fixed costs. No-brainer.",
+  },
+  {
+    icon: HiOutlineRocketLaunch,
+    title: "Sell More",
+    description:
+      "With faster shipping and a premium unboxing experience, we'll turn browsers into beauty buyers — and buyers into brand fans.",
   },
 ]
 
@@ -562,7 +680,12 @@ export default function CosmeticsFulfillmentPage() {
           </div>
         </section>
 
-        <CosmeticsGuarantees />
+        <Guarantees
+          label="Cosmetics Fulfillment SLAs"
+          heading="Beauty fulfillment guarantees backed by real accountability"
+          description="For cosmetics brands, fulfillment errors are brand-damaging. Handled is one of the only beauty 3PLs that backs every SLA with financial accountability — from shipping speed to shade accuracy."
+          guarantees={cosmeticsGuarantees}
+        />
 
         {/* The Brand Experience Section */}
         <section className="py-24 lg:py-32">
@@ -613,9 +736,18 @@ export default function CosmeticsFulfillmentPage() {
           </div>
         </section>
 
-        <CosmeticsIntegrations />
+        <Integrations
+          label="Beauty Brand Integrations"
+          heading="Connect your beauty brand in under 24 hours"
+          description="Handled integrates with every platform cosmetics brands sell on. Orders, inventory, lot data, and tracking sync in real time across all your channels."
+        />
 
-        <CosmeticsOnboarding />
+        <Onboarding
+          label="Beauty Brand Onboarding"
+          heading="Onboard your cosmetics fulfillment in 2&nbsp;weeks"
+          description="We make launching beauty fulfillment predictable and fast — with climate-controlled storage, lot tracking, and fragile-safe handling configured from day one."
+          steps={cosmeticsOnboardingSteps}
+        />
 
         {/* FAQ Section */}
         <section className="py-24 lg:py-32 bg-muted/30">
@@ -647,9 +779,19 @@ export default function CosmeticsFulfillmentPage() {
           description="From indie skincare startups to established beauty brands, cosmetics companies trust Handled with their beauty fulfillment and logistics."
         />
 
-        <CosmeticsPricing />
+        <Pricing
+          label="Cosmetics Fulfillment Pricing"
+          heading="Transparent cosmetics fulfillment pricing built for beauty brands"
+          description="No surprise fees. No minimums. Usage-based pricing that includes climate-controlled storage, fragile-safe handling, and lot tracking at no extra cost."
+          plans={cosmeticsPricingPlans}
+        />
 
-        <CosmeticsCTA />
+        <CTA
+          label="Get A Quote"
+          heading="Get a Cosmetics Fulfillment Quote. Get Growing."
+          description="Get a custom quote today and see how Handled turns shipping into growth for your beauty brand."
+          benefits={cosmeticsCtaBenefits}
+        />
       </main>
       <Footer />
 

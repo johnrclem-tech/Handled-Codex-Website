@@ -13,3 +13,9 @@ Always use the global typography utility classes defined in `src/app/globals.css
 
 Use the `-light` variants on primary-background sections (dark backgrounds).
 Do not use inline Tailwind classes for these elements in new sections.
+
+## Section Component Rules
+
+- One section component per section type (e.g., one `cta.tsx`, one `pricing.tsx`). All content (heading, description, data arrays) is passed as props from `page.tsx`. Do not create page-specific wrapper components.
+- Only use ShadCN components for UI primitives (Button, Card, Input, Badge, etc.). Do not use non-ShadCN component libraries for new UI elements.
+- Abstract reusable sub-components from sections into `src/components/ui/` (e.g., `QuoteForm` extracted from CTA) so they can be reused independently.

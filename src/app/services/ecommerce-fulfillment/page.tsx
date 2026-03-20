@@ -27,12 +27,20 @@ import {
   HiOutlineCircleStack,
 } from "react-icons/hi2"
 import { SiShopify } from "react-icons/si"
-import { EcommerceOnboarding } from "@/components/sections/onboarding-ecommerce"
-import { EcommercePricing } from "@/components/sections/pricing-ecommerce"
-import { EcommerceGuarantees } from "@/components/sections/guarantees-ecommerce"
-import { EcommerceCTA } from "@/components/sections/cta-ecommerce"
-import { EcommerceIntegrations } from "@/components/sections/integrations-ecommerce"
+import { Onboarding } from "@/components/sections/onboarding"
+import { ecommerceOnboardingSteps } from "@/components/sections/onboarding-data"
+import { Pricing } from "@/components/sections/pricing"
+import type { PricingPlan } from "@/components/sections/pricing"
+import { Guarantees } from "@/components/sections/guarantees"
+import type { GuaranteeItem } from "@/components/sections/guarantees"
+import { CTA } from "@/components/sections/cta"
+import type { CTABenefit } from "@/components/sections/cta"
+import { Integrations } from "@/components/sections/integrations"
 import { Customers } from "@/components/sections/customers"
+import { Warehouse, PackageCheck, Truck, Sparkles } from "lucide-react"
+import {
+  HiOutlineCurrencyDollar,
+} from "react-icons/hi2"
 
 export const metadata: Metadata = {
   title: "Ecommerce Fulfillment Services | 3PL for Online Brands — Handled",
@@ -285,6 +293,113 @@ const faqs = [
   },
 ]
 
+const ecommerceGuarantees: GuaranteeItem[] = [
+  {
+    icon: HiOutlineClock,
+    title: "Same-Day Order Shipping",
+    description:
+      "Every ecommerce order received by 12PM local time ships the same day — backed by a financial SLA. If we miss the cutoff, we cover it. Your online customers get the delivery speed they expect.",
+    metric: "100%",
+    metricLabel: "same-day shipping guarantee",
+  },
+  {
+    icon: HiOutlineShieldCheck,
+    title: "Ecommerce Order Accuracy",
+    description:
+      "Barcode-verified picking ensures the right products in the right quantities ship on every ecommerce order. Wrong items cost you returns, refunds, and customer trust — our accuracy prevents it.",
+    metric: "99.9%",
+    metricLabel: "ecommerce order accuracy",
+  },
+  {
+    icon: HiOutlineArrowPath,
+    title: "Same-Day Inventory Restock",
+    description:
+      "Returned and replenished inventory is received, inspected, and restocked the same day it arrives — updating your ecommerce channels in real time so products are back on sale immediately.",
+    metric: "Same-day",
+    metricLabel: "restock guarantee",
+  },
+]
+
+const ecommercePricingPlans: PricingPlan[] = [
+  {
+    name: "Storage",
+    icon: Warehouse,
+    description:
+      "Your ecommerce inventory is stored securely across our bi-coastal warehouse network. Monthly pallet-based pricing means you only pay for the space you use.",
+    target: "Ecommerce Warehousing:",
+    features: [
+      "Bi-coastal warehouse network",
+      "Real-time inventory sync",
+      "Multi-channel stock management",
+      "Smart bin organization",
+      "Scale up/down monthly",
+    ],
+  },
+  {
+    name: "Fulfillment",
+    icon: PackageCheck,
+    description:
+      "Every ecommerce order is picked and packed with 99.9% accuracy. Per-order pricing means your fulfillment costs scale directly with your sales.",
+    target: "Order Processing:",
+    features: [
+      "Barcode-verified pick & pack",
+      "Multi-platform order sync",
+      "Same-day dispatch",
+      "Dashboard transparency",
+      "Peak season scalability",
+    ],
+  },
+  {
+    name: "Shipping",
+    icon: Truck,
+    description:
+      "We optimize every ecommerce order for speed and savings with carrier rate shopping and bi-coastal distribution for 2-day ground nationwide.",
+    target: "Ecommerce Shipping:",
+    features: [
+      "Discounted carrier rates",
+      "2-day ground nationwide",
+      "Carrier rate shopping",
+      "Auto tracking to all channels",
+      "International shipping options",
+    ],
+  },
+  {
+    name: "Projects",
+    icon: Sparkles,
+    description:
+      "From subscription box assembly to FBA prep and branded packaging, per-project pricing covers every value-added service your online brand needs.",
+    target: "Custom Workflows:",
+    features: [
+      "Custom kitting/assembly",
+      "Branded unboxing",
+      "FBA prep & labeling",
+      "Returns processing",
+      "Subscription box builds",
+    ],
+  },
+]
+
+const ecommerceCtaBenefits: CTABenefit[] = [
+  {
+    icon: HiOutlineClock,
+    title: "Save Time",
+    description:
+      "No more tracking down tracking. We handle the busywork — picking, packing, shipping, and returns — so you can get back to building your brand.",
+  },
+  {
+    icon: HiOutlineCurrencyDollar,
+    title: "Save Money",
+    description:
+      "Smarter shipping, fewer support calls, and pricing that flexes with you. No minimums. No fixed costs. No-brainer.",
+  },
+  {
+    icon: HiOutlineRocketLaunch,
+    title: "Sell More",
+    description:
+      "With faster shipping and a branded delivery experience, we'll turn browsers into buyers — and buyers into brand fans.",
+  },
+]
+
 export default function EcommerceFulfillmentPage() {
   return (
     <>
@@ -487,9 +602,18 @@ export default function EcommerceFulfillmentPage() {
           </div>
         </section>
 
-        <EcommerceIntegrations />
+        <Integrations
+          label="Ecommerce Integrations"
+          heading="Connect your online store in under 24 hours"
+          description="Handled integrates seamlessly with every major ecommerce platform, marketplace, and shipping carrier. Orders, inventory, and tracking sync automatically."
+        />
 
-        <EcommerceGuarantees />
+        <Guarantees
+          label="Ecommerce Fulfillment SLAs"
+          heading="Ecommerce fulfillment guarantees backed by real accountability"
+          description="Handled is one of the only ecommerce 3PLs that backs every fulfillment SLA with financial penalties. If we miss a guarantee, we pay — not you."
+          guarantees={ecommerceGuarantees}
+        />
 
         {/* DTC + B2B + Omnichannel */}
         <section className="py-24 lg:py-32 bg-muted/30">
@@ -563,7 +687,12 @@ export default function EcommerceFulfillmentPage() {
           </div>
         </section>
 
-        <EcommerceOnboarding />
+        <Onboarding
+          label="Ecommerce Onboarding"
+          heading="Onboard your ecommerce fulfillment in 2&nbsp;weeks"
+          description="We make launching ecommerce fulfillment predictable and fast. Our dedicated onboarding team handles every integration, automation, and branding detail so your store ships on schedule."
+          steps={ecommerceOnboardingSteps}
+        />
 
         {/* FAQ Section */}
         <section className="py-24 lg:py-32 bg-muted/30">
@@ -595,9 +724,19 @@ export default function EcommerceFulfillmentPage() {
           description="From emerging DTC startups to established ecommerce brands, online businesses trust Handled with their order fulfillment and logistics."
         />
 
-        <EcommercePricing />
+        <Pricing
+          label="Ecommerce Fulfillment Pricing"
+          heading="Transparent ecommerce fulfillment pricing that scales with your brand"
+          description="No surprise fees. No minimums. Usage-based pricing whether you ship 50 or 50,000 orders a month — across every ecommerce channel."
+          plans={ecommercePricingPlans}
+        />
 
-        <EcommerceCTA />
+        <CTA
+          label="Get A Quote"
+          heading="Get an Ecommerce Fulfillment Quote. Get Growing."
+          description="Get a custom quote today and see how Handled turns shipping into growth for your online store."
+          benefits={ecommerceCtaBenefits}
+        />
       </main>
       <Footer />
 

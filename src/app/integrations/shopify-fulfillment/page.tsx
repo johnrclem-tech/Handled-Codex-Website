@@ -23,12 +23,23 @@ import {
   HiOutlineSparkles,
 } from "react-icons/hi2"
 import { SiShopify } from "react-icons/si"
-import { ShopifyOnboarding } from "@/components/sections/onboarding-shopify"
-import { ShopifyPricing } from "@/components/sections/pricing-shopify"
-import { ShopifyGuarantees } from "@/components/sections/guarantees-shopify"
-import { ShopifyCTA } from "@/components/sections/cta-shopify"
-import { ShopifyIntegrations } from "@/components/sections/integrations-shopify"
+import { Onboarding } from "@/components/sections/onboarding"
+import { shopifyOnboardingSteps } from "@/components/sections/onboarding-data"
+import { Pricing } from "@/components/sections/pricing"
+import type { PricingPlan } from "@/components/sections/pricing"
+import { Guarantees } from "@/components/sections/guarantees"
+import type { GuaranteeItem } from "@/components/sections/guarantees"
+import { CTA } from "@/components/sections/cta"
+import type { CTABenefit } from "@/components/sections/cta"
+import { Integrations } from "@/components/sections/integrations"
 import { Customers } from "@/components/sections/customers"
+import { Warehouse, PackageCheck, Truck, Sparkles } from "lucide-react"
+import {
+  HiOutlineCurrencyDollar,
+  HiOutlineEnvelope,
+  HiOutlineRocketLaunch,
+  HiOutlineSwatch,
+} from "react-icons/hi2"
 
 export const metadata: Metadata = {
   title: "Shopify Fulfillment Services | 3PL for Shopify Brands — Handled",
@@ -213,6 +224,113 @@ const faqs = [
     question: "Where are Handled's fulfillment centers located?",
     answer:
       "Handled operates fulfillment centers in Los Angeles, CA and northern New Jersey. This bi-coastal warehouse network allows us to reach 95%+ of US customers within 2 business days via ground shipping, keeping your Shopify shipping costs low and delivery speeds fast.",
+  },
+]
+
+const shopifyGuarantees: GuaranteeItem[] = [
+  {
+    icon: HiOutlineClock,
+    title: "Same-Day Shopify Shipping",
+    description:
+      "Every Shopify order received by 12PM local time ships the same day — backed by a financial SLA. If we miss it, we cover it. Your Shopify customers get the fast delivery they expect.",
+    metric: "100%",
+    metricLabel: "same-day shipping guarantee",
+  },
+  {
+    icon: HiOutlineShieldCheck,
+    title: "Shopify Order Accuracy",
+    description:
+      "Barcode-verified picking ensures the right product ships on every Shopify order. Wrong items mean returns, refunds, and lost trust — our 99.9% accuracy rate eliminates that risk.",
+    metric: "99.9%",
+    metricLabel: "Shopify pick accuracy",
+  },
+  {
+    icon: HiOutlineArrowPath,
+    title: "Instant Shopify Inventory Sync",
+    description:
+      "Inventory updates push to your Shopify store in real time. Restocked items are available for sale the same day they arrive — no overselling, no manual updates, no delays.",
+    metric: "Same-day",
+    metricLabel: "restock & sync guarantee",
+  },
+]
+
+const shopifyPricingPlans: PricingPlan[] = [
+  {
+    name: "Storage",
+    icon: Warehouse,
+    description:
+      "Your Shopify inventory is stored securely with real-time sync to your store. Monthly pallet-based pricing means you only pay for the space you use.",
+    target: "Shopify Inventory:",
+    features: [
+      "Pallet-level storage",
+      "Real-time Shopify inventory sync",
+      "Climate-controlled space",
+      "Smart bin organization",
+      "Scale up/down monthly",
+    ],
+  },
+  {
+    name: "Fulfillment",
+    icon: PackageCheck,
+    description:
+      "Every Shopify order is picked and packed with care. Per-order pricing means your costs only rise when your Shopify sales do.",
+    target: "Order Processing:",
+    features: [
+      "Barcode-verified pick & pack",
+      "Shopify order auto-sync",
+      "Same-day dispatch",
+      "Dashboard transparency",
+      "Flash sale scalability",
+    ],
+  },
+  {
+    name: "Shipping",
+    icon: Truck,
+    description:
+      "We optimize every Shopify order for speed and savings. Per-shipment pricing based on the carrier and service level selected at checkout.",
+    target: "Shopify Shipping:",
+    features: [
+      "Discounted carrier rates",
+      "Shop Promise eligible",
+      "2-day ground nationwide",
+      "Auto tracking push to Shopify",
+      "Real-time delivery dates",
+    ],
+  },
+  {
+    name: "Projects",
+    icon: Sparkles,
+    description:
+      "From Shopify subscription kitting to custom branded packaging, per-project pricing is based on complexity and scope.",
+    target: "Custom Workflows:",
+    features: [
+      "Custom kitting/assembly",
+      "Branded unboxing",
+      "Shopify Flow automations",
+      "Returns processing",
+      "Subscription box builds",
+    ],
+  },
+]
+
+const shopifyCtaBenefits: CTABenefit[] = [
+  {
+    icon: HiOutlineClock,
+    title: "Save Time",
+    description:
+      "No more toggling between Shopify and your 3PL. Orders, inventory, and tracking sync automatically — so you can focus on growing your store.",
+  },
+  {
+    icon: HiOutlineCurrencyDollar,
+    title: "Save Money",
+    description:
+      "Discounted carrier rates, bi-coastal warehouses for zone skipping, and usage-based pricing that scales with your Shopify sales. No minimums. No fixed costs.",
+  },
+  {
+    icon: HiOutlineRocketLaunch,
+    title: "Sell More",
+    description:
+      "Faster delivery speeds and branded tracking turn one-time Shopify buyers into loyal repeat customers — and your best marketing channel.",
   },
 ]
 
@@ -405,7 +523,12 @@ export default function ShopifyFulfillmentPage() {
           </div>
         </section>
 
-        <ShopifyGuarantees />
+        <Guarantees
+          label="Shopify Fulfillment SLAs"
+          heading="Shopify fulfillment guarantees backed by real accountability"
+          description="Most Shopify 3PLs promise fast shipping. Handled puts it in writing — with financial penalties if we don't deliver. That's the difference between a fulfillment vendor and a fulfillment partner."
+          guarantees={shopifyGuarantees}
+        />
 
         {/* Shopify Fulfillment Use Cases */}
         <section className="py-24 lg:py-32">
@@ -476,9 +599,18 @@ export default function ShopifyFulfillmentPage() {
           </div>
         </section>
 
-        <ShopifyIntegrations />
+        <Integrations
+          label="Shopify Integrations"
+          heading="Your Shopify store, connected in minutes"
+          description="Handled integrates natively with Shopify and Shopify Plus. Orders, inventory, and tracking sync automatically — so you can focus on selling, not spreadsheets."
+        />
 
-        <ShopifyOnboarding />
+        <Onboarding
+          label="Shopify Onboarding"
+          heading="Onboard your Shopify fulfillment in 2&nbsp;weeks"
+          description="We make launching Shopify fulfillment predictable and fast. Our dedicated onboarding team handles every detail so your store ships on schedule."
+          steps={shopifyOnboardingSteps}
+        />
 
         {/* FAQ Section - SEO rich */}
         <section className="py-24 lg:py-32 bg-muted/30">
@@ -510,9 +642,19 @@ export default function ShopifyFulfillmentPage() {
           description="From fast-growing DTC startups to high-volume Shopify Plus stores, ecommerce brands trust Handled with their Shopify fulfillment."
         />
 
-        <ShopifyPricing />
+        <Pricing
+          label="Shopify Fulfillment Pricing"
+          heading="Transparent Shopify fulfillment pricing that scales with your store"
+          description="No surprise fees. No minimums. Just clean, usage-based Shopify fulfillment pricing whether you ship 50 or 50,000 orders a month."
+          plans={shopifyPricingPlans}
+        />
 
-        <ShopifyCTA />
+        <CTA
+          label="Get A Quote"
+          heading="Get a Shopify Fulfillment Quote. Get Growing."
+          description="Get a custom quote today and see how Handled turns your Shopify shipping into a growth engine."
+          benefits={shopifyCtaBenefits}
+        />
       </main>
       <Footer />
 

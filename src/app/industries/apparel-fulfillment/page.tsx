@@ -26,12 +26,23 @@ import {
   HiOutlineScissors,
   HiOutlineTag,
 } from "react-icons/hi2"
-import { ApparelOnboarding } from "@/components/sections/onboarding-apparel"
-import { ApparelPricing } from "@/components/sections/pricing-apparel"
-import { ApparelGuarantees } from "@/components/sections/guarantees-apparel"
-import { ApparelCTA } from "@/components/sections/cta-apparel"
-import { ApparelIntegrations } from "@/components/sections/integrations-apparel"
+import { Onboarding } from "@/components/sections/onboarding"
+import { apparelOnboardingSteps } from "@/components/sections/onboarding-data"
+import { Pricing } from "@/components/sections/pricing"
+import type { PricingPlan } from "@/components/sections/pricing"
+import { Guarantees } from "@/components/sections/guarantees"
+import type { GuaranteeItem } from "@/components/sections/guarantees"
+import { CTA } from "@/components/sections/cta"
+import type { CTABenefit } from "@/components/sections/cta"
+import { Integrations } from "@/components/sections/integrations"
 import { Customers } from "@/components/sections/customers"
+import { Warehouse, PackageCheck, Truck, Sparkles } from "lucide-react"
+import {
+  HiOutlineBolt,
+  HiOutlineCurrencyDollar,
+  HiOutlineEnvelope,
+  HiOutlineRocketLaunch,
+} from "react-icons/hi2"
 
 export const metadata: Metadata = {
   title: "Apparel Fulfillment Services | 3PL for Clothing Brands — Handled",
@@ -307,6 +318,113 @@ const faqs = [
     question: "Where are Handled's apparel fulfillment centers located?",
     answer:
       "Handled operates fulfillment centers in Los Angeles, CA and northern New Jersey. This bi-coastal warehouse network allows us to reach 95%+ of US customers within 2 business days via ground shipping. Both facilities are equipped for apparel-specific storage, including garment racks, climate-appropriate environments, and organized size-color shelving systems.",
+  },
+]
+
+const apparelGuarantees: GuaranteeItem[] = [
+  {
+    icon: HiOutlineClock,
+    title: "Same-Day Apparel Shipping",
+    description:
+      "Every clothing order received by 12PM local time ships the same day — backed by a financial SLA. Fast delivery reduces cart abandonment and keeps your fashion brand competitive.",
+    metric: "100%",
+    metricLabel: "same-day shipping guarantee",
+  },
+  {
+    icon: HiOutlineShieldCheck,
+    title: "Size & Color Accuracy",
+    description:
+      "Barcode-verified picking ensures the right size, color, and style ships on every apparel order. In fashion, a wrong variant means a guaranteed return — our accuracy prevents it.",
+    metric: "99.9%",
+    metricLabel: "apparel pick accuracy",
+  },
+  {
+    icon: HiOutlineArrowPath,
+    title: "Same-Day Returns Restock",
+    description:
+      "Returned garments are inspected, sorted, and restocked the same day they arrive — getting popular sizes back on the shelf fast and minimizing lost revenue from out-of-stock variants.",
+    metric: "Same-day",
+    metricLabel: "returns restock guarantee",
+  },
+]
+
+const apparelPricingPlans: PricingPlan[] = [
+  {
+    name: "Storage",
+    icon: Warehouse,
+    description:
+      "Your apparel inventory is stored with size/color/style organization for maximum picking efficiency. Monthly pallet-based pricing scales with your catalog.",
+    target: "Apparel Warehousing:",
+    features: [
+      "Size/color variant organization",
+      "Garment rack & shelf storage",
+      "Real-time inventory sync",
+      "High-SKU management",
+      "Scale up/down monthly",
+    ],
+  },
+  {
+    name: "Fulfillment",
+    icon: PackageCheck,
+    description:
+      "Every clothing order is picked with barcode verification to ensure the right size, color, and style. Per-order pricing grows only when your sales do.",
+    target: "Order Processing:",
+    features: [
+      "Barcode-verified pick & pack",
+      "Size/color accuracy guarantee",
+      "Same-day dispatch",
+      "Garment-safe handling",
+      "Flash sale scalability",
+    ],
+  },
+  {
+    name: "Shipping",
+    icon: Truck,
+    description:
+      "We optimize every apparel order for speed and cost. Per-shipment pricing based on carrier, service level, and package dimensions.",
+    target: "Apparel Shipping:",
+    features: [
+      "Discounted carrier rates",
+      "2-day ground nationwide",
+      "Poly mailer optimization",
+      "Auto tracking updates",
+      "B2B pallet shipping",
+    ],
+  },
+  {
+    name: "Projects",
+    icon: Sparkles,
+    description:
+      "From seasonal collection launches to branded packaging and wholesale prep, per-project pricing covers your fashion brand's custom needs.",
+    target: "Custom Workflows:",
+    features: [
+      "Branded poly mailers & tissue",
+      "Garment bag packaging",
+      "Hang tag & label application",
+      "Apparel returns processing",
+      "Retail-ready wholesale prep",
+    ],
+  },
+]
+
+const apparelCtaBenefits: CTABenefit[] = [
+  {
+    icon: HiOutlineClock,
+    title: "Save Time",
+    description:
+      "No more juggling size-color matrices and return labels. We handle the busywork — so you can get back to designing your next collection.",
+  },
+  {
+    icon: HiOutlineCurrencyDollar,
+    title: "Save Money",
+    description:
+      "Smarter shipping with poly mailers over boxes, fewer return-related support calls, and pricing that flexes with your apparel brand. No minimums. No fixed costs.",
+  },
+  {
+    icon: HiOutlineRocketLaunch,
+    title: "Sell More",
+    description:
+      "With 2-day delivery and a branded unboxing experience, we'll turn browsers into loyal clothing customers — and customers into brand ambassadors.",
   },
 ]
 
@@ -605,7 +723,12 @@ export default function ApparelFulfillmentPage() {
           </div>
         </section>
 
-        <ApparelGuarantees />
+        <Guarantees
+          label="Apparel Fulfillment SLAs"
+          heading="Apparel fulfillment guarantees backed by real accountability"
+          description="In apparel, a wrong size or late delivery means a guaranteed return. Handled is one of the only clothing 3PLs that backs every SLA with financial accountability."
+          guarantees={apparelGuarantees}
+        />
 
         {/* DTC vs B2B Fulfillment */}
         <section className="py-24 lg:py-32">
@@ -673,9 +796,18 @@ export default function ApparelFulfillmentPage() {
           </div>
         </section>
 
-        <ApparelIntegrations />
+        <Integrations
+          label="Apparel Integrations"
+          heading="Connect your clothing brand in under 24 hours"
+          description="Handled integrates with every platform apparel brands sell on. Orders, inventory, size-color matrices, and tracking sync in real time."
+        />
 
-        <ApparelOnboarding />
+        <Onboarding
+          label="Apparel Onboarding"
+          heading="Onboard your apparel fulfillment in 2&nbsp;weeks"
+          description="We make launching clothing fulfillment predictable and fast — with high-SKU variant management, garment-safe handling, and branded packaging configured from the start."
+          steps={apparelOnboardingSteps}
+        />
 
         {/* FAQ Section */}
         <section className="py-24 lg:py-32 bg-muted/30">
@@ -707,9 +839,19 @@ export default function ApparelFulfillmentPage() {
           description="From streetwear startups to established fashion labels, apparel brands trust Handled with their clothing fulfillment and logistics."
         />
 
-        <ApparelPricing />
+        <Pricing
+          label="Apparel Fulfillment Pricing"
+          heading="Transparent apparel fulfillment pricing built for clothing brands"
+          description="No surprise fees. No minimums. Usage-based pricing with high-SKU management, garment-safe handling, and branded packaging included."
+          plans={apparelPricingPlans}
+        />
 
-        <ApparelCTA />
+        <CTA
+          label="Get A Quote"
+          heading="Get an Apparel Fulfillment Quote. Get Growing."
+          description="Get a custom quote today and see how Handled turns shipping into growth for your clothing brand."
+          benefits={apparelCtaBenefits}
+        />
       </main>
       <Footer />
 
