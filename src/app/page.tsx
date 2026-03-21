@@ -4,7 +4,6 @@ import { Services } from "@/components/sections/services"
 import { Platform } from "@/components/sections/platform"
 import { IntegrationsFloating } from "@/components/sections/integrations-floating"
 import { OnboardingTimeline } from "@/components/sections/onboarding-timeline"
-import { shopifyOnboardingData } from "@/components/sections/onboarding-data"
 import { Guarantees, defaultGuarantees } from "@/components/sections/guarantees"
 import { Pricing3 } from "@/components/sections/pricing-3"
 import type { Pricing3Plan } from "@/components/sections/pricing-3"
@@ -75,7 +74,32 @@ export default function Home() {
           label="Onboarding"
           heading="Onboard your Shopify fulfillment in 2&nbsp;weeks"
           description="We make launching Shopify fulfillment predictable and fast."
-          data={shopifyOnboardingData}
+          steps={[
+            {
+              description: "We connect your Shopify store, sync your inventory, and build Shopify Flow automations so fulfillment runs on autopilot. From the moment you go live, your ops team can focus on growth, not logistics.",
+              bullets: [
+                "Real-time Shopify orders, inventory, and tracking eliminate busywork",
+                "Shopify Flow automations reduce manual processes",
+                "Self-service returns portal handles refunds and exchanges seamlessly",
+              ],
+            },
+            {
+              description: "From day one, we configure real-time delivery info and order cutoffs in your Shopify checkout so your customers know exactly when to expect their order. Our same-day shipping promise goes live the moment you do.",
+              bullets: [
+                "Order-by cutoffs give Shopify shoppers confidence their order ships today",
+                "Real delivery dates reduce 'Where's my order?' support tickets",
+                "Shop Promise badges boost trust, urgency, and conversions",
+              ],
+            },
+            {
+              description: "During onboarding, we work with you to design branded packaging, inserts, and customer communications for your Shopify fulfillment that elevate your unboxing experience. Every shipment becomes a chance to reinforce your brand.",
+              bullets: [
+                "Branded boxes, tissue, inserts, and notes turn Shopify deliveries into lasting impressions",
+                "Personalized tracking emails keep your brand in every inbox",
+                "A branded self-serve returns portal reflects your standards to the very end",
+              ],
+            },
+          ]}
         />
         <Guarantees
           heading="We put our performance in writing"

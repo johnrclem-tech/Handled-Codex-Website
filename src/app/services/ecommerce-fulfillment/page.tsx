@@ -28,7 +28,6 @@ import {
 } from "react-icons/hi2"
 import { SiShopify } from "react-icons/si"
 import { OnboardingTimeline } from "@/components/sections/onboarding-timeline"
-import { ecommerceOnboardingData } from "@/components/sections/onboarding-data"
 import { Pricing3 } from "@/components/sections/pricing-3"
 import type { Pricing3Plan } from "@/components/sections/pricing-3"
 import { Guarantees } from "@/components/sections/guarantees"
@@ -676,7 +675,32 @@ export default function EcommerceFulfillmentPage() {
           label="Ecommerce Onboarding"
           heading="Onboard your ecommerce fulfillment in 2&nbsp;weeks"
           description="We make launching ecommerce fulfillment predictable and fast. Our dedicated onboarding team handles every integration, automation, and branding detail so your store ships on schedule."
-          data={ecommerceOnboardingData}
+          steps={[
+            {
+              description: "We connect your ecommerce platform — Shopify, Amazon, WooCommerce, or any other — sync your inventory, and configure automations so order fulfillment runs on autopilot from the moment you go live.",
+              bullets: [
+                "Real-time order sync, inventory tracking, and automatic tracking updates across all channels",
+                "Automated workflows for order routing, low-stock alerts, and fulfillment rules",
+                "Self-service returns portal handles refunds and exchanges seamlessly",
+              ],
+            },
+            {
+              description: "We configure real-time delivery dates and order cutoffs in your checkout so customers know exactly when to expect their order. Same-day shipping goes live the moment you do.",
+              bullets: [
+                "Order-by cutoffs give online shoppers confidence their order ships today",
+                "Real delivery dates reduce 'Where's my order?' support tickets",
+                "Delivery guarantees boost trust, urgency, and conversions at checkout",
+              ],
+            },
+            {
+              description: "During onboarding, we design branded packaging, inserts, and customer communications that elevate your ecommerce unboxing experience. Every shipment becomes a chance to reinforce your brand.",
+              bullets: [
+                "Custom boxes, tissue, inserts, and notes turn every delivery into a brand moment",
+                "Personalized tracking emails keep your brand in every customer inbox",
+                "A branded self-serve returns portal reflects your standards from purchase to return",
+              ],
+            },
+          ]}
         />
 
         <Pricing3

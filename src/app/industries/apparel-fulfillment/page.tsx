@@ -27,7 +27,6 @@ import {
   HiOutlineTag,
 } from "react-icons/hi2"
 import { OnboardingTimeline } from "@/components/sections/onboarding-timeline"
-import { apparelOnboardingData } from "@/components/sections/onboarding-data"
 import { Pricing3 } from "@/components/sections/pricing-3"
 import type { Pricing3Plan } from "@/components/sections/pricing-3"
 import { Guarantees } from "@/components/sections/guarantees"
@@ -791,7 +790,32 @@ export default function ApparelFulfillmentPage() {
           label="Apparel Onboarding"
           heading="Onboard your apparel fulfillment in 2&nbsp;weeks"
           description="We make launching clothing fulfillment predictable and fast — with high-SKU variant management, garment-safe handling, and branded packaging configured from the start."
-          data={apparelOnboardingData}
+          steps={[
+            {
+              description: "We connect your ecommerce platform, sync your entire apparel catalog — every size, color, and style variant — and configure automations so clothing fulfillment runs on autopilot from day one.",
+              bullets: [
+                "Real-time order sync, size/color variant tracking, and automatic tracking updates",
+                "Automated workflows for restock alerts, seasonal inventory, and order routing",
+                "Self-service returns portal handles the high return rates of fashion ecommerce",
+              ],
+            },
+            {
+              description: "We configure real-time delivery dates and order cutoffs in your checkout so fashion shoppers know exactly when their clothing will arrive. Same-day shipping goes live the moment you do.",
+              bullets: [
+                "Order-by cutoffs give shoppers confidence their apparel order ships today",
+                "Real delivery dates reduce 'Where's my order?' support tickets",
+                "Delivery guarantees boost conversion and reduce cart abandonment for fashion purchases",
+              ],
+            },
+            {
+              description: "During onboarding, we design branded poly mailers, tissue paper, inserts, and customer communications that match the quality of your clothing brand. Every shipment becomes a brand touchpoint.",
+              bullets: [
+                "Custom poly mailers, branded tissue, garment bags, and inserts for every apparel order",
+                "Personalized tracking emails keep your fashion brand in every inbox",
+                "A branded returns portal turns reverse logistics into a seamless brand experience",
+              ],
+            },
+          ]}
         />
 
         <Pricing3

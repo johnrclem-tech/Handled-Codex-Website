@@ -25,7 +25,6 @@ import {
   HiOutlineExclamationTriangle,
 } from "react-icons/hi2"
 import { OnboardingTimeline } from "@/components/sections/onboarding-timeline"
-import { cosmeticsOnboardingData } from "@/components/sections/onboarding-data"
 import { Pricing3 } from "@/components/sections/pricing-3"
 import type { Pricing3Plan } from "@/components/sections/pricing-3"
 import { Guarantees } from "@/components/sections/guarantees"
@@ -731,7 +730,32 @@ export default function CosmeticsFulfillmentPage() {
           label="Beauty Brand Onboarding"
           heading="Onboard your cosmetics fulfillment in 2&nbsp;weeks"
           description="We make launching beauty fulfillment predictable and fast — with climate-controlled storage, lot tracking, and fragile-safe handling configured from day one."
-          data={cosmeticsOnboardingData}
+          steps={[
+            {
+              description: "We connect your ecommerce platform, sync your beauty inventory with lot tracking and expiration dates, and configure automations so cosmetics fulfillment runs on autopilot from day one.",
+              bullets: [
+                "Real-time order sync, inventory with lot tracking, and automatic tracking updates",
+                "Automated workflows for restock alerts, order routing, and quality holds",
+                "Self-service returns portal with quarantine protocols for opened beauty products",
+              ],
+            },
+            {
+              description: "We configure real-time delivery dates and order cutoffs in your checkout so your beauty customers know exactly when their products will arrive. Same-day shipping goes live the moment you do.",
+              bullets: [
+                "Order-by cutoffs give customers confidence their beauty order ships today",
+                "Real delivery dates reduce 'Where's my order?' support tickets",
+                "Delivery guarantees boost trust and conversions for premium beauty purchases",
+              ],
+            },
+            {
+              description: "During onboarding, we design branded packaging, inserts, and customer communications that match the premium feel of your beauty products. Every shipment becomes an Instagram-worthy unboxing moment.",
+              bullets: [
+                "Custom branded boxes, tissue, inserts, and samples elevate every beauty delivery",
+                "Personalized tracking emails keep your beauty brand in every inbox",
+                "A branded returns portal reflects your premium standards from purchase to return",
+              ],
+            },
+          ]}
         />
 
         <Pricing3

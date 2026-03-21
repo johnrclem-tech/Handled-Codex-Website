@@ -28,3 +28,14 @@ Do not use inline Tailwind classes for these elements in new sections.
 - Every section component must accept an optional `bgColor` prop (e.g., `bgColor?: string`) that applies a Tailwind background class to the `<section>` element. This lets each page set a different background color for the same section.
 - Never use the same background color for sections that are adjacent on a page. Alternate between white (no `bgColor`), `bg-muted/30`, `bg-primary` (dark), or other distinct backgrounds so consecutive sections are always visually separated.
 - When importing a shadcn block, replace its inline heading/description font classes (e.g., `text-2xl font-semibold`, `text-muted-foreground text-xl`) with the project's typography utility classes (`section-label`, `section-heading`, `section-description`, etc.) defined in `globals.css`.
+- If a section component uses client-side features (`"use client"`), it must hard-code any non-serializable dependencies (icons, React components) internally and only accept serializable props (strings, numbers, booleans) from pages. This allows SEO pages to remain server components with full Metadata support.
+- For server-rendered sections (Guarantees, CTA, etc.), icon component references can be passed directly from the page file.
+
+## Section Prop Templates
+
+- Every section component in `src/components/sections/` must include a commented-out usage example after its props interface. This comment shows the component name, all required/optional props, and the shape of any data arrays. This serves as a copy-paste template when building new pages.
+
+## SEO Page Data Rules
+
+- When building a new SEO page, define all section props (headings, descriptions, data) directly in the page file. Do not create centralized data files for page-specific content.
+- Each page owns its own content. Reuse section components, not data.
