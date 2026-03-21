@@ -1,3 +1,5 @@
+"use client"
+
 import { Navbar } from "@/components/sections/navbar"
 import { Hero } from "@/components/sections/hero"
 import { Services } from "@/components/sections/services"
@@ -8,6 +10,19 @@ import { IntegrationsDiamond } from "@/components/sections/integrations-diamond"
 import { Onboarding, defaultOnboardingSteps } from "@/components/sections/onboarding"
 import { OnboardingTimeline } from "@/components/sections/onboarding-timeline"
 import type { OnboardingTimelineItem } from "@/components/sections/onboarding-timeline"
+import { IntegrationsUI } from "@/components/ui/integrations-ui"
+import { CheckoutUI } from "@/components/ui/checkout-ui"
+import { BrandingUI } from "@/components/ui/branding-ui"
+import {
+  HiOutlineBolt,
+  HiOutlineArrowPath,
+  HiOutlineClock,
+  HiOutlineTruck,
+  HiOutlineShieldCheck,
+  HiOutlineCube,
+  HiOutlineEnvelope,
+  HiOutlineSwatch,
+} from "react-icons/hi2"
 import { Guarantees, defaultGuarantees } from "@/components/sections/guarantees"
 import { Pricing, defaultPricingPlans } from "@/components/sections/pricing"
 import { Pricing3 } from "@/components/sections/pricing-3"
@@ -67,56 +82,68 @@ const onboardingTimelineData: OnboardingTimelineItem[] = [
   {
     title: "Integrate and automate",
     date: "Week 1",
-    employmentType: "Step 1",
-    period: "Week 1",
-    skills: [
-      "Real-time Shopify sync",
-      "Shopify Flow automations",
-      "Self-service returns portal",
+    stepLabel: "Step 1",
+    description:
+      "We connect your Shopify store, sync your inventory, and build Shopify Flow automations so fulfillment runs on autopilot. From the moment you go live, your ops team can focus on growth, not logistics.",
+    bullets: [
+      {
+        icon: HiOutlineArrowPath,
+        text: "Real-time Shopify orders, inventory, and tracking eliminate busywork",
+      },
+      {
+        icon: HiOutlineBolt,
+        text: "Shopify Flow automations reduce manual processes",
+      },
+      {
+        icon: HiOutlineArrowPath,
+        text: "Self-service returns portal handles refunds and exchanges seamlessly",
+      },
     ],
-    responsibilities: [
-      "We connect your Shopify store, sync your inventory, and build Shopify Flow automations so fulfillment runs on autopilot.",
-      "Real-time Shopify orders, inventory, and tracking eliminate busywork",
-      "Shopify Flow automations reduce manual processes",
-      "Self-service returns portal handles refunds and exchanges seamlessly",
-    ],
-    headerBg: "bg-blue-600",
+    visual: <IntegrationsUI />,
   },
   {
     title: "Make shipping part of the sale",
     date: "Week 1–2",
-    employmentType: "Step 2",
-    period: "Week 1–2",
-    skills: [
-      "Order-by cutoffs",
-      "Real delivery dates",
-      "Shop Promise badges",
+    stepLabel: "Step 2",
+    description:
+      "From day one, we configure real-time delivery info and order cutoffs in your Shopify checkout so your customers know exactly when to expect their order. Our same-day shipping promise goes live the moment you do.",
+    bullets: [
+      {
+        icon: HiOutlineClock,
+        text: "Order-by cutoffs give Shopify shoppers confidence their order ships today",
+      },
+      {
+        icon: HiOutlineTruck,
+        text: "Real delivery dates reduce 'Where's my order?' support tickets",
+      },
+      {
+        icon: HiOutlineShieldCheck,
+        text: "Shop Promise badges boost trust, urgency, and conversions",
+      },
     ],
-    responsibilities: [
-      "We configure real-time delivery info and order cutoffs in your Shopify checkout so customers know exactly when to expect their order.",
-      "Order-by cutoffs give Shopify shoppers confidence their order ships today",
-      "Real delivery dates reduce 'Where's my order?' support tickets",
-      "Shop Promise badges boost trust, urgency, and conversions",
-    ],
-    headerBg: "bg-emerald-600",
+    visual: <CheckoutUI />,
   },
   {
     title: "Brand literally everything",
     date: "Week 2",
-    employmentType: "Step 3",
-    period: "Week 2",
-    skills: [
-      "Branded packaging",
-      "Tracking emails",
-      "Returns portal branding",
+    stepLabel: "Step 3",
+    description:
+      "During onboarding, we work with you to design branded packaging, inserts, and customer communications for your Shopify fulfillment that elevate your unboxing experience. Every shipment becomes a chance to reinforce your brand.",
+    bullets: [
+      {
+        icon: HiOutlineCube,
+        text: "Branded boxes, tissue, inserts, and notes turn Shopify deliveries into lasting impressions",
+      },
+      {
+        icon: HiOutlineEnvelope,
+        text: "Personalized tracking emails keep your brand in every inbox",
+      },
+      {
+        icon: HiOutlineSwatch,
+        text: "A branded self-serve returns portal reflects your standards to the very end",
+      },
     ],
-    responsibilities: [
-      "We work with you to design branded packaging, inserts, and customer communications that elevate your unboxing experience.",
-      "Branded boxes, tissue, inserts, and notes turn Shopify deliveries into lasting impressions",
-      "Personalized tracking emails keep your brand in every inbox",
-      "A branded self-serve returns portal reflects your standards to the very end",
-    ],
-    headerBg: "bg-purple-600",
+    visual: <BrandingUI />,
   },
 ]
 

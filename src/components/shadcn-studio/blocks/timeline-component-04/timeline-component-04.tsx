@@ -1,7 +1,6 @@
 'use client'
 
 import React, { useState } from 'react'
-import { ArrowUpRightIcon } from 'lucide-react'
 import {
   TimelineHorizontal,
   TimelineItemHorizontal,
@@ -10,17 +9,20 @@ import {
   TimelineHeadingHorizontal,
 } from '@/components/ui/timeline-horizontal'
 import { MotionPreset } from '@/components/ui/motion-preset'
-import { CraftButton, CraftButtonLabel, CraftButtonIcon } from '@/components/ui/craft-button'
 import { cn } from '@/lib/utils'
+
+export interface TimelineBullet {
+  icon: React.ComponentType<{ className?: string }>
+  text: string
+}
 
 export interface TimelineItem {
   title: string
   date: string
-  employmentType: string
-  period: string
-  skills: string[]
-  responsibilities: string[]
-  headerBg?: string
+  stepLabel: string
+  description: string
+  bullets: TimelineBullet[]
+  visual?: React.ReactNode
 }
 
 export interface TimelineComponentProps {
@@ -28,8 +30,6 @@ export interface TimelineComponentProps {
   heading: string
   description: string
   bgColor?: string
-  ctaText?: string
-  ctaHref?: string
   data: TimelineItem[]
 }
 
@@ -37,13 +37,10 @@ const TimelineComponent = ({
   heading,
   description,
   bgColor,
-  ctaText = "Get a fulfillment quote",
-  ctaHref = "#get-a-quote",
   data,
 }: TimelineComponentProps) => {
   const [activeIndex, setActiveIndex] = useState(0)
   const activeItem = data[activeIndex]
-  const cardBg = activeItem.headerBg || 'bg-primary'
 
   return (
     <section className={cn('py-8 sm:py-16 lg:py-24', bgColor)}>
@@ -94,95 +91,67 @@ const TimelineComponent = ({
           </TimelineHorizontal>
 
           {/* Card */}
-          <div className={cn('mt-6 flex flex-col items-start gap-4 rounded-3xl p-2.5 md:mt-8.5 lg:mt-11.5 text-primary-foreground', cardBg)}>
-            <div className="flex flex-col items-start pl-4">
-              <MotionPreset
-                key={`title-${activeIndex}`}
-                fade
-                blur
-                slide={{ direction: 'down', offset: 30 }}
-                transition={{ duration: 0.5 }}
-              >
-                <h3 className="text-2xl font-semibold text-primary-foreground">{activeItem.title}</h3>
-              </MotionPreset>
-              <MotionPreset
-                key={`employment-${activeIndex}`}
-                fade
-                blur
-                slide={{ direction: 'down', offset: 30 }}
-                transition={{ duration: 0.5 }}
-                delay={0.2}
-                className="flex items-center gap-3 text-primary-foreground/80"
-              >
-                <p>{activeItem.employmentType}</p>
-                <p>|</p>
-                <p>{activeItem.period}</p>
-              </MotionPreset>
-            </div>
-            <div className={cn('max-w-242.5 space-y-5 rounded-2xl p-5', cardBg)}>
-              <MotionPreset
-                key={`skills-${activeIndex}`}
-                fade
-                blur
-                slide={{ direction: 'down', offset: 30 }}
-                transition={{ duration: 0.5 }}
-                delay={0.4}
-              >
-                <div className="flex flex-wrap items-center gap-3">
-                  {activeItem.skills.map((skill, index) => (
-                    <div
-                      key={index}
-                      className="rounded-full border border-primary-foreground/30 px-3 py-1 text-center text-xs font-medium text-primary-foreground"
-                    >
-                      {skill}
-                    </div>
-                  ))}
-                </div>
-              </MotionPreset>
-              <MotionPreset
-                key={`responsibilities-${activeIndex}`}
-                fade
-                blur
-                slide={{ direction: 'down', offset: 30 }}
-                transition={{ duration: 0.5 }}
-                delay={0.6}
-              >
-                <div className="ml-2 flex flex-col items-start gap-3">
-                  {activeItem.responsibilities.map((responsibility, index) => (
+          <div className="mt-6 w-full rounded-3xl bg-muted p-6 md:mt-8.5 md:p-8 lg:mt-11.5">
+            <MotionPreset
+              key={`step-${activeIndex}`}
+              fade
+              blur
+              slide={{ direction: 'down', offset: 30 }}
+              transition={{ duration: 0.5 }}
+            >
+              <p className="text-sm font-medium text-muted-foreground mb-1">{activeItem.stepLabel} · {activeItem.date}</p>
+              <h3 className="card-title mb-3">{activeItem.title}</h3>
+            </MotionPreset>
+
+            <div className="grid gap-8 lg:grid-cols-2 lg:gap-12">
+              {/* Text content */}
+              <div>
+                <MotionPreset
+                  key={`desc-${activeIndex}`}
+                  fade
+                  blur
+                  slide={{ direction: 'down', offset: 30 }}
+                  transition={{ duration: 0.5 }}
+                  delay={0.2}
+                >
+                  <p className="card-description mb-6">{activeItem.description}</p>
+                </MotionPreset>
+
+                <div className="space-y-4">
+                  {activeItem.bullets.map((bullet, index) => (
                     <MotionPreset
-                      key={`responsibility-${activeIndex}-${index}`}
+                      key={`bullet-${activeIndex}-${index}`}
                       fade
                       blur
                       slide={{ direction: 'down', offset: 30 }}
                       transition={{ duration: 0.3 }}
-                      delay={0.6 + index * 0.2}
+                      delay={0.4 + index * 0.15}
                     >
-                      <div className="flex items-start gap-2 py-1">
-                        <div className="mt-2 size-1.5 shrink-0 rounded-full bg-primary-foreground"></div>
-                        <span className="text-base text-primary-foreground/90">{responsibility}</span>
+                      <div className="flex items-start gap-3">
+                        <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-primary/10">
+                          <bullet.icon className="h-4 w-4 text-primary" />
+                        </div>
+                        <p className="feature-text pt-1">{bullet.text}</p>
                       </div>
                     </MotionPreset>
                   ))}
                 </div>
-              </MotionPreset>
-              <MotionPreset
-                key={`button-${activeIndex}`}
-                className="mt-7"
-                fade
-                blur
-                slide={{ direction: 'down', offset: 30 }}
-                transition={{ duration: 0.5 }}
-                delay={0.8}
-              >
-                <CraftButton size="sm" asChild>
-                  <a href={ctaHref}>
-                    <CraftButtonLabel>{ctaText}</CraftButtonLabel>
-                    <CraftButtonIcon>
-                      <ArrowUpRightIcon className="size-3 stroke-2 transition-transform duration-500 group-hover:rotate-45" />
-                    </CraftButtonIcon>
-                  </a>
-                </CraftButton>
-              </MotionPreset>
+              </div>
+
+              {/* Visual */}
+              {activeItem.visual && (
+                <MotionPreset
+                  key={`visual-${activeIndex}`}
+                  fade
+                  blur
+                  slide={{ direction: 'up', offset: 30 }}
+                  transition={{ duration: 0.5 }}
+                  delay={0.3}
+                  className="flex justify-center"
+                >
+                  {activeItem.visual}
+                </MotionPreset>
+              )}
             </div>
           </div>
         </div>
