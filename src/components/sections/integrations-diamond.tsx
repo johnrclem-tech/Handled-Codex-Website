@@ -46,15 +46,15 @@ const defaultColumns: DiamondColumn[] = [
   {
     icons: [
       { name: "Amazon", icon: FaAmazon, color: "text-[#FF9900]" },
-      { name: "eBay", icon: SiEbay, color: "text-[#E53238]", iconClassName: "h-14 w-auto max-md:h-11" },
+      { name: "eBay", icon: SiEbay, color: "text-[#E53238]", iconClassName: "h-18 w-auto max-md:h-14" },
     ],
     className: "sm:flex-col",
   },
   {
     icons: [
       { name: "WooCommerce", icon: SiWoo, color: "text-[#96588A]" },
-      { name: "FedEx", icon: SiFedex, color: "text-[#4D148C]", iconClassName: "h-14 w-auto max-md:h-11" },
-      { name: "Walmart", icon: SiWalmart, color: "text-[#0071DC]", iconClassName: "h-14 w-auto max-md:h-11" },
+      { name: "FedEx", icon: SiFedex, color: "text-[#4D148C]", iconClassName: "h-18 w-auto max-md:h-14" },
+      { name: "Walmart", icon: SiWalmart, color: "text-[#0071DC]", iconClassName: "h-18 w-auto max-md:h-14" },
     ],
     className: "sm:flex-col",
   },
@@ -67,7 +67,7 @@ const defaultColumns: DiamondColumn[] = [
   },
   {
     icons: [
-      { name: "DHL", icon: SiDhl, color: "text-[#FFCC00]", iconClassName: "h-14 w-auto max-md:h-11" },
+      { name: "DHL", icon: SiDhl, color: "text-[#FFCC00]", iconClassName: "h-18 w-auto max-md:h-14" },
     ],
   },
 ]
