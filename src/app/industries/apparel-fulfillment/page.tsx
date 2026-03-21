@@ -26,8 +26,8 @@ import {
   HiOutlineScissors,
   HiOutlineTag,
 } from "react-icons/hi2"
-import { Onboarding } from "@/components/sections/onboarding"
-import { apparelOnboardingSteps } from "@/components/sections/onboarding-data"
+import { OnboardingTimeline } from "@/components/sections/onboarding-timeline"
+import { apparelOnboardingData } from "@/components/sections/onboarding-data"
 import { Pricing3 } from "@/components/sections/pricing-3"
 import type { Pricing3Plan } from "@/components/sections/pricing-3"
 import { Guarantees } from "@/components/sections/guarantees"
@@ -787,11 +787,11 @@ export default function ApparelFulfillmentPage() {
           bgColor="bg-muted/30"
         />
 
-        <Onboarding
+        <OnboardingTimeline
           label="Apparel Onboarding"
           heading="Onboard your apparel fulfillment in 2&nbsp;weeks"
           description="We make launching clothing fulfillment predictable and fast — with high-SKU variant management, garment-safe handling, and branded packaging configured from the start."
-          steps={apparelOnboardingSteps}
+          data={apparelOnboardingData}
         />
 
         <Pricing3

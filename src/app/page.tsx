@@ -3,7 +3,8 @@ import { Hero } from "@/components/sections/hero"
 import { Services } from "@/components/sections/services"
 import { Platform } from "@/components/sections/platform"
 import { IntegrationsFloating } from "@/components/sections/integrations-floating"
-import { Onboarding, defaultOnboardingSteps } from "@/components/sections/onboarding"
+import { OnboardingTimeline } from "@/components/sections/onboarding-timeline"
+import { shopifyOnboardingData } from "@/components/sections/onboarding-data"
 import { Guarantees, defaultGuarantees } from "@/components/sections/guarantees"
 import { Pricing3 } from "@/components/sections/pricing-3"
 import type { Pricing3Plan } from "@/components/sections/pricing-3"
@@ -70,10 +71,11 @@ export default function Home() {
           heading="Connect your store in under 24 hours"
           description="Handled integrates seamlessly with the platforms and tools you already use. One-click connections to Shopify, Amazon, ShipStation, and dozens more."
         />
-        <Onboarding
+        <OnboardingTimeline
+          label="Onboarding"
           heading="Onboard your Shopify fulfillment in 2&nbsp;weeks"
           description="We make launching Shopify fulfillment predictable and fast."
-          steps={defaultOnboardingSteps}
+          data={shopifyOnboardingData}
         />
         <Guarantees
           heading="We put our performance in writing"

@@ -7,7 +7,6 @@ import { Platform } from "@/components/sections/platform"
 import { IntegrationsFloating } from "@/components/sections/integrations-floating"
 import { IntegrationsCarousel } from "@/components/sections/integrations-carousel"
 import { IntegrationsDiamond } from "@/components/sections/integrations-diamond"
-import { Onboarding, defaultOnboardingSteps } from "@/components/sections/onboarding"
 import { OnboardingTimeline } from "@/components/sections/onboarding-timeline"
 import type { OnboardingTimelineItem } from "@/components/sections/onboarding-timeline"
 import { OnboardingScrolling } from "@/components/sections/onboarding-scrolling"
@@ -26,7 +25,6 @@ import {
   HiOutlineSwatch,
 } from "react-icons/hi2"
 import { Guarantees, defaultGuarantees } from "@/components/sections/guarantees"
-import { Pricing, defaultPricingPlans } from "@/components/sections/pricing"
 import { Pricing3 } from "@/components/sections/pricing-3"
 import type { Pricing3Plan } from "@/components/sections/pricing-3"
 import { TestimonialsCustomers } from "@/components/sections/testimonials-customers"
@@ -253,17 +251,11 @@ export default function SectionTestPage() {
 
         {/* 7. Onboarding Timeline — bg: bg-muted/30 */}
         <OnboardingTimeline
+          label="Onboarding"
           heading="Onboard your Shopify fulfillment in 2 weeks"
           description="We make launching Shopify fulfillment predictable and fast."
           bgColor="bg-muted/30"
           data={onboardingTimelineData}
-        />
-
-        {/* 8. Onboarding — bg: white */}
-        <Onboarding
-          heading="Onboard your Shopify fulfillment in 2&nbsp;weeks"
-          description="We make launching Shopify fulfillment predictable and fast."
-          steps={defaultOnboardingSteps}
         />
 
         {/* 8b. Onboarding Scrolling — bg: bg-muted/30 */}
@@ -282,14 +274,7 @@ export default function SectionTestPage() {
           guarantees={defaultGuarantees}
         />
 
-        {/* 10. Pricing (card layout) — bg: white */}
-        <Pricing
-          heading="Simple, transparent pricing"
-          description="No surprise fees. No minimums. Just clean, usage-based pricing whether you ship 50 or 50,000 orders a month."
-          plans={defaultPricingPlans}
-        />
-
-        {/* 11. Pricing 3 (column layout) — bg: bg-muted (built-in) */}
+        {/* 10. Pricing 3 (column layout) — bg: bg-muted (built-in) */}
         <Pricing3
           label="Pricing"
           heading="Transparent pricing that scales with you"

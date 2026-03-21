@@ -27,8 +27,8 @@ import {
   HiOutlineCircleStack,
 } from "react-icons/hi2"
 import { SiShopify } from "react-icons/si"
-import { Onboarding } from "@/components/sections/onboarding"
-import { ecommerceOnboardingSteps } from "@/components/sections/onboarding-data"
+import { OnboardingTimeline } from "@/components/sections/onboarding-timeline"
+import { ecommerceOnboardingData } from "@/components/sections/onboarding-data"
 import { Pricing3 } from "@/components/sections/pricing-3"
 import type { Pricing3Plan } from "@/components/sections/pricing-3"
 import { Guarantees } from "@/components/sections/guarantees"
@@ -672,11 +672,11 @@ export default function EcommerceFulfillmentPage() {
           </div>
         </section>
 
-        <Onboarding
+        <OnboardingTimeline
           label="Ecommerce Onboarding"
           heading="Onboard your ecommerce fulfillment in 2&nbsp;weeks"
           description="We make launching ecommerce fulfillment predictable and fast. Our dedicated onboarding team handles every integration, automation, and branding detail so your store ships on schedule."
-          steps={ecommerceOnboardingSteps}
+          data={ecommerceOnboardingData}
         />
 
         <Pricing3

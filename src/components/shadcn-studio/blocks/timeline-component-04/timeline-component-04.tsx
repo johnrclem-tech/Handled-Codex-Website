@@ -34,6 +34,7 @@ export interface TimelineComponentProps {
 }
 
 const TimelineComponent = ({
+  label,
   heading,
   description,
   bgColor,
@@ -47,6 +48,7 @@ const TimelineComponent = ({
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="mb-12 space-y-4 text-center sm:mb-16 lg:mb-24">
+          {label && <p className="section-label">{label}</p>}
           <h2 className="section-heading">{heading}</h2>
           <p className="section-description mx-auto max-w-4xl">
             {description}

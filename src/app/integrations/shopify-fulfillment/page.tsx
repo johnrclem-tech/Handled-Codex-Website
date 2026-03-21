@@ -23,8 +23,8 @@ import {
   HiOutlineSparkles,
 } from "react-icons/hi2"
 import { SiShopify } from "react-icons/si"
-import { Onboarding } from "@/components/sections/onboarding"
-import { shopifyOnboardingSteps } from "@/components/sections/onboarding-data"
+import { OnboardingTimeline } from "@/components/sections/onboarding-timeline"
+import { shopifyOnboardingData } from "@/components/sections/onboarding-data"
 import { Pricing3 } from "@/components/sections/pricing-3"
 import type { Pricing3Plan } from "@/components/sections/pricing-3"
 import { Guarantees } from "@/components/sections/guarantees"
@@ -589,11 +589,11 @@ export default function ShopifyFulfillmentPage() {
           description="Handled integrates natively with Shopify and Shopify Plus. Orders, inventory, and tracking sync automatically — so you can focus on selling, not spreadsheets."
         />
 
-        <Onboarding
+        <OnboardingTimeline
           label="Shopify Onboarding"
           heading="Onboard your Shopify fulfillment in 2&nbsp;weeks"
           description="We make launching Shopify fulfillment predictable and fast. Our dedicated onboarding team handles every detail so your store ships on schedule."
-          steps={shopifyOnboardingSteps}
+          data={shopifyOnboardingData}
         />
 
         <Pricing3

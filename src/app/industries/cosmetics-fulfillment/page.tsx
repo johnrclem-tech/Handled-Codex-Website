@@ -24,8 +24,8 @@ import {
   HiOutlineClipboardDocumentCheck,
   HiOutlineExclamationTriangle,
 } from "react-icons/hi2"
-import { Onboarding } from "@/components/sections/onboarding"
-import { cosmeticsOnboardingSteps } from "@/components/sections/onboarding-data"
+import { OnboardingTimeline } from "@/components/sections/onboarding-timeline"
+import { cosmeticsOnboardingData } from "@/components/sections/onboarding-data"
 import { Pricing3 } from "@/components/sections/pricing-3"
 import type { Pricing3Plan } from "@/components/sections/pricing-3"
 import { Guarantees } from "@/components/sections/guarantees"
@@ -727,11 +727,11 @@ export default function CosmeticsFulfillmentPage() {
           bgColor="bg-muted/30"
         />
 
-        <Onboarding
+        <OnboardingTimeline
           label="Beauty Brand Onboarding"
           heading="Onboard your cosmetics fulfillment in 2&nbsp;weeks"
           description="We make launching beauty fulfillment predictable and fast — with climate-controlled storage, lot tracking, and fragile-safe handling configured from day one."
-          steps={cosmeticsOnboardingSteps}
+          data={cosmeticsOnboardingData}
         />
 
         <Pricing3
