@@ -57,6 +57,7 @@ const TimelineComponent = ({
         <div className="mx-auto flex flex-col items-center">
           <TimelineHorizontal
             className="w-full justify-center max-xl:max-w-9/10 max-sm:flex-row"
+            positions="bottom"
             defaultActiveIndex={0}
             animated={true}
             autoPlay={true}
@@ -92,20 +93,19 @@ const TimelineComponent = ({
 
           {/* Card */}
           <div className="mt-6 w-full rounded-3xl bg-muted p-6 md:mt-8.5 md:p-8 lg:mt-11.5">
-            <MotionPreset
-              key={`step-${activeIndex}`}
-              fade
-              blur
-              slide={{ direction: 'down', offset: 30 }}
-              transition={{ duration: 0.5 }}
-            >
-              <p className="text-sm font-medium text-muted-foreground mb-1">{activeItem.stepLabel} · {activeItem.date}</p>
-              <h3 className="card-title mb-3">{activeItem.title}</h3>
-            </MotionPreset>
-
             <div className="grid gap-8 lg:grid-cols-2 lg:gap-12 lg:items-center">
               {/* Text content */}
               <div>
+                <MotionPreset
+                  key={`step-${activeIndex}`}
+                  fade
+                  blur
+                  slide={{ direction: 'down', offset: 30 }}
+                  transition={{ duration: 0.5 }}
+                >
+                  <p className="text-sm font-medium text-muted-foreground mb-1">{activeItem.stepLabel} · {activeItem.date}</p>
+                  <h3 className="card-title mb-3">{activeItem.title}</h3>
+                </MotionPreset>
                 <MotionPreset
                   key={`desc-${activeIndex}`}
                   fade
