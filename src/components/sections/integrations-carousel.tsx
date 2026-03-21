@@ -110,7 +110,7 @@ export function IntegrationsCarousel({
               {topRow.map((logo, index) => (
                 <Card key={index} className="rounded-lg border-none shadow-md">
                   <CardContent className="flex flex-col items-center px-9 py-6">
-                    <logo.icon className={cn("h-12 w-12", logo.color)} />
+                    <logo.icon className={cn("max-h-12 max-w-16 h-12 w-auto", logo.color)} />
                   </CardContent>
                 </Card>
               ))}
@@ -121,7 +121,7 @@ export function IntegrationsCarousel({
               {bottomRow.map((logo, index) => (
                 <Card key={index} className="rounded-lg border-none shadow-md">
                   <CardContent className="flex flex-col items-center px-9 py-6">
-                    <logo.icon className={cn("h-12 w-12", logo.color)} />
+                    <logo.icon className={cn("max-h-12 max-w-16 h-12 w-auto", logo.color)} />
                   </CardContent>
                 </Card>
               ))}
