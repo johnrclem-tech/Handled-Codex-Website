@@ -29,6 +29,7 @@ export interface IntegrationLogo {
   icon: React.ComponentType<{ className?: string }>
   color: string
   iconClassName?: string
+  cardClassName?: string
 }
 
 export interface IntegrationsCarouselProps {
@@ -49,14 +50,14 @@ export const defaultCarouselIntegrations: IntegrationLogo[] = [
   { name: "Squarespace", icon: SiSquarespace, color: "text-[#000000]" },
   { name: "Square", icon: SiSquare, color: "text-[#006AFF]" },
   { name: "Etsy", icon: SiEtsy, color: "text-[#F1641E]" },
-  { name: "eBay", icon: SiEbay, color: "text-[#E53238]", iconClassName: "h-18 w-auto" },
-  { name: "Walmart", icon: SiWalmart, color: "text-[#0071DC]", iconClassName: "h-18 w-auto" },
+  { name: "eBay", icon: SiEbay, color: "text-[#E53238]", iconClassName: "h-18 w-auto", cardClassName: "px-4 py-6" },
+  { name: "Walmart", icon: SiWalmart, color: "text-[#0071DC]", iconClassName: "h-18 w-auto", cardClassName: "px-4 py-6" },
   { name: "Target", icon: SiTarget, color: "text-[#CC0000]" },
   { name: "TikTok Shop", icon: SiTiktok, color: "text-[#000000]" },
   { name: "USPS", icon: SiUsps, color: "text-[#333366]" },
   { name: "UPS", icon: SiUps, color: "text-[#351C15]" },
-  { name: "FedEx", icon: SiFedex, color: "text-[#4D148C]", iconClassName: "h-18 w-auto" },
-  { name: "DHL", icon: SiDhl, color: "text-[#FFCC00]", iconClassName: "h-18 w-auto" },
+  { name: "FedEx", icon: SiFedex, color: "text-[#4D148C]", iconClassName: "h-18 w-auto", cardClassName: "px-4 py-6" },
+  { name: "DHL", icon: SiDhl, color: "text-[#FFCC00]", iconClassName: "h-18 w-auto", cardClassName: "px-4 py-6" },
   { name: "Royal Mail", icon: HiOutlineTruck, color: "text-[#E2001A]" },
   { name: "AfterShip", icon: SiAftership, color: "text-[#9B59B6]" },
 ]
@@ -110,7 +111,7 @@ export function IntegrationsCarousel({
             <Marquee pauseOnHover duration={20} gap={1.5}>
               {topRow.map((logo, index) => (
                 <Card key={index} className="rounded-lg border-none shadow-md">
-                  <CardContent className="flex flex-col items-center px-9 py-6">
+                  <CardContent className={cn("flex h-24 items-center justify-center px-9 py-6", logo.cardClassName)}>
                     <logo.icon className={cn(logo.iconClassName || "max-h-12 max-w-24 h-12 w-auto", logo.color)} />
                   </CardContent>
                 </Card>
@@ -121,7 +122,7 @@ export function IntegrationsCarousel({
             <Marquee pauseOnHover duration={20} gap={1.5} reverse>
               {bottomRow.map((logo, index) => (
                 <Card key={index} className="rounded-lg border-none shadow-md">
-                  <CardContent className="flex flex-col items-center px-9 py-6">
+                  <CardContent className={cn("flex h-24 items-center justify-center px-9 py-6", logo.cardClassName)}>
                     <logo.icon className={cn(logo.iconClassName || "max-h-12 max-w-24 h-12 w-auto", logo.color)} />
                   </CardContent>
                 </Card>
