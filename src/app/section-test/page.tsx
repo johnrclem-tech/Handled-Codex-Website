@@ -10,6 +10,8 @@ import { IntegrationsDiamond } from "@/components/sections/integrations-diamond"
 import { Onboarding, defaultOnboardingSteps } from "@/components/sections/onboarding"
 import { OnboardingTimeline } from "@/components/sections/onboarding-timeline"
 import type { OnboardingTimelineItem } from "@/components/sections/onboarding-timeline"
+import { OnboardingScrolling } from "@/components/sections/onboarding-scrolling"
+import type { OnboardingScrollingStep } from "@/components/sections/onboarding-scrolling"
 import { IntegrationsUI } from "@/components/ui/integrations-ui"
 import { CheckoutUI } from "@/components/ui/checkout-ui"
 import { BrandingUI } from "@/components/ui/branding-ui"
@@ -147,6 +149,75 @@ const onboardingTimelineData: OnboardingTimelineItem[] = [
   },
 ]
 
+const onboardingScrollingData: OnboardingScrollingStep[] = [
+  {
+    stepLabel: "Step 1",
+    badge: "Week 1",
+    title: "Integrate and automate",
+    description:
+      "We connect your Shopify store, sync your inventory, and build Shopify Flow automations so fulfillment runs on autopilot. From the moment you go live, your ops team can focus on growth, not logistics.",
+    bullets: [
+      {
+        icon: HiOutlineArrowPath,
+        text: "Real-time Shopify orders, inventory, and tracking eliminate busywork",
+      },
+      {
+        icon: HiOutlineBolt,
+        text: "Shopify Flow automations reduce manual processes",
+      },
+      {
+        icon: HiOutlineArrowPath,
+        text: "Self-service returns portal handles refunds and exchanges seamlessly",
+      },
+    ],
+    visual: <IntegrationsUI />,
+  },
+  {
+    stepLabel: "Step 2",
+    badge: "Week 1–2",
+    title: "Make shipping part of the sale",
+    description:
+      "From day one, we configure real-time delivery info and order cutoffs in your Shopify checkout so your customers know exactly when to expect their order. Our same-day shipping promise goes live the moment you do.",
+    bullets: [
+      {
+        icon: HiOutlineClock,
+        text: "Order-by cutoffs give Shopify shoppers confidence their order ships today",
+      },
+      {
+        icon: HiOutlineTruck,
+        text: "Real delivery dates reduce 'Where's my order?' support tickets",
+      },
+      {
+        icon: HiOutlineShieldCheck,
+        text: "Shop Promise badges boost trust, urgency, and conversions",
+      },
+    ],
+    visual: <CheckoutUI />,
+  },
+  {
+    stepLabel: "Step 3",
+    badge: "Week 2",
+    title: "Brand literally everything",
+    description:
+      "During onboarding, we work with you to design branded packaging, inserts, and customer communications for your Shopify fulfillment that elevate your unboxing experience. Every shipment becomes a chance to reinforce your brand.",
+    bullets: [
+      {
+        icon: HiOutlineCube,
+        text: "Branded boxes, tissue, inserts, and notes turn Shopify deliveries into lasting impressions",
+      },
+      {
+        icon: HiOutlineEnvelope,
+        text: "Personalized tracking emails keep your brand in every inbox",
+      },
+      {
+        icon: HiOutlineSwatch,
+        text: "A branded self-serve returns portal reflects your standards to the very end",
+      },
+    ],
+    visual: <BrandingUI />,
+  },
+]
+
 export default function SectionTestPage() {
   return (
     <>
@@ -193,6 +264,15 @@ export default function SectionTestPage() {
           heading="Onboard your Shopify fulfillment in 2&nbsp;weeks"
           description="We make launching Shopify fulfillment predictable and fast."
           steps={defaultOnboardingSteps}
+        />
+
+        {/* 8b. Onboarding Scrolling — bg: bg-muted/30 */}
+        <OnboardingScrolling
+          label="Onboarding"
+          heading="Onboard your Shopify fulfillment in 2 weeks"
+          description="We make launching Shopify fulfillment predictable and fast."
+          bgColor="bg-muted/30"
+          features={onboardingScrollingData}
         />
 
         {/* 9. Guarantees — bg: bg-primary (built-in dark) */}
