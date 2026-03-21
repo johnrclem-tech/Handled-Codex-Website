@@ -56,7 +56,7 @@ const TimelineComponent = ({
         {/* Horizontal Timeline */}
         <div className="mx-auto flex flex-col items-center">
           <TimelineHorizontal
-            className="w-full justify-center max-xl:max-w-9/10 max-sm:flex-row"
+            className="w-full max-sm:flex-row"
             positions="bottom"
             defaultActiveIndex={0}
             animated={true}
@@ -68,7 +68,7 @@ const TimelineComponent = ({
               <TimelineItemHorizontal
                 key={index}
                 headingPosition="top"
-                className={`items-start max-sm:gap-4 md:max-xl:flex-1 ${index !== data.length - 1 ? 'xl:w-60' : ''}`}
+                className={`items-start max-sm:gap-4 ${index !== data.length - 1 ? 'flex-1' : ''}`}
               >
                 <div className="mb-3 flex flex-col max-md:hidden">
                   <TimelineHeadingHorizontal variant="primary" className="lg:text-lg">
