@@ -80,12 +80,14 @@ const TimelineComponent = ({
                   <div className="flex-1" />
                   <TimelineDotHorizontal
                     status="custom"
-                    className="group [&:not([data-active=true])]:bg-muted [&[data-active=true]]:bg-primary/10 size-4.5 shrink-0 rounded-full"
+                    className="group z-10 [&:not([data-active=true])]:bg-muted [&[data-active=true]]:bg-primary/10 size-4.5 shrink-0 rounded-full"
                   >
                     <span className="bg-muted-foreground group-data-[active=true]:bg-primary size-3 rounded-full"></span>
                   </TimelineDotHorizontal>
                   {index < data.length - 1 ? (
-                    <TimelineLineHorizontal className="h-0.5 flex-1 max-md:w-40 max-sm:w-20" />
+                    <div className="relative flex-1">
+                      <TimelineLineHorizontal className="absolute top-1/2 left-0 h-0.5 w-[200%] xl:w-[200%] -translate-y-1/2" />
+                    </div>
                   ) : (
                     <div className="flex-1" />
                   )}
