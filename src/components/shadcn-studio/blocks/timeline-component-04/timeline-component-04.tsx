@@ -54,7 +54,7 @@ const TimelineComponent = ({
         </div>
 
         {/* Horizontal Timeline */}
-        <div className="mx-auto flex max-w-[990px] flex-col items-center">
+        <div className="mx-auto flex flex-col items-center">
           <TimelineHorizontal
             className="w-full justify-center max-xl:max-w-9/10 max-sm:flex-row"
             defaultActiveIndex={0}
@@ -103,7 +103,7 @@ const TimelineComponent = ({
               <h3 className="card-title mb-3">{activeItem.title}</h3>
             </MotionPreset>
 
-            <div className="grid gap-8 lg:grid-cols-2 lg:gap-12">
+            <div className="grid gap-8 lg:grid-cols-2 lg:gap-12 lg:items-center">
               {/* Text content */}
               <div>
                 <MotionPreset
