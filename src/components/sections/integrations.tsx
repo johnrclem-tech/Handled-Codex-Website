@@ -1,7 +1,12 @@
 import React from "react"
+import * as motion from "motion/react-client"
 import Link from "next/link"
+import { ArrowRightIcon } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { HiOutlineArrowRight } from "react-icons/hi2"
+import { BounceButton } from "@/components/ui/bounce-button"
+import { MotionPreset } from "@/components/ui/motion-preset"
+import { Magnetic } from "@/components/ui/magnet-effect"
+import { cn } from "@/lib/utils"
 import {
   SiShopify,
   SiWoo,
@@ -29,13 +34,20 @@ export interface IntegrationItem {
   color: string
 }
 
+export interface IntegrationIconMotion {
+  integration: IntegrationItem
+  duration: number
+  className: string
+  sizeClass: string
+}
+
 export interface IntegrationsProps {
   label?: string
   heading: string
   description: string
   ctaText?: string
   ctaHref?: string
-  integrations?: IntegrationItem[]
+  integrations?: IntegrationIconMotion[]
 }
 
 export const defaultIntegrations: IntegrationItem[] = [
@@ -60,15 +72,75 @@ export const defaultIntegrations: IntegrationItem[] = [
   { name: "AfterShip", icon: SiAftership, color: "text-[#9B59B6]" },
 ]
 
-function IntegrationIcon({ integration }: { integration: IntegrationItem }) {
+const defaultIconMotion: IntegrationIconMotion[] = [
+  // Left icons
+  {
+    integration: { name: "Shopify", icon: SiShopify, color: "text-[#96BF48]" },
+    duration: 0.8,
+    className: "absolute -top-14 left-50",
+    sizeClass: "size-16",
+  },
+  {
+    integration: { name: "Amazon", icon: FaAmazon, color: "text-[#FF9900]" },
+    duration: 0.5,
+    className: "absolute top-0 left-8",
+    sizeClass: "size-20.5",
+  },
+  {
+    integration: { name: "WooCommerce", icon: SiWoo, color: "text-[#96588A]" },
+    duration: 1,
+    className: "absolute top-40 left-42",
+    sizeClass: "size-16",
+  },
+  {
+    integration: { name: "BigCommerce", icon: SiBigcommerce, color: "text-[#121118]" },
+    duration: 0.6,
+    className: "absolute bottom-60 -left-1",
+    sizeClass: "size-13",
+  },
+  // Right icons
+  {
+    integration: { name: "FedEx", icon: SiFedex, color: "text-[#4D148C]" },
+    duration: 0.8,
+    className: "absolute -top-14 right-50",
+    sizeClass: "size-16",
+  },
+  {
+    integration: { name: "UPS", icon: SiUps, color: "text-[#351C15]" },
+    duration: 1,
+    className: "absolute top-0 right-8",
+    sizeClass: "size-20.5",
+  },
+  {
+    integration: { name: "USPS", icon: SiUsps, color: "text-[#333366]" },
+    duration: 0.5,
+    className: "absolute top-40 right-42",
+    sizeClass: "size-16",
+  },
+  {
+    integration: { name: "DHL", icon: SiDhl, color: "text-[#FFCC00]" },
+    duration: 0.7,
+    className: "absolute -right-1 bottom-60",
+    sizeClass: "size-13",
+  },
+]
+
+function IntegrationIconBubble({
+  integration,
+  sizeClass,
+}: {
+  integration: IntegrationItem
+  sizeClass: string
+}) {
   return (
     <div
-      className="flex items-center justify-center w-20 h-20 rounded-xl border border-border/60 bg-card hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 shrink-0"
+      className={cn(
+        "flex items-center justify-center rounded-full border border-border bg-card shadow-md",
+        sizeClass
+      )}
       title={integration.name}
     >
-      <integration.icon
-        className={`h-12 w-12 ${integration.color} transition-transform`}
-      />
+      <integration.icon className={cn("h-1/2 w-1/2", integration.color)} />
     </div>
   )
 }
@@ -79,40 +151,81 @@ export function Integrations({
   description,
   ctaText = "Get a fulfillment quote",
   ctaHref = "#get-a-quote",
-  integrations = defaultIntegrations,
+  integrations = defaultIconMotion,
 }: IntegrationsProps) {
-  const doubled = [...integrations, ...integrations]
-
   return (
-    <section id="integrations" className="py-24 lg:py-32 overflow-hidden">
-      {/* Centered header — constrained width */}
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="max-w-2xl mx-auto text-center mb-12">
-          <p className="section-label mb-3">{label}</p>
-          <h2 className="section-heading">{heading}</h2>
-          <p className="section-description">{description}</p>
-        </div>
-      </div>
+    <section id="integrations" className="flex-1 overflow-hidden py-24 lg:py-32">
+      <div className="relative mx-auto flex max-w-7xl flex-col items-center gap-8 px-4 sm:gap-16 sm:px-6 lg:gap-24 lg:px-8">
+        {/* Section content */}
+        <div className="flex max-w-3xl flex-col items-center gap-4 text-center">
+          <MotionPreset fade slide={{ direction: "down", offset: 50 }} transition={{ duration: 0.5, ease: "easeOut" }}>
+            <p className="section-label">{label}</p>
+          </MotionPreset>
 
-      {/* Full-width marquee row */}
-      <div className="relative">
-        <div className="absolute left-0 top-0 bottom-0 z-10 w-24 bg-gradient-to-r from-background to-transparent pointer-events-none" />
-        <div className="absolute right-0 top-0 bottom-0 z-10 w-24 bg-gradient-to-l from-background to-transparent pointer-events-none" />
-        <div className="flex gap-5 animate-marquee-left w-max">
-          {doubled.map((integration, i) => (
-            <IntegrationIcon key={`${integration.name}-${i}`} integration={integration} />
+          <MotionPreset
+            component="h2"
+            fade
+            slide={{ direction: "down", offset: 50 }}
+            delay={0.3}
+            transition={{ duration: 0.5, ease: "easeOut" }}
+            className="section-heading"
+          >
+            {heading}
+          </MotionPreset>
+
+          <MotionPreset
+            component="p"
+            fade
+            slide={{ direction: "down", offset: 50 }}
+            delay={0.6}
+            transition={{ duration: 0.5, ease: "easeOut" }}
+            className="section-description"
+          >
+            {description}
+          </MotionPreset>
+
+          <MotionPreset
+            fade
+            slide={{ direction: "down", offset: 50 }}
+            delay={0.9}
+            transition={{ duration: 0.5, ease: "easeOut" }}
+            className="flex flex-wrap items-center gap-4"
+          >
+            <BounceButton className="z-10 h-10 gap-3 rounded-lg text-base has-[>svg]:px-6">
+              <Link href={ctaHref} className="flex items-center gap-2">
+                {ctaText} <ArrowRightIcon />
+              </Link>
+            </BounceButton>
+            <Button size="lg" asChild className="bg-primary/10 hover:bg-primary/20 text-primary rounded-lg text-base">
+              <Link href="#integrations">Learn more</Link>
+            </Button>
+          </MotionPreset>
+        </div>
+
+        {/* Floating integration icons */}
+        <MotionPreset fade delay={1.2}>
+          {integrations.map((item, index) => (
+            <motion.div
+              key={index}
+              className={cn("max-lg:hidden", item.className)}
+              initial={{ scale: 1.2 }}
+              animate={{ scale: [1.2, 1.0, 1.2] }}
+              transition={{
+                duration: 3,
+                delay: Math.random() * 2,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+            >
+              <Magnetic strength={0.5} range={120}>
+                <IntegrationIconBubble
+                  integration={item.integration}
+                  sizeClass={item.sizeClass}
+                />
+              </Magnetic>
+            </motion.div>
           ))}
-        </div>
-      </div>
-
-      {/* CTA */}
-      <div className="text-center mt-12">
-        <Button size="lg" asChild>
-          <Link href={ctaHref}>
-            {ctaText}
-            <HiOutlineArrowRight className="h-4 w-4" />
-          </Link>
-        </Button>
+        </MotionPreset>
       </div>
     </section>
   )
