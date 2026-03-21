@@ -32,7 +32,7 @@ const FAQCardColumn = ({
         </div>
         <Accordion type='single' collapsible className='w-full' defaultValue='item-1'>
           {faqItems.map((item, index) => (
-            <AccordionItem key={index} value={`item-${index + 1}`}>
+            <AccordionItem key={index} value={`item-${index + 1}`} className='border-muted-foreground/30'>
               <AccordionTrigger className='text-lg'>{item.question}</AccordionTrigger>
               <AccordionContent className='text-muted-foreground'>{item.answer}</AccordionContent>
             </AccordionItem>
