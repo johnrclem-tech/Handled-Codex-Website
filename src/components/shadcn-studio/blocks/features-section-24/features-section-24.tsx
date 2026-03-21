@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useRef, useState, useEffect, type ReactNode } from 'react'
-import { motion, useScroll, useSpring, useTransform } from 'motion/react'
+import { AnimatePresence, motion, useScroll, useMotionValueEvent, useSpring, useTransform } from 'motion/react'
 import { MotionPreset } from '@/components/ui/motion-preset'
 import { cn } from '@/lib/utils'
 
@@ -88,45 +88,6 @@ const FeatureItem = ({
   )
 }
 
-const VisualItem = ({
-  feature,
-  index,
-  totalFeatures,
-  scrollYProgress,
-}: {
-  feature: ScrollingFeature
-  index: number
-  totalFeatures: number
-  scrollYProgress: any
-}) => {
-  const start = index / totalFeatures
-  const middle = (index + 0.5) / totalFeatures
-  const end = (index + 1) / totalFeatures
-
-  const isFirst = index === 0
-  const isLast = index === totalFeatures - 1
-
-  const opacity = useTransform(
-    scrollYProgress,
-    isFirst
-      ? [0, middle - 0.05, middle + 0.05, end]
-      : isLast
-        ? [start, middle - 0.05, middle + 0.05, 1]
-        : [start, middle - 0.05, middle + 0.05, end],
-    isFirst ? [1, 1, 1, 0] : isLast ? [0, 1, 1, 1] : [0, 1, 1, 0]
-  )
-
-  return (
-    <motion.div
-      style={{ opacity }}
-      className="absolute inset-0 flex items-center justify-center p-4"
-      transition={{ duration: 0.3 }}
-    >
-      {feature.visual}
-    </motion.div>
-  )
-}
-
 const FeaturesSection24 = ({
   label,
   heading,
@@ -134,23 +95,17 @@ const FeaturesSection24 = ({
   bgColor,
   features,
 }: FeaturesSection24Props) => {
-  const [scroll, setScroll] = useState(0)
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setScroll(window.scrollY)
-    }
-    window.addEventListener('scroll', handleScroll)
-    handleScroll()
-    return () => {
-      window.removeEventListener('scroll', handleScroll)
-    }
-  }, [])
+  const [activeVisualIndex, setActiveVisualIndex] = useState(0)
 
   const containerRef = useRef<HTMLDivElement>(null)
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ['start start', 'end end'],
+  })
+
+  useMotionValueEvent(scrollYProgress, 'change', (progress) => {
+    const newIndex = Math.min(Math.floor(progress * features.length), features.length - 1)
+    setActiveVisualIndex(newIndex)
   })
 
   const diamondRotationRaw = useTransform(scrollYProgress, (progress) => {
@@ -220,15 +175,18 @@ const FeaturesSection24 = ({
             {/* Desktop: Sticky scroll visuals */}
             <div className="bg-muted relative hidden w-full items-center justify-center space-y-20 rounded-xl px-6 py-20 md:block">
               <div className="bg-card sticky top-[20vh] flex h-125 items-center justify-center overflow-hidden rounded-xl border">
-                {features.map((feature, index) => (
-                  <VisualItem
-                    key={index}
-                    feature={feature}
-                    index={index}
-                    totalFeatures={features.length}
-                    scrollYProgress={scrollYProgress}
-                  />
-                ))}
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={activeVisualIndex}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.3 }}
+                    className="absolute inset-0 flex items-center justify-center p-4"
+                  >
+                    {features[activeVisualIndex]?.visual}
+                  </motion.div>
+                </AnimatePresence>
                 {['top-4.5 left-4.5', 'top-4.5 right-4.5', 'bottom-4.5 left-4.5', 'bottom-4.5 right-4.5'].map(
                   (position, idx) => (
                     <motion.svg
