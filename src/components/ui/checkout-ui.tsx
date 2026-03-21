@@ -8,12 +8,15 @@ import { cn } from "@/lib/utils"
 
 export function CheckoutUI({ className }: { className?: string }) {
   return (
-    <div className={cn("rounded-2xl border border-border bg-card shadow-xl overflow-hidden animate-float", className)}>
+    <div className={cn("w-full max-w-sm rounded-2xl border border-border bg-card shadow-xl overflow-hidden animate-float", className)}>
       {/* Header bar */}
-      <div className="bg-primary px-6 py-4">
-        <div className="flex items-center gap-2">
-          <HiOutlineTruck className="h-5 w-5 text-primary-foreground/80" />
-          <span className="text-primary-foreground text-sm font-medium">Checkout — Shipping Options</span>
+      <div className="bg-gradient-to-r from-slate-800 to-slate-700 px-6 py-4">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <HiOutlineTruck className="h-5 w-5 text-white/80" />
+            <span className="text-white text-sm font-medium">Checkout — Shipping Options</span>
+          </div>
+          <span className="text-white/60 text-xs">Powered by Handled</span>
         </div>
       </div>
 
