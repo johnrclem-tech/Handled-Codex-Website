@@ -62,7 +62,7 @@ const FAQCardGrid = ({
     <section className={cn('py-8 sm:py-16 lg:py-24', bgColor)}>
       <div className='mx-auto max-w-7xl px-4 sm:px-6 lg:px-8'>
         {/* Header */}
-        <div className='mb-12 space-y-4 sm:mb-16 lg:mb-24'>
+        <div className='mb-12 space-y-4 text-center sm:mb-16 lg:mb-24'>
           {label && (
             <MotionPreset
               component='p'
@@ -106,11 +106,11 @@ const FAQCardGrid = ({
               delay={0.6}
             >
               <Card className='group-hover:bg-card/90 h-full border-0 shadow-none transition-all duration-300 ease-in-out'>
-                <CardHeader className='flex items-center justify-between gap-4'>
-                  <h3 className='group-hover:text-primary font-semibold transition-colors duration-300'>
+                <CardHeader className='flex flex-row items-center justify-between gap-4'>
+                  <h3 className='group-hover:text-primary text-left font-semibold transition-colors duration-300'>
                     {item.question}
                   </h3>
-                  <Avatar className='size-9'>
+                  <Avatar className='size-9 shrink-0'>
                     <AvatarFallback className='bg-muted group-hover:bg-primary group-hover:text-primary-foreground transition-colors duration-300'>
                       <HelpCircleIcon className='size-4' />
                     </AvatarFallback>
