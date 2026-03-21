@@ -94,7 +94,7 @@ export function IntegrationsDiamond({
                     className="bg-card flex w-32 items-center justify-center rounded-xl px-1.5 py-6 shadow-md max-md:w-27 max-sm:py-5"
                     title={item.name}
                   >
-                    <item.icon className={cn("h-8 w-8 shrink-0 max-md:h-7 max-md:w-7", item.color)} />
+                    <item.icon className={cn("h-12 w-12 shrink-0 max-md:h-10 max-md:w-10", item.color)} />
                   </div>
                 ))}
               </div>
