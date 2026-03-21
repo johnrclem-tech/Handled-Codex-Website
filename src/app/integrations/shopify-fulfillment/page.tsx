@@ -28,6 +28,7 @@ import { Pricing3 } from "@/components/sections/pricing-3"
 import type { Pricing3Plan } from "@/components/sections/pricing-3"
 import { Guarantees } from "@/components/sections/guarantees"
 import type { GuaranteeItem } from "@/components/sections/guarantees"
+import { FAQCardGrid } from "@/components/sections/faq-card-grid"
 import { CTA } from "@/components/sections/cta"
 import type { CTABenefit } from "@/components/sections/cta"
 import { IntegrationsFloating } from "@/components/sections/integrations-floating"
@@ -634,29 +635,13 @@ export default function ShopifyFulfillmentPage() {
           customersLabel="Trusted by Shopify stores of every size"
         />
 
-        {/* FAQ Section */}
-        <section className="py-24 lg:py-32 bg-muted/30">
-          <div className="mx-auto max-w-7xl px-6 lg:px-8">
-            <div className="max-w-2xl mx-auto text-center mb-16">
-              <p className="text-sm font-semibold text-blue-600 mb-3">FAQ</p>
-              <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">
-                Shopify fulfillment questions, answered
-              </h2>
-              <p className="mt-4 text-lg text-muted-foreground">
-                Everything you need to know about outsourcing fulfillment for your Shopify store.
-              </p>
-            </div>
-
-            <div className="max-w-3xl mx-auto space-y-6">
-              {faqs.map((faq) => (
-                <div key={faq.question} className="rounded-xl border border-border/60 bg-background p-6">
-                  <h3 className="font-semibold text-lg mb-3">{faq.question}</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">{faq.answer}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
+        <FAQCardGrid
+          label="FAQ"
+          heading="Shopify fulfillment questions, answered"
+          description="Everything you need to know about outsourcing fulfillment for your Shopify store."
+          bgColor="bg-muted/30"
+          faqItems={faqs}
+        />
 
         <CTA
           label="Get A Quote"
