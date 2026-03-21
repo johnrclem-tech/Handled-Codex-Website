@@ -15,6 +15,7 @@ import type { Pricing3Plan } from "@/components/sections/pricing-3"
 import { TestimonialsCustomers } from "@/components/sections/testimonials-customers"
 import { Company } from "@/components/sections/company"
 import { FAQCardGrid } from "@/components/sections/faq-card-grid"
+import { FAQCardColumn } from "@/components/sections/faq-card-column"
 import { CTA, defaultCTABenefits } from "@/components/sections/cta"
 import { Footer } from "@/components/sections/footer"
 import { Warehouse, PackageCheck, Truck } from "lucide-react"
@@ -203,7 +204,23 @@ export default function SectionTestPage() {
           ]}
         />
 
-        {/* 15. CTA — bg: bg-primary (built-in dark) */}
+        {/* 15. FAQ Card Column — bg: bg-muted/30 */}
+        <FAQCardColumn
+          label="FAQ"
+          heading="Fulfillment questions, answered"
+          description="Everything you need to know about outsourcing fulfillment with Handled."
+          bgColor="bg-muted/30"
+          faqItems={[
+            { question: "What is a 3PL?", answer: "A 3PL (third-party logistics provider) is a company that handles warehousing, order fulfillment, and shipping on behalf of ecommerce brands. Handled is a 3PL that stores your inventory, picks and packs orders, and ships them to your customers — so you can focus on growing your business." },
+            { question: "How does Handled integrate with my store?", answer: "Handled connects to your ecommerce platform (Shopify, Amazon, WooCommerce, and more) with a one-click integration. Orders flow automatically to our fulfillment centers, and tracking information syncs back to your store in real time." },
+            { question: "What are your shipping speeds?", answer: "Every order received before 12PM local time ships the same day. With fulfillment centers in Los Angeles and New Jersey, we reach 95%+ of US customers within 2 business days via affordable ground shipping." },
+            { question: "Is there a minimum order volume?", answer: "No. Handled has no minimum order requirements. Our usage-based pricing scales with you — whether you ship 50 or 50,000 orders a month." },
+            { question: "How accurate is your fulfillment?", answer: "Handled maintains a 99.9% pick accuracy rate using barcode-verified picking and packing. Our error rate is 10x lower than the industry average, reducing returns and customer complaints." },
+            { question: "Do you offer custom packaging?", answer: "Yes. Handled supports branded boxes, tissue paper, inserts, gift notes, and custom unboxing experiences. Every shipment can be tailored to reinforce your brand identity." },
+          ]}
+        />
+
+        {/* 16. CTA — bg: bg-primary (built-in dark) */}
         <CTA
           heading="Get a Fulfillment Quote. Get&nbsp;Growing."
           description="Get a custom quote today and see how Handled turns shipping into growth."
