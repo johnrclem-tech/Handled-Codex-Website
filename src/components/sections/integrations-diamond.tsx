@@ -22,6 +22,7 @@ export interface DiamondIcon {
   name: string
   icon: React.ComponentType<{ className?: string }>
   color: string
+  iconClassName?: string
 }
 
 export interface DiamondColumn {
@@ -45,15 +46,15 @@ const defaultColumns: DiamondColumn[] = [
   {
     icons: [
       { name: "Amazon", icon: FaAmazon, color: "text-[#FF9900]" },
-      { name: "eBay", icon: SiEbay, color: "text-[#E53238]" },
+      { name: "eBay", icon: SiEbay, color: "text-[#E53238]", iconClassName: "w-20 h-8 max-md:w-16 max-md:h-6" },
     ],
     className: "sm:flex-col",
   },
   {
     icons: [
       { name: "WooCommerce", icon: SiWoo, color: "text-[#96588A]" },
-      { name: "FedEx", icon: SiFedex, color: "text-[#4D148C]" },
-      { name: "Walmart", icon: SiWalmart, color: "text-[#0071DC]" },
+      { name: "FedEx", icon: SiFedex, color: "text-[#4D148C]", iconClassName: "w-20 h-8 max-md:w-16 max-md:h-6" },
+      { name: "Walmart", icon: SiWalmart, color: "text-[#0071DC]", iconClassName: "w-20 h-8 max-md:w-16 max-md:h-6" },
     ],
     className: "sm:flex-col",
   },
@@ -66,7 +67,7 @@ const defaultColumns: DiamondColumn[] = [
   },
   {
     icons: [
-      { name: "DHL", icon: SiDhl, color: "text-[#FFCC00]" },
+      { name: "DHL", icon: SiDhl, color: "text-[#FFCC00]", iconClassName: "w-20 h-8 max-md:w-16 max-md:h-6" },
     ],
   },
 ]
@@ -94,7 +95,7 @@ export function IntegrationsDiamond({
                     className="bg-card flex w-32 items-center justify-center rounded-xl px-1.5 py-6 shadow-md max-md:w-27 max-sm:py-5"
                     title={item.name}
                   >
-                    <item.icon className={cn("max-h-12 max-w-24 h-12 w-auto shrink-0 max-md:max-h-10 max-md:max-w-20", item.color)} />
+                    <item.icon className={cn(item.iconClassName || "max-h-12 max-w-24 h-12 w-auto max-md:max-h-10 max-md:max-w-20", "shrink-0", item.color)} />
                   </div>
                 ))}
               </div>
