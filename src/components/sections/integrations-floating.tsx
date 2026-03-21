@@ -74,25 +74,6 @@ export const defaultIntegrations: IntegrationItem[] = [
 ]
 
 const defaultIconMotion: IntegrationIconMotion[] = [
-  // Top row — above the label/heading
-  {
-    integration: { name: "Etsy", icon: SiEtsy, color: "text-[#F1641E]" },
-    duration: 0.9,
-    className: "absolute -top-28 left-1/4",
-    sizeClass: "size-12",
-  },
-  {
-    integration: { name: "Magento", icon: FaMagento, color: "text-[#EE672F]" },
-    duration: 0.7,
-    className: "absolute -top-24 left-1/2 -translate-x-1/2",
-    sizeClass: "size-14",
-  },
-  {
-    integration: { name: "Target", icon: SiTarget, color: "text-[#CC0000]" },
-    duration: 0.8,
-    className: "absolute -top-28 right-1/4",
-    sizeClass: "size-12",
-  },
   // Left side
   {
     integration: { name: "Shopify", icon: SiShopify, color: "text-[#96BF48]" },
@@ -103,7 +84,7 @@ const defaultIconMotion: IntegrationIconMotion[] = [
   {
     integration: { name: "Amazon", icon: FaAmazon, color: "text-[#FF9900]" },
     duration: 0.5,
-    className: "absolute top-16 left-4",
+    className: "absolute top-16 left-2",
     sizeClass: "size-20",
   },
   {
@@ -115,7 +96,7 @@ const defaultIconMotion: IntegrationIconMotion[] = [
   {
     integration: { name: "BigCommerce", icon: SiBigcommerce, color: "text-[#121118]" },
     duration: 0.6,
-    className: "absolute bottom-40 left-4",
+    className: "absolute bottom-36 left-32",
     sizeClass: "size-13",
   },
   // Right side
@@ -128,7 +109,7 @@ const defaultIconMotion: IntegrationIconMotion[] = [
   {
     integration: { name: "UPS", icon: SiUps, color: "text-[#351C15]" },
     duration: 1,
-    className: "absolute top-16 right-4",
+    className: "absolute top-16 right-2",
     sizeClass: "size-20",
   },
   {
@@ -140,27 +121,8 @@ const defaultIconMotion: IntegrationIconMotion[] = [
   {
     integration: { name: "DHL", icon: SiDhl, color: "text-[#FFCC00]" },
     duration: 0.7,
-    className: "absolute bottom-40 right-4",
+    className: "absolute bottom-36 right-32",
     sizeClass: "size-13",
-  },
-  // Bottom row — below the buttons
-  {
-    integration: { name: "TikTok Shop", icon: SiTiktok, color: "text-[#000000]" },
-    duration: 0.6,
-    className: "absolute bottom-4 left-1/4",
-    sizeClass: "size-12",
-  },
-  {
-    integration: { name: "Walmart", icon: SiWalmart, color: "text-[#0071DC]" },
-    duration: 0.8,
-    className: "absolute bottom-0 left-1/2 -translate-x-1/2",
-    sizeClass: "size-14",
-  },
-  {
-    integration: { name: "eBay", icon: SiEbay, color: "text-[#E53238]" },
-    duration: 0.7,
-    className: "absolute bottom-4 right-1/4",
-    sizeClass: "size-12",
   },
 ]
 
