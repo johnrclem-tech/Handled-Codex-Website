@@ -26,6 +26,11 @@ import {
   HiOutlineEnvelope,
   HiOutlineSwatch,
 } from "react-icons/hi2"
+import {
+  OnboardingVisualIntegrate,
+  OnboardingVisualShipping,
+  OnboardingVisualBrand,
+} from "@/components/ui/onboarding-visuals"
 
 export interface OnboardingScrollingStep {
   description: string
@@ -58,6 +63,7 @@ export function OnboardingScrolling({
         { icon: HiOutlineBolt, text: steps[0].bullets[1] },
         { icon: HiOutlineArrowPath, text: steps[0].bullets[2] },
       ],
+      visual: <OnboardingVisualIntegrate />,
     },
     {
       stepLabel: "Step 2",
@@ -69,6 +75,7 @@ export function OnboardingScrolling({
         { icon: HiOutlineTruck, text: steps[1].bullets[1] },
         { icon: HiOutlineShieldCheck, text: steps[1].bullets[2] },
       ],
+      visual: <OnboardingVisualShipping />,
     },
     {
       stepLabel: "Step 3",
@@ -80,6 +87,7 @@ export function OnboardingScrolling({
         { icon: HiOutlineEnvelope, text: steps[2].bullets[1] },
         { icon: HiOutlineSwatch, text: steps[2].bullets[2] },
       ],
+      visual: <OnboardingVisualBrand />,
     },
   ]
 
