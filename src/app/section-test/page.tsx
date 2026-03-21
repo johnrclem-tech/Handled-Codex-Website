@@ -6,6 +6,8 @@ import { IntegrationsFloating } from "@/components/sections/integrations-floatin
 import { IntegrationsCarousel } from "@/components/sections/integrations-carousel"
 import { IntegrationsDiamond } from "@/components/sections/integrations-diamond"
 import { Onboarding, defaultOnboardingSteps } from "@/components/sections/onboarding"
+import { OnboardingTimeline } from "@/components/sections/onboarding-timeline"
+import type { OnboardingTimelineItem } from "@/components/sections/onboarding-timeline"
 import { Guarantees, defaultGuarantees } from "@/components/sections/guarantees"
 import { Pricing, defaultPricingPlans } from "@/components/sections/pricing"
 import { Pricing3 } from "@/components/sections/pricing-3"
@@ -61,6 +63,63 @@ const testPricingPlans: Pricing3Plan[] = [
   },
 ]
 
+const onboardingTimelineData: OnboardingTimelineItem[] = [
+  {
+    title: "Integrate and automate",
+    date: "Week 1",
+    employmentType: "Step 1",
+    period: "Week 1",
+    skills: [
+      "Real-time Shopify sync",
+      "Shopify Flow automations",
+      "Self-service returns portal",
+    ],
+    responsibilities: [
+      "We connect your Shopify store, sync your inventory, and build Shopify Flow automations so fulfillment runs on autopilot.",
+      "Real-time Shopify orders, inventory, and tracking eliminate busywork",
+      "Shopify Flow automations reduce manual processes",
+      "Self-service returns portal handles refunds and exchanges seamlessly",
+    ],
+    headerBg: "bg-blue-600",
+  },
+  {
+    title: "Make shipping part of the sale",
+    date: "Week 1–2",
+    employmentType: "Step 2",
+    period: "Week 1–2",
+    skills: [
+      "Order-by cutoffs",
+      "Real delivery dates",
+      "Shop Promise badges",
+    ],
+    responsibilities: [
+      "We configure real-time delivery info and order cutoffs in your Shopify checkout so customers know exactly when to expect their order.",
+      "Order-by cutoffs give Shopify shoppers confidence their order ships today",
+      "Real delivery dates reduce 'Where's my order?' support tickets",
+      "Shop Promise badges boost trust, urgency, and conversions",
+    ],
+    headerBg: "bg-emerald-600",
+  },
+  {
+    title: "Brand literally everything",
+    date: "Week 2",
+    employmentType: "Step 3",
+    period: "Week 2",
+    skills: [
+      "Branded packaging",
+      "Tracking emails",
+      "Returns portal branding",
+    ],
+    responsibilities: [
+      "We work with you to design branded packaging, inserts, and customer communications that elevate your unboxing experience.",
+      "Branded boxes, tissue, inserts, and notes turn Shopify deliveries into lasting impressions",
+      "Personalized tracking emails keep your brand in every inbox",
+      "A branded self-serve returns portal reflects your standards to the very end",
+    ],
+    headerBg: "bg-purple-600",
+  },
+]
+
 export default function SectionTestPage() {
   return (
     <>
@@ -94,7 +153,15 @@ export default function SectionTestPage() {
           description="Diamond-shaped grid layout of integration icons in a 1-2-3-2-1 column pattern."
         />
 
-        {/* 7. Onboarding — bg: white */}
+        {/* 7. Onboarding Timeline — bg: bg-muted/30 */}
+        <OnboardingTimeline
+          heading="Onboarding Timeline"
+          description="Horizontal timeline with auto-advancing progress bars and animated card content."
+          bgColor="bg-muted/30"
+          data={onboardingTimelineData}
+        />
+
+        {/* 8. Onboarding — bg: white */}
         <Onboarding
           heading="Onboard your fulfillment in 2&nbsp;weeks"
           description="We make launching fulfillment predictable and fast."
