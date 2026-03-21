@@ -4,6 +4,62 @@ import {
   HiOutlineShieldCheck,
   HiOutlineCheckCircle,
 } from "react-icons/hi2"
+import { cn } from "@/lib/utils"
+
+export function CheckoutUI({ className }: { className?: string }) {
+  return (
+    <div className={cn("rounded-2xl border border-border bg-card shadow-xl overflow-hidden animate-float", className)}>
+      {/* Header bar */}
+      <div className="bg-primary px-6 py-4">
+        <div className="flex items-center gap-2">
+          <HiOutlineTruck className="h-5 w-5 text-primary-foreground/80" />
+          <span className="text-primary-foreground text-sm font-medium">Checkout — Shipping Options</span>
+        </div>
+      </div>
+
+      <div className="p-6">
+        {/* Same-day cutoff banner */}
+        <div className="mb-6 rounded-lg bg-emerald-50 border border-emerald-200 p-3 flex items-center gap-2">
+          <HiOutlineClock className="h-5 w-5 text-emerald-600 shrink-0" />
+          <div>
+            <p className="text-xs font-semibold text-emerald-800">Order by 2:00 PM ET — Ships Today!</p>
+            <p className="text-xs text-emerald-600">Same-day fulfillment guaranteed</p>
+          </div>
+        </div>
+
+        {/* Shipping options */}
+        <div className="mb-6 space-y-2">
+          <ShippingOption
+            label="Standard Shipping"
+            eta="Arrives Mar 21–22"
+            price="Free"
+            selected
+            badge="Shop Promise"
+          />
+          <ShippingOption
+            label="Express Shipping"
+            eta="Arrives Mar 19"
+            price="$8.99"
+            selected={false}
+          />
+          <ShippingOption
+            label="Overnight"
+            eta="Arrives Mar 18"
+            price="$14.99"
+            selected={false}
+          />
+        </div>
+
+        {/* Trust indicators */}
+        <div className="flex items-center gap-3 pt-4 border-t border-border">
+          <TrustBadge icon={HiOutlineShieldCheck} label="Shop Promise" color="text-blue-500" />
+          <TrustBadge icon={HiOutlineTruck} label="Real-time tracking" color="text-emerald-500" />
+          <TrustBadge icon={HiOutlineCheckCircle} label="Delivery date" color="text-emerald-500" />
+        </div>
+      </div>
+    </div>
+  )
+}
 
 function ShippingOption({
   label,
@@ -23,7 +79,7 @@ function ShippingOption({
       className={`rounded-lg border p-3 flex items-center justify-between transition-all ${
         selected
           ? "border-blue-300 bg-blue-50/50 ring-1 ring-blue-100"
-          : "border-border hover:border-border/80"
+          : "border-border"
       }`}
     >
       <div className="flex items-center gap-3">
@@ -51,58 +107,19 @@ function ShippingOption({
   )
 }
 
-export function CheckoutUI() {
+function TrustBadge({
+  icon: Icon,
+  label,
+  color,
+}: {
+  icon: React.ComponentType<{ className?: string }>
+  label: string
+  color: string
+}) {
   return (
-    <div className="rounded-2xl border border-border bg-card shadow-xl overflow-hidden animate-float">
-      <div className="bg-primary px-6 py-4">
-        <span className="text-primary-foreground text-sm font-medium">Checkout — Shipping Options</span>
-      </div>
-      <div className="p-6 space-y-4">
-        <div className="rounded-lg bg-emerald-50 border border-emerald-200 p-3 flex items-center gap-2">
-          <HiOutlineClock className="h-5 w-5 text-emerald-600 shrink-0" />
-          <div>
-            <p className="text-xs font-semibold text-emerald-800">Order by 2:00 PM ET — Ships Today!</p>
-            <p className="text-[11px] text-emerald-600">Same-day fulfillment guaranteed</p>
-          </div>
-        </div>
-
-        <div className="space-y-2">
-          <ShippingOption
-            label="Standard Shipping"
-            eta="Arrives Mar 21–22"
-            price="Free"
-            selected
-            badge="Shop Promise"
-          />
-          <ShippingOption
-            label="Express Shipping"
-            eta="Arrives Mar 19"
-            price="$8.99"
-            selected={false}
-          />
-          <ShippingOption
-            label="Overnight"
-            eta="Arrives Mar 18"
-            price="$14.99"
-            selected={false}
-          />
-        </div>
-
-        <div className="flex items-center gap-3 pt-2 border-t border-border">
-          <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
-            <HiOutlineShieldCheck className="h-3.5 w-3.5 text-blue-500" />
-            <span>Shop Promise</span>
-          </div>
-          <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
-            <HiOutlineTruck className="h-3.5 w-3.5 text-emerald-500" />
-            <span>Real-time tracking</span>
-          </div>
-          <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
-            <HiOutlineCheckCircle className="h-3.5 w-3.5 text-emerald-500" />
-            <span>Delivery date</span>
-          </div>
-        </div>
-      </div>
+    <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
+      <Icon className={`h-3.5 w-3.5 ${color}`} />
+      <span>{label}</span>
     </div>
   )
 }
