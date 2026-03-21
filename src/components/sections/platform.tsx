@@ -6,8 +6,8 @@ import {
   HiOutlineCog6Tooth,
   HiOutlineShieldCheck,
 } from "react-icons/hi2"
-import { TrackingExperience } from "@/components/icons/tracking-experience"
-import { ReturnsExperience } from "@/components/icons/returns-experience"
+import { TrackingExperience } from "@/components/ui/tracking-experience"
+import { ReturnsExperience } from "@/components/ui/returns-experience"
 
 export function Platform() {
   return (

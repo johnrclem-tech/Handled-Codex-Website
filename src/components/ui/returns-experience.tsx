@@ -5,10 +5,11 @@ import {
   HiOutlinePrinter,
   HiOutlineInboxArrowDown,
 } from "react-icons/hi2"
+import { cn } from "@/lib/utils"
 
-export function ReturnsExperience() {
+export function ReturnsExperience({ className }: { className?: string }) {
   return (
-    <div className="rounded-2xl border border-border bg-card shadow-xl overflow-hidden animate-float-delayed">
+    <div className={cn("rounded-2xl border border-border bg-card shadow-xl overflow-hidden animate-float-delayed", className)}>
       {/* Header */}
       <div className="bg-gradient-to-r from-slate-800 to-slate-700 px-6 py-4">
         <div className="flex items-center justify-between">

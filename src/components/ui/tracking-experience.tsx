@@ -5,10 +5,11 @@ import {
   HiOutlineTruck,
   HiOutlineHome,
 } from "react-icons/hi2"
+import { cn } from "@/lib/utils"
 
-export function TrackingExperience() {
+export function TrackingExperience({ className }: { className?: string }) {
   return (
-    <div className="rounded-2xl border border-border bg-card shadow-xl overflow-hidden animate-float">
+    <div className={cn("rounded-2xl border border-border bg-card shadow-xl overflow-hidden animate-float", className)}>
       {/* Header bar */}
       <div className="bg-primary px-6 py-4">
         <div className="flex items-center gap-2">
