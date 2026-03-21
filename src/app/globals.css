@@ -174,11 +174,11 @@ html {
 
 /* Section typography utilities */
 .section-label {
-  @apply text-sm font-semibold text-blue-600;
+  @apply text-sm font-semibold uppercase text-blue-600;
 }
 
 .section-label-light {
-  @apply text-sm font-semibold text-blue-400;
+  @apply text-sm font-semibold uppercase text-blue-400;
 }
 
 .section-heading {
