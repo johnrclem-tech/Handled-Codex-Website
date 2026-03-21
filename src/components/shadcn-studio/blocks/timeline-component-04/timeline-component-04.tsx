@@ -56,7 +56,7 @@ const TimelineComponent = ({
         {/* Horizontal Timeline */}
         <div className="mx-auto flex flex-col items-center">
           <TimelineHorizontal
-            className="w-full px-28 max-sm:flex-row max-sm:px-0 max-md:px-16"
+            className="w-full max-sm:flex-row"
             positions="bottom"
             defaultActiveIndex={0}
             animated={true}
@@ -68,25 +68,26 @@ const TimelineComponent = ({
               <TimelineItemHorizontal
                 key={index}
                 headingPosition="top"
-                className={`max-sm:gap-4 ${index !== data.length - 1 ? 'flex-1' : ''}`}
+                className="flex-1 max-sm:gap-4"
               >
-                <div className="relative mb-3 h-12 max-md:hidden">
-                  <div className="absolute left-1/2 -translate-x-1/2 flex flex-col items-center text-center whitespace-nowrap" style={{ left: '9px' }}>
-                    <TimelineHeadingHorizontal variant="primary" className="!flex-none whitespace-nowrap text-center lg:text-lg">
-                      {item.title}
-                    </TimelineHeadingHorizontal>
-                    <p className="whitespace-nowrap text-muted-foreground">{item.date}</p>
-                  </div>
+                <div className="mb-3 flex flex-col items-center text-center max-md:hidden">
+                  <TimelineHeadingHorizontal variant="primary" className="!flex-none whitespace-nowrap text-center lg:text-lg">
+                    {item.title}
+                  </TimelineHeadingHorizontal>
+                  <p className="whitespace-nowrap text-muted-foreground">{item.date}</p>
                 </div>
                 <div className="relative flex w-full items-center">
+                  <div className="flex-1" />
                   <TimelineDotHorizontal
                     status="custom"
-                    className="group [&:not([data-active=true])]:bg-muted [&[data-active=true]]:bg-primary/10 size-4.5 rounded-full"
+                    className="group [&:not([data-active=true])]:bg-muted [&[data-active=true]]:bg-primary/10 size-4.5 shrink-0 rounded-full"
                   >
                     <span className="bg-muted-foreground group-data-[active=true]:bg-primary size-3 rounded-full"></span>
                   </TimelineDotHorizontal>
-                  {index < data.length - 1 && (
-                    <TimelineLineHorizontal className="h-0.5 w-full max-md:w-40 max-sm:w-20" />
+                  {index < data.length - 1 ? (
+                    <TimelineLineHorizontal className="h-0.5 flex-1 max-md:w-40 max-sm:w-20" />
+                  ) : (
+                    <div className="flex-1" />
                   )}
                 </div>
               </TimelineItemHorizontal>
