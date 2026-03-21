@@ -41,12 +41,13 @@ export interface IntegrationIconMotion {
   sizeClass: string
 }
 
-export interface IntegrationsProps {
+export interface IntegrationsFloatingProps {
   label?: string
   heading: string
   description: string
   ctaText?: string
   ctaHref?: string
+  bgColor?: string
   integrations?: IntegrationIconMotion[]
 }
 
@@ -73,55 +74,93 @@ export const defaultIntegrations: IntegrationItem[] = [
 ]
 
 const defaultIconMotion: IntegrationIconMotion[] = [
-  // Left icons
+  // Top row — above the label/heading
+  {
+    integration: { name: "Etsy", icon: SiEtsy, color: "text-[#F1641E]" },
+    duration: 0.9,
+    className: "absolute -top-28 left-1/4",
+    sizeClass: "size-12",
+  },
+  {
+    integration: { name: "Magento", icon: FaMagento, color: "text-[#EE672F]" },
+    duration: 0.7,
+    className: "absolute -top-24 left-1/2 -translate-x-1/2",
+    sizeClass: "size-14",
+  },
+  {
+    integration: { name: "Target", icon: SiTarget, color: "text-[#CC0000]" },
+    duration: 0.8,
+    className: "absolute -top-28 right-1/4",
+    sizeClass: "size-12",
+  },
+  // Left side
   {
     integration: { name: "Shopify", icon: SiShopify, color: "text-[#96BF48]" },
     duration: 0.8,
-    className: "absolute -top-14 left-50",
+    className: "absolute -top-8 left-36",
     sizeClass: "size-16",
   },
   {
     integration: { name: "Amazon", icon: FaAmazon, color: "text-[#FF9900]" },
     duration: 0.5,
-    className: "absolute top-0 left-8",
-    sizeClass: "size-20.5",
+    className: "absolute top-16 left-4",
+    sizeClass: "size-20",
   },
   {
     integration: { name: "WooCommerce", icon: SiWoo, color: "text-[#96588A]" },
     duration: 1,
-    className: "absolute top-40 left-42",
+    className: "absolute top-52 left-28",
     sizeClass: "size-16",
   },
   {
     integration: { name: "BigCommerce", icon: SiBigcommerce, color: "text-[#121118]" },
     duration: 0.6,
-    className: "absolute bottom-60 -left-1",
+    className: "absolute bottom-40 left-4",
     sizeClass: "size-13",
   },
-  // Right icons
+  // Right side
   {
     integration: { name: "FedEx", icon: SiFedex, color: "text-[#4D148C]" },
     duration: 0.8,
-    className: "absolute -top-14 right-50",
+    className: "absolute -top-8 right-36",
     sizeClass: "size-16",
   },
   {
     integration: { name: "UPS", icon: SiUps, color: "text-[#351C15]" },
     duration: 1,
-    className: "absolute top-0 right-8",
-    sizeClass: "size-20.5",
+    className: "absolute top-16 right-4",
+    sizeClass: "size-20",
   },
   {
     integration: { name: "USPS", icon: SiUsps, color: "text-[#333366]" },
     duration: 0.5,
-    className: "absolute top-40 right-42",
+    className: "absolute top-52 right-28",
     sizeClass: "size-16",
   },
   {
     integration: { name: "DHL", icon: SiDhl, color: "text-[#FFCC00]" },
     duration: 0.7,
-    className: "absolute -right-1 bottom-60",
+    className: "absolute bottom-40 right-4",
     sizeClass: "size-13",
+  },
+  // Bottom row — below the buttons
+  {
+    integration: { name: "TikTok Shop", icon: SiTiktok, color: "text-[#000000]" },
+    duration: 0.6,
+    className: "absolute bottom-4 left-1/4",
+    sizeClass: "size-12",
+  },
+  {
+    integration: { name: "Walmart", icon: SiWalmart, color: "text-[#0071DC]" },
+    duration: 0.8,
+    className: "absolute bottom-0 left-1/2 -translate-x-1/2",
+    sizeClass: "size-14",
+  },
+  {
+    integration: { name: "eBay", icon: SiEbay, color: "text-[#E53238]" },
+    duration: 0.7,
+    className: "absolute bottom-4 right-1/4",
+    sizeClass: "size-12",
   },
 ]
 
@@ -145,16 +184,17 @@ function IntegrationIconBubble({
   )
 }
 
-export function Integrations({
+export function IntegrationsFloating({
   label = "Integrations",
   heading,
   description,
   ctaText = "Get a fulfillment quote",
   ctaHref = "#get-a-quote",
+  bgColor,
   integrations = defaultIconMotion,
-}: IntegrationsProps) {
+}: IntegrationsFloatingProps) {
   return (
-    <section id="integrations" className="flex-1 overflow-hidden py-24 lg:py-32">
+    <section id="integrations" className={cn("flex-1 overflow-hidden py-24 lg:py-32", bgColor)}>
       <div className="relative mx-auto flex max-w-7xl flex-col items-center gap-8 px-4 sm:gap-16 sm:px-6 lg:gap-24 lg:px-8">
         {/* Section content */}
         <div className="flex max-w-3xl flex-col items-center gap-4 text-center">

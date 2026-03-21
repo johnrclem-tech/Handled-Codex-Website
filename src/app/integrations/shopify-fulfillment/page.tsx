@@ -31,7 +31,7 @@ import { Guarantees } from "@/components/sections/guarantees"
 import type { GuaranteeItem } from "@/components/sections/guarantees"
 import { CTA } from "@/components/sections/cta"
 import type { CTABenefit } from "@/components/sections/cta"
-import { Integrations } from "@/components/sections/integrations"
+import { IntegrationsFloating } from "@/components/sections/integrations-floating"
 import { TestimonialsCustomers } from "@/components/sections/testimonials-customers"
 import { Warehouse, PackageCheck, Truck } from "lucide-react"
 import {
@@ -583,7 +583,7 @@ export default function ShopifyFulfillmentPage() {
           </div>
         </section>
 
-        <Integrations
+        <IntegrationsFloating
           label="Shopify Integrations"
           heading="Your Shopify store, connected in minutes"
           description="Handled integrates natively with Shopify and Shopify Plus. Orders, inventory, and tracking sync automatically — so you can focus on selling, not spreadsheets."

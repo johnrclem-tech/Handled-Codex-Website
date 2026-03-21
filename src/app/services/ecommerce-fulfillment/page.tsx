@@ -35,7 +35,7 @@ import { Guarantees } from "@/components/sections/guarantees"
 import type { GuaranteeItem } from "@/components/sections/guarantees"
 import { CTA } from "@/components/sections/cta"
 import type { CTABenefit } from "@/components/sections/cta"
-import { Integrations } from "@/components/sections/integrations"
+import { IntegrationsFloating } from "@/components/sections/integrations-floating"
 import { TestimonialsCustomers } from "@/components/sections/testimonials-customers"
 import { Warehouse, PackageCheck, Truck } from "lucide-react"
 import {
@@ -586,10 +586,11 @@ export default function EcommerceFulfillmentPage() {
           </div>
         </section>
 
-        <Integrations
+        <IntegrationsFloating
           label="Ecommerce Integrations"
           heading="Connect your online store in under 24 hours"
           description="Handled integrates seamlessly with every major ecommerce platform, marketplace, and shipping carrier. Orders, inventory, and tracking sync automatically."
+          bgColor="bg-muted/30"
         />
 
         <Guarantees

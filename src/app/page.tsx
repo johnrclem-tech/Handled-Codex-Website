@@ -2,7 +2,7 @@ import { Navbar } from "@/components/sections/navbar"
 import { Hero } from "@/components/sections/hero"
 import { Services } from "@/components/sections/services"
 import { Platform } from "@/components/sections/platform"
-import { Integrations } from "@/components/sections/integrations"
+import { IntegrationsFloating } from "@/components/sections/integrations-floating"
 import { Onboarding, defaultOnboardingSteps } from "@/components/sections/onboarding"
 import { Guarantees, defaultGuarantees } from "@/components/sections/guarantees"
 import { Pricing3 } from "@/components/sections/pricing-3"
@@ -66,7 +66,7 @@ export default function Home() {
         <Hero />
         <Services />
         <Platform />
-        <Integrations
+        <IntegrationsFloating
           heading="Connect your store in under 24 hours"
           description="Handled integrates seamlessly with the platforms and tools you already use. One-click connections to Shopify, Amazon, ShipStation, and dozens more."
         />

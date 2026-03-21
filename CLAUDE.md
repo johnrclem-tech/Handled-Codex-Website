@@ -25,3 +25,5 @@ Do not use inline Tailwind classes for these elements in new sections.
 - One section component per section type (e.g., one `cta.tsx`, one `pricing.tsx`). All content (heading, description, data arrays) is passed as props from `page.tsx`. Do not create page-specific wrapper components.
 - Only use ShadCN components for UI primitives (Button, Card, Input, Badge, etc.). Do not use non-ShadCN component libraries for new UI elements.
 - Abstract reusable sub-components from sections into `src/components/ui/` (e.g., `QuoteForm` extracted from CTA) so they can be reused independently.
+- Every section component must accept an optional `bgColor` prop (e.g., `bgColor?: string`) that applies a Tailwind background class to the `<section>` element. This lets each page set a different background color for the same section.
+- Never use the same background color for sections that are adjacent on a page. Alternate between white (no `bgColor`), `bg-muted/30`, `bg-primary` (dark), or other distinct backgrounds so consecutive sections are always visually separated.
