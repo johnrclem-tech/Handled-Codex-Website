@@ -91,7 +91,7 @@ export function IntegrationsDiamond({
                 {column.icons.map((item, iconIndex) => (
                   <div
                     key={iconIndex}
-                    className="bg-card flex w-32 items-center justify-center rounded-xl px-1.5 py-6 shadow-[6px_4px_32px_0_color-mix(in_oklab,var(--shadow-color)20%,transparent)] max-md:w-27 max-sm:py-5"
+                    className="bg-card flex w-32 items-center justify-center rounded-xl px-1.5 py-6 shadow-md max-md:w-27 max-sm:py-5"
                     title={item.name}
                   >
                     <item.icon className={cn("h-8 w-8 shrink-0 max-md:h-7 max-md:w-7", item.color)} />

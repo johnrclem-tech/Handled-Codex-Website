@@ -109,7 +109,7 @@ export function IntegrationsCarousel({
             <Marquee pauseOnHover duration={20} gap={1.5}>
               {topRow.map((logo, index) => (
                 <Card key={index} className="rounded-lg border-none shadow-md">
-                  <CardContent className="flex flex-col items-center px-9">
+                  <CardContent className="flex flex-col items-center px-9 py-6">
                     <logo.icon className={cn("h-8 w-8", logo.color)} />
                   </CardContent>
                 </Card>
@@ -120,7 +120,7 @@ export function IntegrationsCarousel({
             <Marquee pauseOnHover duration={20} gap={1.5} reverse>
               {bottomRow.map((logo, index) => (
                 <Card key={index} className="rounded-lg border-none shadow-md">
-                  <CardContent className="flex flex-col items-center px-9">
+                  <CardContent className="flex flex-col items-center px-9 py-6">
                     <logo.icon className={cn("h-8 w-8", logo.color)} />
                   </CardContent>
                 </Card>

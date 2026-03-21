@@ -18,7 +18,7 @@ import { CTA, defaultCTABenefits } from "@/components/sections/cta"
 import { Footer } from "@/components/sections/footer"
 import { Warehouse, PackageCheck, Truck } from "lucide-react"
 
-const testPricingPlans: Pricing3Plan[] = [
+const pricingPlans: Pricing3Plan[] = [
   {
     name: "Storage",
     icon: Warehouse,
@@ -125,7 +125,7 @@ export default function SectionTestPage() {
     <>
       <Navbar />
       <main>
-        {/* 1. Hero */}
+        {/* 1. Hero — bg: white */}
         <Hero />
 
         {/* 2. Services — bg: white */}
@@ -136,69 +136,69 @@ export default function SectionTestPage() {
 
         {/* 4. Integrations Floating — bg: white */}
         <IntegrationsFloating
-          heading="Integrations Floating"
-          description="Floating integration icons with magnetic hover effect and entrance animations."
+          heading="Connect your store in under 24 hours"
+          description="Handled integrates seamlessly with the platforms and tools you already use. One-click connections to Shopify, Amazon, ShipStation, and dozens more."
         />
 
         {/* 5. Integrations Carousel — bg: bg-muted/30 */}
         <IntegrationsCarousel
-          heading="Integrations Carousel"
-          description="Dual-row marquee carousel of integration icons with hover-to-pause."
+          heading="Connect your store in under 24 hours"
+          description="Handled integrates seamlessly with the platforms and tools you already use. One-click connections to Shopify, Amazon, ShipStation, and dozens more."
           bgColor="bg-muted/30"
         />
 
         {/* 6. Integrations Diamond — bg: white */}
         <IntegrationsDiamond
-          heading="Integrations Diamond"
-          description="Diamond-shaped grid layout of integration icons in a 1-2-3-2-1 column pattern."
+          heading="Connect your store in under 24 hours"
+          description="Handled integrates seamlessly with the platforms and tools you already use. One-click connections to Shopify, Amazon, ShipStation, and dozens more."
         />
 
         {/* 7. Onboarding Timeline — bg: bg-muted/30 */}
         <OnboardingTimeline
-          heading="Onboarding Timeline"
-          description="Horizontal timeline with auto-advancing progress bars and animated card content."
+          heading="Onboard your Shopify fulfillment in 2 weeks"
+          description="We make launching Shopify fulfillment predictable and fast."
           bgColor="bg-muted/30"
           data={onboardingTimelineData}
         />
 
         {/* 8. Onboarding — bg: white */}
         <Onboarding
-          heading="Onboard your fulfillment in 2&nbsp;weeks"
-          description="We make launching fulfillment predictable and fast."
+          heading="Onboard your Shopify fulfillment in 2&nbsp;weeks"
+          description="We make launching Shopify fulfillment predictable and fast."
           steps={defaultOnboardingSteps}
         />
 
-        {/* 8. Guarantees — bg: bg-primary (built-in dark) */}
+        {/* 9. Guarantees — bg: bg-primary (built-in dark) */}
         <Guarantees
           heading="We put our performance in writing"
-          description="Handled is one of the only 3PLs that backs every SLA with financial accountability."
+          description="Handled is one of the only 3PLs that backs every SLA with financial accountability. If we miss a guarantee, we pay — not you."
           guarantees={defaultGuarantees}
         />
 
-        {/* 9. Pricing (card layout) — bg: white */}
+        {/* 10. Pricing (card layout) — bg: white */}
         <Pricing
           heading="Simple, transparent pricing"
-          description="No surprise fees. Just clean, usage-based pricing."
+          description="No surprise fees. No minimums. Just clean, usage-based pricing whether you ship 50 or 50,000 orders a month."
           plans={defaultPricingPlans}
         />
 
-        {/* 10. Pricing 3 (column layout) — bg: bg-muted (built-in) */}
+        {/* 11. Pricing 3 (column layout) — bg: bg-muted (built-in) */}
         <Pricing3
           label="Pricing"
           heading="Transparent pricing that scales with you"
           description="No surprise fees. No minimums. Just clean, usage-based pricing whether you ship 50 or 50,000 orders a month."
           buttonText="Get a Quote"
           buttonHref="#get-a-quote"
-          plans={testPricingPlans}
+          plans={pricingPlans}
         />
 
-        {/* 11. Testimonials & Customers — bg: white */}
+        {/* 12. Testimonials & Customers — bg: white */}
         <TestimonialsCustomers />
 
-        {/* 12. Company — bg: bg-muted/30 (built-in) */}
+        {/* 13. Company — bg: bg-muted/30 (built-in) */}
         <Company />
 
-        {/* 13. CTA — bg: bg-primary (built-in dark) */}
+        {/* 14. CTA — bg: bg-primary (built-in dark) */}
         <CTA
           heading="Get a Fulfillment Quote. Get&nbsp;Growing."
           description="Get a custom quote today and see how Handled turns shipping into growth."
