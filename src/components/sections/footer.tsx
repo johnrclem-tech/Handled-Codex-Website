@@ -31,6 +31,7 @@ const footerLinks = {
     { name: "About", href: "/company" },
     { name: "Contact Sales", href: "/contact-sales" },
     { name: "Section Test", href: "/section-test" },
+    { name: "Policies", href: "/policies" },
     { name: "Privacy Policy", href: "/privacy" },
     { name: "Terms of Service", href: "/terms" },
   ],
@@ -81,6 +82,12 @@ export function Footer() {
             &copy; {new Date().getFullYear()} Handled. All rights reserved.
           </p>
           <div className="flex gap-6">
+            <Link
+              href="/policies"
+              className="text-xs text-muted-foreground hover:text-foreground transition-colors"
+            >
+              Policies
+            </Link>
             <Link
               href="/privacy"
               className="text-xs text-muted-foreground hover:text-foreground transition-colors"
