@@ -15,9 +15,9 @@ export interface GuaranteeItem {
 
 export interface GuaranteesProps {
   label?: string
-  heading: string
-  description: string
-  guarantees: GuaranteeItem[]
+  heading?: string
+  description?: string
+  guarantees?: GuaranteeItem[]
 }
 
 export const defaultGuarantees: GuaranteeItem[] = [
@@ -49,9 +49,9 @@ export const defaultGuarantees: GuaranteeItem[] = [
 
 export function Guarantees({
   label = "Performance Guarantees",
-  heading,
-  description,
-  guarantees,
+  heading = "We put our performance in writing",
+  description = "Our SLAs are backed by operational accountability, so your growth is protected by measurable service standards.",
+  guarantees = defaultGuarantees,
 }: GuaranteesProps) {
   return (
     <section className="py-24 lg:py-32 bg-primary text-primary-foreground">

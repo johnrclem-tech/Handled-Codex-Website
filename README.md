@@ -34,3 +34,48 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+## Google Ads Keyword Planner Integration
+
+This project supports a manual sync workflow for planner-enriched keyword gap analysis.
+
+### 1) Configure credentials
+
+Copy `.env.example` to `.env.local` (or export env vars in your shell) and set:
+
+- `GOOGLE_ADS_DEVELOPER_TOKEN`
+- `GOOGLE_ADS_CLIENT_ID`
+- `GOOGLE_ADS_CLIENT_SECRET`
+- `GOOGLE_ADS_REFRESH_TOKEN`
+- `GOOGLE_ADS_CUSTOMER_ID`
+- `GOOGLE_ADS_LOGIN_CUSTOMER_ID` (optional, for MCC setups)
+
+### 2) Configure campaign/ad-group targeting
+
+Edit `config/google-ads-targeting.json` to mirror campaign targeting:
+
+- `geoTargetConstants`
+- `language`
+- `keywordPlanNetwork`
+- `seedStrategy` (`KEYWORD_ONLY` or `KEYWORD_AND_URL`)
+- `landingPageUrl` (when using URL seed mode)
+
+### 3) Run manual sync + report generation
+
+```bash
+npm run sync:google-keyword-planner
+npm run analyze:keyword-gaps
+```
+
+or run both:
+
+```bash
+npm run refresh:keyword-analysis
+```
+
+Generated files:
+
+- `reports/google-ads-keyword-planner-cache.json`
+- `reports/keyword-gap-top12.csv`
+- `reports/keyword-gap-analysis.md`
+- `reports/keyword-gap-metadata.json`

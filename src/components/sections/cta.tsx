@@ -14,9 +14,9 @@ export interface CTABenefit {
 
 export interface CTAProps {
   label?: string
-  heading: string
-  description: string
-  benefits: CTABenefit[]
+  heading?: string
+  description?: string
+  benefits?: CTABenefit[]
 }
 
 export const defaultCTABenefits: CTABenefit[] = [
@@ -42,9 +42,9 @@ export const defaultCTABenefits: CTABenefit[] = [
 
 export function CTA({
   label = "Get A Quote",
-  heading,
-  description,
-  benefits,
+  heading = "Get a Fulfillment Quote. Get Growing.",
+  description = "Tell us your volume and goals. We will map a fulfillment setup built to support your growth plan.",
+  benefits = defaultCTABenefits,
 }: CTAProps) {
   return (
     <section id="get-a-quote" className="relative bg-primary overflow-hidden">

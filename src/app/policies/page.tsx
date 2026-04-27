@@ -3,13 +3,14 @@ import { readFile } from "node:fs/promises"
 import path from "node:path"
 import { Navbar } from "@/components/sections/navbar"
 import { Footer } from "@/components/sections/footer"
+import { canonicalForPath } from "@/lib/site-routes"
 
 export const metadata: Metadata = {
   title: "Policies | Handled",
   description:
     "Handled policy library, including prohibited and restricted inventory rules and other operational policies.",
   alternates: {
-    canonical: "https://www.handledcommerce.com/policies",
+    canonical: canonicalForPath("/policies"),
   },
 }
 

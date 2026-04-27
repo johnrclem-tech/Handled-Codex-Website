@@ -39,18 +39,48 @@ export interface OnboardingTimelineStep {
 
 export interface OnboardingTimelineProps {
   label?: string
-  heading: string
-  description: string
+  heading?: string
+  description?: string
   bgColor?: string
-  steps: [OnboardingTimelineStep, OnboardingTimelineStep, OnboardingTimelineStep]
+  steps?: [OnboardingTimelineStep, OnboardingTimelineStep, OnboardingTimelineStep]
 }
+
+const defaultSteps: [OnboardingTimelineStep, OnboardingTimelineStep, OnboardingTimelineStep] = [
+  {
+    description:
+      "We connect your store and automate order routing, inventory sync, and fulfillment workflows in the first week.",
+    bullets: [
+      "Real-time order and inventory synchronization",
+      "Automations configured for core fulfillment flows",
+      "Fewer manual tasks for your operations team",
+    ],
+  },
+  {
+    description:
+      "We activate delivery promises and shipping rules so customers see reliable ETAs and your support team handles fewer WISMO tickets.",
+    bullets: [
+      "Order cutoff times surfaced at checkout",
+      "Delivery date visibility for better conversion",
+      "Shipping policy setup aligned to SLA targets",
+    ],
+  },
+  {
+    description:
+      "We finalize branded packaging and customer communication touchpoints to reinforce your brand post-purchase.",
+    bullets: [
+      "Branded packaging and inserts configured",
+      "Tracking communication aligned to brand tone",
+      "Returns workflows launched with your policies",
+    ],
+  },
+]
 
 export function OnboardingTimeline({
   label,
-  heading,
-  description,
+  heading = "Onboard in two weeks",
+  description = "Go live quickly with a structured rollout that prioritizes speed, accuracy, and brand consistency.",
   bgColor,
-  steps,
+  steps = defaultSteps,
 }: OnboardingTimelineProps) {
   const data: TimelineItem[] = [
     {

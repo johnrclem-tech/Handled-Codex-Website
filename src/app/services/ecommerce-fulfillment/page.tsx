@@ -38,6 +38,7 @@ import type { CTABenefit } from "@/components/sections/cta"
 import { IntegrationsFloating } from "@/components/sections/integrations-floating"
 import { TestimonialsCustomers } from "@/components/sections/testimonials-customers"
 import { Warehouse, PackageCheck, Truck } from "lucide-react"
+import { canonicalForPath } from "@/lib/site-routes"
 import {
   HiOutlineCurrencyDollar,
 } from "react-icons/hi2"
@@ -82,7 +83,7 @@ export const metadata: Metadata = {
     type: "website",
   },
   alternates: {
-    canonical: "https://www.handledcommerce.com/services/ecommerce-fulfillment",
+    canonical: canonicalForPath("/services/ecommerce-fulfillment"),
   },
 }
 

@@ -3,13 +3,14 @@ import { readFile } from "node:fs/promises"
 import path from "node:path"
 import { Navbar } from "@/components/sections/navbar"
 import { Footer } from "@/components/sections/footer"
+import { canonicalForPath } from "@/lib/site-routes"
 
 export const metadata: Metadata = {
   title: "Terms of Service | Handled",
   description:
     "Terms of Service for Handled, including account terms, fees, service levels, liability limitations, and dispute resolution.",
   alternates: {
-    canonical: "https://www.handledcommerce.com/terms",
+    canonical: canonicalForPath("/terms"),
   },
 }
 

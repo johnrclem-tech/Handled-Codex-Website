@@ -1,0 +1,49 @@
+{
+  "apiVersion": "v21",
+  "defaultTargeting": {
+    "geoTargetConstants": [
+      "geoTargetConstants/2840"
+    ],
+    "language": "languageConstants/1000",
+    "keywordPlanNetwork": "GOOGLE_SEARCH",
+    "seedStrategy": "KEYWORD_ONLY",
+    "landingPageUrl": "https://www.handledcommerce.com/"
+  },
+  "campaigns": {
+    "California Fulfillment Services | Handled | Search | TDM": {
+      "geoTargetConstants": [
+        "geoTargetConstants/21137"
+      ],
+      "language": "languageConstants/1000",
+      "keywordPlanNetwork": "GOOGLE_SEARCH",
+      "seedStrategy": "KEYWORD_AND_URL",
+      "landingPageUrl": "https://www.handledcommerce.com/services/ecommerce-fulfillment"
+    },
+    "East Coast Fulfillment Services | Handled | Search | TDM": {
+      "geoTargetConstants": [
+        "geoTargetConstants/1023191"
+      ],
+      "language": "languageConstants/1000",
+      "keywordPlanNetwork": "GOOGLE_SEARCH",
+      "seedStrategy": "KEYWORD_AND_URL",
+      "landingPageUrl": "https://www.handledcommerce.com/services/ecommerce-fulfillment"
+    }
+  },
+  "adGroups": {
+    "Amazon Fulfillment": {
+      "seedStrategy": "KEYWORD_AND_URL",
+      "landingPageUrl": "https://www.handledcommerce.com/integrations/shopify-fulfillment"
+    },
+    "New York Fulfillment": {
+      "geoTargetConstants": [
+        "geoTargetConstants/1023191"
+      ]
+    }
+  },
+  "limits": {
+    "topAdGroups": 12,
+    "maxKeywordsPerAdGroup": 250,
+    "maxIdeaResultsPerAdGroup": 300,
+    "cacheMaxAgeHours": 24
+  }
+}

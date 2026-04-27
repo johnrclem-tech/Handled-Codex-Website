@@ -3,13 +3,14 @@ import { readFile } from "node:fs/promises"
 import path from "node:path"
 import { Navbar } from "@/components/sections/navbar"
 import { Footer } from "@/components/sections/footer"
+import { canonicalForPath } from "@/lib/site-routes"
 
 export const metadata: Metadata = {
   title: "Privacy Policy | Handled",
   description:
     "Privacy Policy for Handled, including what data we collect, how we use and share it, data retention, and your rights.",
   alternates: {
-    canonical: "https://www.handledcommerce.com/privacy",
+    canonical: canonicalForPath("/privacy"),
   },
 }
 

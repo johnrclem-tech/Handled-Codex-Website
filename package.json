@@ -4,6 +4,11 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "check:routes": "node scripts/check-nav-footer-routes.mjs",
+    "sync:google-keyword-planner": "node scripts/sync-google-keyword-planner.mjs",
+    "analyze:keyword-gaps": "node scripts/generate-keyword-gap-report.mjs",
+    "refresh:keyword-analysis": "npm run sync:google-keyword-planner && npm run analyze:keyword-gaps",
+    "prebuild": "npm run check:routes",
     "build": "next build",
     "start": "next start",
     "lint": "eslint"

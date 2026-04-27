@@ -43,8 +43,8 @@ export interface IntegrationIconMotion {
 
 export interface IntegrationsFloatingProps {
   label?: string
-  heading: string
-  description: string
+  heading?: string
+  description?: string
   ctaText?: string
   ctaHref?: string
   bgColor?: string
@@ -148,8 +148,8 @@ function IntegrationIconBubble({
 
 export function IntegrationsFloating({
   label = "Integrations",
-  heading,
-  description,
+  heading = "Connect your stack. Fulfill without friction.",
+  description = "Handled integrates with your storefronts, marketplaces, and carriers so orders, inventory, and tracking stay in sync.",
   ctaText = "Get a fulfillment quote",
   ctaHref = "#get-a-quote",
   bgColor,
@@ -214,7 +214,7 @@ export function IntegrationsFloating({
               animate={{ scale: [1.2, 1.0, 1.2] }}
               transition={{
                 duration: 3,
-                delay: Math.random() * 2,
+                delay: (index % 4) * 0.4,
                 repeat: Infinity,
                 ease: "easeInOut",
               }}

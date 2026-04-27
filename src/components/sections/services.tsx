@@ -9,7 +9,22 @@ import {
   HiOutlineGlobeAlt,
 } from "react-icons/hi2"
 
-const services = [
+export interface ServiceItem {
+  icon: React.ComponentType<{ className?: string }>
+  title: string
+  description: string
+  color: string
+  bg: string
+}
+
+interface ServicesProps {
+  label?: string
+  heading?: string
+  description?: string
+  items?: ServiceItem[]
+}
+
+const defaultServices: ServiceItem[] = [
   {
     icon: HiOutlineCube,
     title: "DTC Fulfillment",
@@ -60,39 +75,36 @@ const services = [
   },
 ]
 
-export function Services() {
+export function Services({
+  label = "Services",
+  heading = "Everything you need to ship at scale",
+  description =
+    "From pick and pack to branded experiences, we handle the entire post-purchase journey so you can focus on growing your brand.",
+  items = defaultServices,
+}: ServicesProps) {
   return (
     <section id="services" className="py-24 lg:py-32">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        {/* Section header */}
-        <div className="max-w-2xl mx-auto text-center mb-16">
-          <p className="section-label mb-3">Services</p>
-          <h2 className="section-heading">
-            Everything you need to ship at scale
-          </h2>
-          <p className="section-description">
-            From pick and pack to branded experiences, we handle the entire post-purchase
-            journey so you can focus on growing your brand.
-          </p>
+        <div className="mx-auto mb-16 max-w-2xl text-center">
+          <p className="section-label mb-3">{label}</p>
+          <h2 className="section-heading">{heading}</h2>
+          <p className="section-description">{description}</p>
         </div>
 
-        {/* Service cards grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {services.map((service) => (
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {items.map((service) => (
             <Card
               key={service.title}
-              className="group hover:shadow-md transition-all duration-300 hover:-translate-y-0.5 border-border/60"
+              className="group border-border/60 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md"
             >
               <CardContent className="p-6">
                 <div
-                  className={`inline-flex h-10 w-10 items-center justify-center rounded-lg ${service.bg} mb-4`}
+                  className={`mb-4 inline-flex h-10 w-10 items-center justify-center rounded-lg ${service.bg}`}
                 >
                   <service.icon className={`h-5 w-5 ${service.color}`} />
                 </div>
                 <h3 className="card-title mb-2">{service.title}</h3>
-                <p className="card-description">
-                  {service.description}
-                </p>
+                <p className="card-description">{service.description}</p>
               </CardContent>
             </Card>
           ))}
