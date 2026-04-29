@@ -12,6 +12,21 @@ interface KeywordBubbleChartProps {
   excludedFromChartCount: number
 }
 
+type RawKeywordSortKey =
+  | "sourceOrder"
+  | "keyword"
+  | "status"
+  | "adGroup"
+  | "qualityScore"
+  | "adRelevance"
+  | "landingPageRelevance"
+  | "cost"
+  | "impressions"
+  | "searchImpressionShare"
+  | "totalAvailableImpressions"
+
+type SortDirection = "asc" | "desc"
+
 function formatNumber(value: number) {
   return new Intl.NumberFormat("en-US", {
     maximumFractionDigits: 0,
@@ -38,6 +53,19 @@ function toLogValue(value: number) {
   return Math.log10(Math.max(value, 1))
 }
 
+function uniqueSorted(values: string[]) {
+  return Array.from(new Set(values.filter(Boolean))).sort((left, right) =>
+    left.localeCompare(right)
+  )
+}
+
+function compareNullableNumbers(left: number | null, right: number | null) {
+  if (left === null && right === null) return 0
+  if (left === null) return -1
+  if (right === null) return 1
+  return left - right
+}
+
 export function KeywordBubbleChart({
   groups,
   rawKeywords,
@@ -49,6 +77,12 @@ export function KeywordBubbleChart({
     x: number
     y: number
   } | null>(null)
+  const [sortKey, setSortKey] = useState<RawKeywordSortKey>("sourceOrder")
+  const [sortDirection, setSortDirection] = useState<SortDirection>("asc")
+  const [statusFilter, setStatusFilter] = useState("All")
+  const [adGroupFilter, setAdGroupFilter] = useState("All")
+  const [adRelevanceFilter, setAdRelevanceFilter] = useState("All")
+  const [landingPageFilter, setLandingPageFilter] = useState("All")
   const chartContainerRef = useRef<HTMLDivElement | null>(null)
 
   const chart = useMemo(() => {
@@ -122,9 +156,135 @@ export function KeywordBubbleChart({
   })()
 
   const rawKeywordRows = useMemo(
-    () => [...rawKeywords].sort((left, right) => left.sourceOrder - right.sourceOrder),
+    () =>
+      rawKeywords
+        .filter((keyword) =>
+          statusFilter === "All" ? true : keyword.status === statusFilter
+        )
+        .filter((keyword) =>
+          adGroupFilter === "All" ? true : keyword.adGroup === adGroupFilter
+        )
+        .filter((keyword) =>
+          adRelevanceFilter === "All"
+            ? true
+            : keyword.adRelevance === adRelevanceFilter
+        )
+        .filter((keyword) =>
+          landingPageFilter === "All"
+            ? true
+            : keyword.landingPageRelevance === landingPageFilter
+        )
+        .sort((left, right) => {
+          let result = 0
+
+          if (sortKey === "qualityScore") {
+            result = compareNullableNumbers(left.qualityScore, right.qualityScore)
+          } else if (
+            sortKey === "sourceOrder" ||
+            sortKey === "cost" ||
+            sortKey === "impressions" ||
+            sortKey === "totalAvailableImpressions"
+          ) {
+            result = left[sortKey] - right[sortKey]
+          } else if (sortKey === "searchImpressionShare") {
+            result = compareNullableNumbers(
+              left.searchImpressionShare,
+              right.searchImpressionShare
+            )
+          } else {
+            result = left[sortKey].localeCompare(right[sortKey])
+          }
+
+          if (result === 0) {
+            result = left.sourceOrder - right.sourceOrder
+          }
+
+          return sortDirection === "asc" ? result : -result
+        }),
+    [
+      rawKeywords,
+      statusFilter,
+      adGroupFilter,
+      adRelevanceFilter,
+      landingPageFilter,
+      sortKey,
+      sortDirection,
+    ]
+  )
+
+  const filterOptions = useMemo(
+    () => ({
+      statuses: uniqueSorted(rawKeywords.map((keyword) => keyword.status)),
+      adGroups: uniqueSorted(rawKeywords.map((keyword) => keyword.adGroup)),
+      adRelevance: uniqueSorted(rawKeywords.map((keyword) => keyword.adRelevance)),
+      landingPages: uniqueSorted(
+        rawKeywords.map((keyword) => keyword.landingPageRelevance)
+      ),
+    }),
     [rawKeywords]
   )
+
+  function setRawKeywordSort(nextSortKey: RawKeywordSortKey) {
+    if (nextSortKey === sortKey) {
+      setSortDirection((current) => (current === "asc" ? "desc" : "asc"))
+      return
+    }
+
+    setSortKey(nextSortKey)
+    setSortDirection("asc")
+  }
+
+  function sortLabel(label: string, key: RawKeywordSortKey) {
+    if (key !== sortKey) {
+      return label
+    }
+
+    return `${label} (${sortDirection})`
+  }
+
+  function FilterSelect({
+    label,
+    value,
+    options,
+    onChange,
+  }: {
+    label: string
+    value: string
+    options: string[]
+    onChange: (value: string) => void
+  }) {
+    return (
+      <label className="grid gap-1 text-sm">
+        <span className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+          {label}
+        </span>
+        <select
+          className="h-9 min-w-40 rounded-md border border-border bg-background px-2 text-sm"
+          value={value}
+          onChange={(event) => onChange(event.target.value)}
+        >
+          <option value="All">All</option>
+          {options.map((option) => (
+            <option key={`${label}-${option}`} value={option}>
+              {option}
+            </option>
+          ))}
+        </select>
+      </label>
+    )
+  }
+
+  function SortHeader({ label, sortKey }: { label: string; sortKey: RawKeywordSortKey }) {
+    return (
+      <button
+        className="text-left font-semibold hover:text-foreground"
+        onClick={() => setRawKeywordSort(sortKey)}
+        type="button"
+      >
+        {sortLabel(label, sortKey)}
+      </button>
+    )
+  }
 
   return (
     <div className="space-y-8">
@@ -339,20 +499,76 @@ export function KeywordBubbleChart({
           </div>
         </div>
 
+        <div className="mt-5 grid gap-3 md:grid-cols-2 xl:grid-cols-4">
+          <FilterSelect
+            label="Status"
+            value={statusFilter}
+            options={filterOptions.statuses}
+            onChange={setStatusFilter}
+          />
+          <FilterSelect
+            label="Ad Group"
+            value={adGroupFilter}
+            options={filterOptions.adGroups}
+            onChange={setAdGroupFilter}
+          />
+          <FilterSelect
+            label="Ad Relevance"
+            value={adRelevanceFilter}
+            options={filterOptions.adRelevance}
+            onChange={setAdRelevanceFilter}
+          />
+          <FilterSelect
+            label="Landing Page Exp."
+            value={landingPageFilter}
+            options={filterOptions.landingPages}
+            onChange={setLandingPageFilter}
+          />
+        </div>
+
         <div className="mt-4 max-h-[520px] overflow-auto rounded-md border border-border">
-          <table className="min-w-[1180px] w-full text-left text-sm">
+          <table className="min-w-[1280px] w-full text-left text-sm">
             <thead className="sticky top-0 bg-muted/90 text-xs uppercase tracking-wide text-muted-foreground">
               <tr>
-                <th className="px-3 py-2">Keyword</th>
-                <th className="px-3 py-2">Status</th>
-                <th className="px-3 py-2">Ad Group</th>
-                <th className="px-3 py-2">Quality Score</th>
-                <th className="px-3 py-2">Ad Relevance</th>
-                <th className="px-3 py-2">Landing Page Exp.</th>
-                <th className="px-3 py-2">Cost</th>
-                <th className="px-3 py-2">Impr.</th>
-                <th className="px-3 py-2">Search Impr. Share</th>
-                <th className="px-3 py-2">Total Available Impr.</th>
+                <th className="px-3 py-2">
+                  <SortHeader label="Keyword" sortKey="keyword" />
+                </th>
+                <th className="px-3 py-2">
+                  <SortHeader label="Status" sortKey="status" />
+                </th>
+                <th className="px-3 py-2">
+                  <SortHeader label="Ad Group" sortKey="adGroup" />
+                </th>
+                <th className="px-3 py-2">
+                  <SortHeader label="Quality Score" sortKey="qualityScore" />
+                </th>
+                <th className="px-3 py-2">
+                  <SortHeader label="Ad Relevance" sortKey="adRelevance" />
+                </th>
+                <th className="px-3 py-2">
+                  <SortHeader
+                    label="Landing Page Exp."
+                    sortKey="landingPageRelevance"
+                  />
+                </th>
+                <th className="px-3 py-2">
+                  <SortHeader label="Cost" sortKey="cost" />
+                </th>
+                <th className="px-3 py-2">
+                  <SortHeader label="Impr." sortKey="impressions" />
+                </th>
+                <th className="px-3 py-2">
+                  <SortHeader
+                    label="Search Impr. Share"
+                    sortKey="searchImpressionShare"
+                  />
+                </th>
+                <th className="px-3 py-2">
+                  <SortHeader
+                    label="Total Available Impr."
+                    sortKey="totalAvailableImpressions"
+                  />
+                </th>
               </tr>
             </thead>
             <tbody>
