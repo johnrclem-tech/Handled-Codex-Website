@@ -79,3 +79,11 @@ Generated files:
 - `reports/keyword-gap-top12.csv`
 - `reports/keyword-gap-analysis.md`
 - `reports/keyword-gap-metadata.json`
+
+## Canonical Ad Prompt
+
+Use this file as the single source of truth for ad creation/update instructions:
+
+- `docs/prompts/google-ads-ad-only-canonical-v1.md`
+
+This prompt is ad-only, dataset-driven, and outputs a full RSA package with extensions.

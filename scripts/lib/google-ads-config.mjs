@@ -1,5 +1,35 @@
 import { readFile } from "node:fs/promises"
+import { existsSync, readFileSync } from "node:fs"
 import path from "node:path"
+
+function loadLocalEnvFile() {
+  const envPath = path.join(process.cwd(), ".env.local")
+  if (!existsSync(envPath)) {
+    return
+  }
+
+  const raw = readFileSync(envPath, "utf8")
+  const lines = raw.split(/\r?\n/)
+  for (const line of lines) {
+    const trimmed = line.trim()
+    if (!trimmed || trimmed.startsWith("#")) {
+      continue
+    }
+
+    const separatorIndex = trimmed.indexOf("=")
+    if (separatorIndex === -1) {
+      continue
+    }
+
+    const key = trimmed.slice(0, separatorIndex).trim()
+    const value = trimmed.slice(separatorIndex + 1).trim()
+    if (!key || process.env[key] !== undefined) {
+      continue
+    }
+
+    process.env[key] = value
+  }
+}
 
 function mustEnv(name, allowEmpty = false) {
   const value = process.env[name]
@@ -18,6 +48,8 @@ function assertCustomerId(value, fieldName) {
 }
 
 export async function loadGoogleAdsConfig() {
+  loadLocalEnvFile()
+
   const customerId = assertCustomerId(mustEnv("GOOGLE_ADS_CUSTOMER_ID"), "GOOGLE_ADS_CUSTOMER_ID")
   const loginCustomerIdRaw = process.env.GOOGLE_ADS_LOGIN_CUSTOMER_ID?.trim() ?? ""
   const loginCustomerId = loginCustomerIdRaw
