@@ -79,10 +79,10 @@ export function KeywordBubbleChart({
   } | null>(null)
   const [sortKey, setSortKey] = useState<RawKeywordSortKey>("sourceOrder")
   const [sortDirection, setSortDirection] = useState<SortDirection>("asc")
-  const [statusFilter, setStatusFilter] = useState("All")
-  const [adGroupFilter, setAdGroupFilter] = useState("All")
-  const [adRelevanceFilter, setAdRelevanceFilter] = useState("All")
-  const [landingPageFilter, setLandingPageFilter] = useState("All")
+  const [statusFilters, setStatusFilters] = useState<string[]>([])
+  const [adGroupFilters, setAdGroupFilters] = useState<string[]>([])
+  const [adRelevanceFilters, setAdRelevanceFilters] = useState<string[]>([])
+  const [landingPageFilters, setLandingPageFilters] = useState<string[]>([])
   const chartContainerRef = useRef<HTMLDivElement | null>(null)
 
   const chart = useMemo(() => {
@@ -159,20 +159,22 @@ export function KeywordBubbleChart({
     () =>
       rawKeywords
         .filter((keyword) =>
-          statusFilter === "All" ? true : keyword.status === statusFilter
+          statusFilters.length === 0 ? true : statusFilters.includes(keyword.status)
         )
         .filter((keyword) =>
-          adGroupFilter === "All" ? true : keyword.adGroup === adGroupFilter
-        )
-        .filter((keyword) =>
-          adRelevanceFilter === "All"
+          adGroupFilters.length === 0
             ? true
-            : keyword.adRelevance === adRelevanceFilter
+            : adGroupFilters.includes(keyword.adGroup)
         )
         .filter((keyword) =>
-          landingPageFilter === "All"
+          adRelevanceFilters.length === 0
             ? true
-            : keyword.landingPageRelevance === landingPageFilter
+            : adRelevanceFilters.includes(keyword.adRelevance)
+        )
+        .filter((keyword) =>
+          landingPageFilters.length === 0
+            ? true
+            : landingPageFilters.includes(keyword.landingPageRelevance)
         )
         .sort((left, right) => {
           let result = 0
@@ -203,10 +205,10 @@ export function KeywordBubbleChart({
         }),
     [
       rawKeywords,
-      statusFilter,
-      adGroupFilter,
-      adRelevanceFilter,
-      landingPageFilter,
+      statusFilters,
+      adGroupFilters,
+      adRelevanceFilters,
+      landingPageFilters,
       sortKey,
       sortDirection,
     ]
@@ -242,35 +244,74 @@ export function KeywordBubbleChart({
     return `${label} (${sortDirection})`
   }
 
-  function FilterSelect({
+  function toggleFilterValue(
+    value: string,
+    selectedValues: string[],
+    setSelectedValues: (values: string[]) => void
+  ) {
+    if (selectedValues.includes(value)) {
+      setSelectedValues(selectedValues.filter((selected) => selected !== value))
+      return
+    }
+
+    setSelectedValues([...selectedValues, value])
+  }
+
+  function MultiFilter({
     label,
-    value,
+    selectedValues,
     options,
     onChange,
   }: {
     label: string
-    value: string
+    selectedValues: string[]
     options: string[]
-    onChange: (value: string) => void
+    onChange: (values: string[]) => void
   }) {
+    const summary =
+      selectedValues.length === 0
+        ? "All"
+        : `${selectedValues.length} selected`
+
     return (
-      <label className="grid gap-1 text-sm">
-        <span className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
-          {label}
-        </span>
-        <select
-          className="h-9 min-w-40 rounded-md border border-border bg-background px-2 text-sm"
-          value={value}
-          onChange={(event) => onChange(event.target.value)}
+      <details className="group rounded-md border border-border bg-background text-sm">
+        <summary
+          className="flex min-h-9 cursor-pointer list-none items-center justify-between gap-3 px-3 py-2"
         >
-          <option value="All">All</option>
+          <span>
+            <span className="block text-xs font-medium uppercase tracking-wide text-muted-foreground">
+              {label}
+            </span>
+            <span>{summary}</span>
+          </span>
+          <span className="text-muted-foreground">v</span>
+        </summary>
+        <div className="max-h-72 overflow-auto border-t border-border p-2">
+          <button
+            className="mb-2 w-full rounded border border-border px-2 py-1 text-left text-xs text-muted-foreground hover:bg-muted"
+            onClick={() => onChange([])}
+            type="button"
+          >
+            Clear filter
+          </button>
           {options.map((option) => (
-            <option key={`${label}-${option}`} value={option}>
-              {option}
-            </option>
+            <label
+              className="flex items-start gap-2 rounded px-2 py-1.5 hover:bg-muted"
+              key={`${label}-${option}`}
+            >
+              <input
+                checked={selectedValues.includes(option)}
+                className="mt-0.5"
+                onChange={() =>
+                  toggleFilterValue(option, selectedValues, onChange)
+                }
+                type="checkbox"
+              />
+              <span>{option}</span>
+            </label>
           ))}
-        </select>
-      </label>
+        </div>
+      </details>
     )
   }
 
@@ -500,29 +541,29 @@ export function KeywordBubbleChart({
         </div>
 
         <div className="mt-5 grid gap-3 md:grid-cols-2 xl:grid-cols-4">
-          <FilterSelect
+          <MultiFilter
             label="Status"
-            value={statusFilter}
+            selectedValues={statusFilters}
             options={filterOptions.statuses}
-            onChange={setStatusFilter}
+            onChange={setStatusFilters}
           />
-          <FilterSelect
+          <MultiFilter
             label="Ad Group"
-            value={adGroupFilter}
+            selectedValues={adGroupFilters}
             options={filterOptions.adGroups}
-            onChange={setAdGroupFilter}
+            onChange={setAdGroupFilters}
           />
-          <FilterSelect
+          <MultiFilter
             label="Ad Relevance"
-            value={adRelevanceFilter}
+            selectedValues={adRelevanceFilters}
             options={filterOptions.adRelevance}
-            onChange={setAdRelevanceFilter}
+            onChange={setAdRelevanceFilters}
           />
-          <FilterSelect
+          <MultiFilter
             label="Landing Page Exp."
-            value={landingPageFilter}
+            selectedValues={landingPageFilters}
             options={filterOptions.landingPages}
-            onChange={setLandingPageFilter}
+            onChange={setLandingPageFilters}
           />
         </div>
 
