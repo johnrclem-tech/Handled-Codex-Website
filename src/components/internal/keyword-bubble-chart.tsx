@@ -99,6 +99,14 @@ export function KeywordBubbleChart({ groups }: KeywordBubbleChartProps) {
     return { x, y }
   })()
 
+  const rawKeywordRows = useMemo(
+    () =>
+      groups
+        .flatMap((group) => group.keywords)
+        .sort((left, right) => left.sourceOrder - right.sourceOrder),
+    [groups]
+  )
+
   return (
     <div className="space-y-8">
       <div
@@ -295,6 +303,68 @@ export function KeywordBubbleChart({ groups }: KeywordBubbleChartProps) {
             </div>
           </div>
         ) : null}
+      </div>
+
+      <div className="rounded-xl border border-border bg-card p-5">
+        <div className="flex flex-col gap-1 sm:flex-row sm:items-end sm:justify-between">
+          <div>
+            <h3 className="text-base font-semibold">Raw Keyword CSV Data</h3>
+            <p className="mt-1 text-sm text-muted-foreground">
+              Original keyword rows with calculated total available impressions.
+            </p>
+          </div>
+          <p className="text-sm text-muted-foreground">
+            {rawKeywordRows.length.toLocaleString("en-US")} rows
+          </p>
+        </div>
+
+        <div className="mt-4 max-h-[520px] overflow-auto rounded-md border border-border">
+          <table className="min-w-[1180px] w-full text-left text-sm">
+            <thead className="sticky top-0 bg-muted/90 text-xs uppercase tracking-wide text-muted-foreground">
+              <tr>
+                <th className="px-3 py-2">Keyword</th>
+                <th className="px-3 py-2">Ad Group</th>
+                <th className="px-3 py-2">Quality Score</th>
+                <th className="px-3 py-2">Ad Relevance</th>
+                <th className="px-3 py-2">Landing Page Exp.</th>
+                <th className="px-3 py-2">Cost</th>
+                <th className="px-3 py-2">Impr.</th>
+                <th className="px-3 py-2">Search Impr. Share</th>
+                <th className="px-3 py-2">Total Available Impr.</th>
+              </tr>
+            </thead>
+            <tbody>
+              {rawKeywordRows.map((keyword) => (
+                <tr
+                  key={`${keyword.sourceOrder}-${keyword.adGroup}-${keyword.keyword}`}
+                  className="border-t border-border"
+                >
+                  <td className="px-3 py-2 align-top">{keyword.keyword}</td>
+                  <td className="px-3 py-2 align-top">{keyword.adGroup}</td>
+                  <td className="px-3 py-2 align-top">
+                    {keyword.qualityScore ?? "n/a"}
+                  </td>
+                  <td className="px-3 py-2 align-top">{keyword.adRelevance}</td>
+                  <td className="px-3 py-2 align-top">
+                    {keyword.landingPageRelevance}
+                  </td>
+                  <td className="px-3 py-2 align-top">
+                    {formatCurrency(keyword.cost)}
+                  </td>
+                  <td className="px-3 py-2 align-top">
+                    {formatNumber(keyword.impressions)}
+                  </td>
+                  <td className="px-3 py-2 align-top">
+                    {formatPercent(keyword.searchImpressionShare)}
+                  </td>
+                  <td className="px-3 py-2 align-top font-medium">
+                    {formatNumber(keyword.totalAvailableImpressions)}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
 
       <div className="grid gap-4 lg:grid-cols-[1.1fr_1fr]">

@@ -2,6 +2,7 @@ import { readFile } from "node:fs/promises"
 import path from "node:path"
 
 export interface KeywordPerformanceRow {
+  sourceOrder: number
   keyword: string
   adGroup: string
   qualityScore: number | null
@@ -127,7 +128,7 @@ export async function getKeywordAdGroupPerformance() {
   }
 
   const rows: KeywordPerformanceRow[] = []
-  for (const line of lines.slice(headerIndex + 1)) {
+  for (const [sourceOrder, line] of lines.slice(headerIndex + 1).entries()) {
     const values = parseCsvLine(line)
     const impressions = parseNumber(values[index.impressions]) ?? 0
     const searchImpressionShare = parsePercent(values[index.searchImpressionShare])
@@ -137,6 +138,7 @@ export async function getKeywordAdGroupPerformance() {
     )
 
     rows.push({
+      sourceOrder,
       keyword: values[index.keyword] ?? "",
       adGroup: values[index.adGroup] ?? "Unassigned",
       qualityScore: parseNumber(values[index.qualityScore]),
