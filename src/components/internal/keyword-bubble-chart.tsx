@@ -87,6 +87,7 @@ export function KeywordBubbleChart({
   const [adGroupFilters, setAdGroupFilters] = useState<string[]>([])
   const [adRelevanceFilters, setAdRelevanceFilters] = useState<string[]>([])
   const [landingPageFilters, setLandingPageFilters] = useState<string[]>([])
+  const [adGroupQuery, setAdGroupQuery] = useState("")
   const chartContainerRef = useRef<HTMLDivElement | null>(null)
 
   const chart = useMemo(() => {
@@ -230,6 +231,17 @@ export function KeywordBubbleChart({
     [rawKeywords]
   )
 
+  const adGroupComboOptions = useMemo(
+    () =>
+      filterOptions.adGroups
+        .filter((adGroup) => !adGroupFilters.includes(adGroup))
+        .filter((adGroup) =>
+          adGroup.toLowerCase().includes(adGroupQuery.trim().toLowerCase())
+        )
+        .slice(0, 25),
+    [adGroupFilters, adGroupQuery, filterOptions.adGroups]
+  )
+
   function setRawKeywordSort(nextSortKey: RawKeywordSortKey) {
     if (nextSortKey === sortKey) {
       setSortDirection((current) => (current === "asc" ? "desc" : "asc"))
@@ -316,6 +328,100 @@ export function KeywordBubbleChart({
           ))}
         </div>
       </details>
+    )
+  }
+
+  function addAdGroupFilter(adGroup: string) {
+    const trimmedAdGroup = adGroup.trim()
+    if (!trimmedAdGroup || !filterOptions.adGroups.includes(trimmedAdGroup)) {
+      return
+    }
+
+    if (!adGroupFilters.includes(trimmedAdGroup)) {
+      setAdGroupFilters([...adGroupFilters, trimmedAdGroup])
+    }
+    setAdGroupQuery("")
+  }
+
+  function ComboFilter({
+    label,
+    query,
+    selectedValues,
+    options,
+    onQueryChange,
+    onAdd,
+    onRemove,
+    onClear,
+  }: {
+    label: string
+    query: string
+    selectedValues: string[]
+    options: string[]
+    onQueryChange: (value: string) => void
+    onAdd: (value: string) => void
+    onRemove: (value: string) => void
+    onClear: () => void
+  }) {
+    return (
+      <div className="rounded-md border border-border bg-background p-3 text-sm">
+        <label className="grid gap-1">
+          <span className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+            {label}
+          </span>
+          <input
+            className="h-9 rounded-md border border-border bg-background px-2 text-sm"
+            list={`${label}-options`}
+            onChange={(event) => onQueryChange(event.target.value)}
+            onKeyDown={(event) => {
+              if (event.key === "Enter") {
+                event.preventDefault()
+                onAdd(query)
+              }
+            }}
+            placeholder="Search ad groups"
+            value={query}
+          />
+          <datalist id={`${label}-options`}>
+            {options.map((option) => (
+              <option key={`${label}-${option}`} value={option} />
+            ))}
+          </datalist>
+        </label>
+
+        <div className="mt-2 flex gap-2">
+          <button
+            className="rounded border border-border px-2 py-1 text-xs hover:bg-muted"
+            onClick={() => onAdd(query)}
+            type="button"
+          >
+            Add
+          </button>
+          <button
+            className="rounded border border-border px-2 py-1 text-xs text-muted-foreground hover:bg-muted"
+            onClick={onClear}
+            type="button"
+          >
+            Clear
+          </button>
+        </div>
+
+        <div className="mt-3 flex max-h-28 flex-wrap gap-2 overflow-auto">
+          {selectedValues.length === 0 ? (
+            <span className="text-xs text-muted-foreground">All ad groups</span>
+          ) : (
+            selectedValues.map((value) => (
+              <button
+                className="rounded-full border border-border px-2 py-1 text-xs hover:bg-muted"
+                key={`selected-${value}`}
+                onClick={() => onRemove(value)}
+                type="button"
+              >
+                {value} x
+              </button>
+            ))
+          )}
+        </div>
+      </div>
     )
   }
 
@@ -551,11 +657,22 @@ export function KeywordBubbleChart({
             options={filterOptions.statuses}
             onChange={setStatusFilters}
           />
-          <MultiFilter
+          <ComboFilter
             label="Ad Group"
+            query={adGroupQuery}
             selectedValues={adGroupFilters}
-            options={filterOptions.adGroups}
-            onChange={setAdGroupFilters}
+            options={adGroupComboOptions}
+            onQueryChange={setAdGroupQuery}
+            onAdd={addAdGroupFilter}
+            onRemove={(value) =>
+              setAdGroupFilters(
+                adGroupFilters.filter((adGroup) => adGroup !== value)
+              )
+            }
+            onClear={() => {
+              setAdGroupFilters([])
+              setAdGroupQuery("")
+            }}
           />
           <MultiFilter
             label="Ad Relevance"
