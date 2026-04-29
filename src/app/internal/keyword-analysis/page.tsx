@@ -21,7 +21,7 @@ export const metadata: Metadata = {
 }
 
 export default async function InternalKeywordAnalysisPage() {
-  const [groups, gapReport] = await Promise.all([
+  const [keywordPerformance, gapReport] = await Promise.all([
     getKeywordAdGroupPerformance(),
     getKeywordGapReportData(),
   ])
@@ -43,7 +43,11 @@ export default async function InternalKeywordAnalysisPage() {
         </div>
 
         <div className="mt-10">
-          <KeywordBubbleChart groups={groups} />
+          <KeywordBubbleChart
+            groups={keywordPerformance.groups}
+            rawKeywords={keywordPerformance.rawKeywords}
+            excludedFromChartCount={keywordPerformance.excludedFromChartCount}
+          />
         </div>
 
         <div className="mt-14 space-y-6">

@@ -4,6 +4,7 @@ import path from "node:path"
 export interface KeywordPerformanceRow {
   sourceOrder: number
   keyword: string
+  status: string
   adGroup: string
   qualityScore: number | null
   adRelevance: string
@@ -20,6 +21,12 @@ export interface AdGroupPerformance {
   totalAvailableImpressions: number
   totalSpend: number
   keywords: KeywordPerformanceRow[]
+}
+
+export interface KeywordPerformanceData {
+  groups: AdGroupPerformance[]
+  rawKeywords: KeywordPerformanceRow[]
+  excludedFromChartCount: number
 }
 
 function parseCsvLine(line: string) {
@@ -114,6 +121,7 @@ export async function getKeywordAdGroupPerformance() {
   const headers = parseCsvLine(lines[headerIndex])
   const index = {
     keyword: headers.indexOf("Search keyword"),
+    status: headers.indexOf("Search keyword status"),
     adGroup: headers.indexOf("Ad group"),
     qualityScore: headers.indexOf("Quality Score"),
     adRelevance: headers.indexOf("Ad relevance"),
@@ -130,6 +138,7 @@ export async function getKeywordAdGroupPerformance() {
   const rows: KeywordPerformanceRow[] = []
   for (const [sourceOrder, line] of lines.slice(headerIndex + 1).entries()) {
     const values = parseCsvLine(line)
+    const status = values[index.status] ?? "Unknown"
     const impressions = parseNumber(values[index.impressions]) ?? 0
     const searchImpressionShare = parsePercent(values[index.searchImpressionShare])
     const totalAvailableImpressions = safeAvailableImpressions(
@@ -140,6 +149,7 @@ export async function getKeywordAdGroupPerformance() {
     rows.push({
       sourceOrder,
       keyword: values[index.keyword] ?? "",
+      status,
       adGroup: values[index.adGroup] ?? "Unassigned",
       qualityScore: parseNumber(values[index.qualityScore]),
       adRelevance: values[index.adRelevance] ?? "Unknown",
@@ -151,8 +161,12 @@ export async function getKeywordAdGroupPerformance() {
     })
   }
 
+  const chartRows = rows.filter(
+    (row) => row.status.trim().toLowerCase() !== "not eligible"
+  )
+
   const grouped = new Map<string, KeywordPerformanceRow[]>()
-  for (const row of rows) {
+  for (const row of chartRows) {
     const groupName = row.adGroup || "Unassigned"
     const existing = grouped.get(groupName)
     if (existing) {
@@ -162,7 +176,7 @@ export async function getKeywordAdGroupPerformance() {
     grouped.set(groupName, [row])
   }
 
-  const adGroups: AdGroupPerformance[] = Array.from(grouped.entries())
+  const groups: AdGroupPerformance[] = Array.from(grouped.entries())
     .map(([adGroup, keywords]) => {
       const totalAvailableImpressions = keywords.reduce(
         (sum, row) => sum + row.totalAvailableImpressions,
@@ -200,5 +214,9 @@ export async function getKeywordAdGroupPerformance() {
     })
     .sort((left, right) => right.totalSpend - left.totalSpend)
 
-  return adGroups
+  return {
+    groups,
+    rawKeywords: rows,
+    excludedFromChartCount: rows.length - chartRows.length,
+  }
 }

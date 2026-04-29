@@ -1,10 +1,15 @@
 "use client"
 
 import { useMemo, useRef, useState } from "react"
-import type { AdGroupPerformance } from "@/lib/keyword-performance"
+import type {
+  AdGroupPerformance,
+  KeywordPerformanceRow,
+} from "@/lib/keyword-performance"
 
 interface KeywordBubbleChartProps {
   groups: AdGroupPerformance[]
+  rawKeywords: KeywordPerformanceRow[]
+  excludedFromChartCount: number
 }
 
 function formatNumber(value: number) {
@@ -29,7 +34,15 @@ function formatPercent(value: number | null) {
   return `${(value * 100).toFixed(2)}%`
 }
 
-export function KeywordBubbleChart({ groups }: KeywordBubbleChartProps) {
+function toLogValue(value: number) {
+  return Math.log10(Math.max(value, 1))
+}
+
+export function KeywordBubbleChart({
+  groups,
+  rawKeywords,
+  excludedFromChartCount,
+}: KeywordBubbleChartProps) {
   const [activeGroup, setActiveGroup] = useState<AdGroupPerformance | null>(null)
   const [tooltip, setTooltip] = useState<{
     group: AdGroupPerformance
@@ -50,10 +63,13 @@ export function KeywordBubbleChart({ groups }: KeywordBubbleChartProps) {
 
     const xMin = Math.max(1, Math.min(...xValues, 5) - 0.5)
     const xMax = Math.min(10, Math.max(...xValues, 8) + 0.5)
+    const yMin = Math.max(1, Math.min(...yValues, 1))
     const yMax = Math.max(...yValues, 1)
+    const yLogMin = Math.floor(toLogValue(yMin))
+    const yLogMax = Math.ceil(toLogValue(yMax))
     const spendMax = Math.max(...spendValues, 1)
 
-    return { withQuality, xMin, xMax, yMax, spendMax }
+    return { withQuality, xMin, xMax, yMax, yLogMin, yLogMax, spendMax }
   }, [groups])
 
   const width = 980
@@ -69,7 +85,10 @@ export function KeywordBubbleChart({ groups }: KeywordBubbleChartProps) {
 
   const toY = (availableImpressions: number) =>
     margin.top +
-    (1 - availableImpressions / Math.max(chart.yMax, 0.0001)) * plotHeight
+    (1 -
+      (toLogValue(availableImpressions) - chart.yLogMin) /
+        Math.max(chart.yLogMax - chart.yLogMin, 0.0001)) *
+      plotHeight
 
   const toRadius = (spend: number) => {
     const minRadius = 12
@@ -78,11 +97,14 @@ export function KeywordBubbleChart({ groups }: KeywordBubbleChartProps) {
     return minRadius + normalized * (maxRadius - minRadius)
   }
 
-  const yTicks = Array.from({ length: 6 }, (_, index) => (chart.yMax / 5) * index)
+  const yTicks = Array.from(
+    { length: chart.yLogMax - chart.yLogMin + 1 },
+    (_, index) => 10 ** (chart.yLogMin + index)
+  )
   const xTicks = Array.from(
     { length: Math.max(2, Math.ceil(chart.xMax) - Math.floor(chart.xMin) + 1) },
     (_, index) => Math.floor(chart.xMin) + index
-  ).filter((tick) => tick <= Math.ceil(chart.xMax))
+  ).filter((tick) => tick <= chart.xMax)
 
   const tooltipPosition = (() => {
     if (!tooltip || !chartContainerRef.current) {
@@ -100,11 +122,8 @@ export function KeywordBubbleChart({ groups }: KeywordBubbleChartProps) {
   })()
 
   const rawKeywordRows = useMemo(
-    () =>
-      groups
-        .flatMap((group) => group.keywords)
-        .sort((left, right) => left.sourceOrder - right.sourceOrder),
-    [groups]
+    () => [...rawKeywords].sort((left, right) => left.sourceOrder - right.sourceOrder),
+    [rawKeywords]
   )
 
   return (
@@ -256,7 +275,7 @@ export function KeywordBubbleChart({ groups }: KeywordBubbleChartProps) {
             transform={`rotate(-90 20 ${height / 2})`}
             className="fill-muted-foreground text-xs"
           >
-            Total Available Impressions
+            Total Available Impressions (log scale)
           </text>
         </svg>
 
@@ -311,11 +330,13 @@ export function KeywordBubbleChart({ groups }: KeywordBubbleChartProps) {
             <h3 className="text-base font-semibold">Raw Keyword CSV Data</h3>
             <p className="mt-1 text-sm text-muted-foreground">
               Original keyword rows with calculated total available impressions.
+              Not eligible keywords are shown here, but excluded from the chart.
             </p>
           </div>
-          <p className="text-sm text-muted-foreground">
-            {rawKeywordRows.length.toLocaleString("en-US")} rows
-          </p>
+          <div className="text-sm text-muted-foreground sm:text-right">
+            <p>{rawKeywordRows.length.toLocaleString("en-US")} rows</p>
+            <p>{excludedFromChartCount.toLocaleString("en-US")} excluded from chart</p>
+          </div>
         </div>
 
         <div className="mt-4 max-h-[520px] overflow-auto rounded-md border border-border">
@@ -323,6 +344,7 @@ export function KeywordBubbleChart({ groups }: KeywordBubbleChartProps) {
             <thead className="sticky top-0 bg-muted/90 text-xs uppercase tracking-wide text-muted-foreground">
               <tr>
                 <th className="px-3 py-2">Keyword</th>
+                <th className="px-3 py-2">Status</th>
                 <th className="px-3 py-2">Ad Group</th>
                 <th className="px-3 py-2">Quality Score</th>
                 <th className="px-3 py-2">Ad Relevance</th>
@@ -340,6 +362,7 @@ export function KeywordBubbleChart({ groups }: KeywordBubbleChartProps) {
                   className="border-t border-border"
                 >
                   <td className="px-3 py-2 align-top">{keyword.keyword}</td>
+                  <td className="px-3 py-2 align-top">{keyword.status}</td>
                   <td className="px-3 py-2 align-top">{keyword.adGroup}</td>
                   <td className="px-3 py-2 align-top">
                     {keyword.qualityScore ?? "n/a"}
