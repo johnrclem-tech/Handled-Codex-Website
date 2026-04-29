@@ -53,6 +53,10 @@ function toLogValue(value: number) {
   return Math.log10(Math.max(value, 1))
 }
 
+function formatBubbleLabel(adGroup: string) {
+  return adGroup.replace(/\s+Fulfillment\b/gi, "").trim()
+}
+
 function uniqueSorted(values: string[]) {
   return Array.from(new Set(values.filter(Boolean))).sort((left, right) =>
     left.localeCompare(right)
@@ -455,7 +459,7 @@ export function KeywordBubbleChart({
                   textAnchor="middle"
                   className="pointer-events-none fill-foreground text-[10px] font-semibold"
                 >
-                  {group.adGroup}
+                  {formatBubbleLabel(group.adGroup)}
                 </text>
               </g>
             )
