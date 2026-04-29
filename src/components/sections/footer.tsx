@@ -28,10 +28,11 @@ const footerLinks = {
     { name: "East Coast", href: "/locations/east-coast" },
     { name: "West Coast", href: "/locations/west-coast" },
   ],
-  Company: [
-    { name: "About", href: "/company" },
-    { name: "Contact Sales", href: "/contact-sales" },
+  Resources: [
+    { name: "All Sections", href: "/section-test" },
     { name: "Keyword Analysis", href: "/internal/keyword-analysis" },
+  ],
+  Legal: [
     { name: "Policies", href: "/policies" },
     { name: "Privacy Policy", href: "/privacy" },
     { name: "Terms of Service", href: "/terms" },
@@ -93,24 +94,6 @@ export function Footer() {
               className="text-xs text-muted-foreground transition-colors hover:text-foreground"
             >
               Keyword Analysis
-            </Link>
-            <Link
-              href="/policies"
-              className="text-xs text-muted-foreground transition-colors hover:text-foreground"
-            >
-              Policies
-            </Link>
-            <Link
-              href="/privacy"
-              className="text-xs text-muted-foreground transition-colors hover:text-foreground"
-            >
-              Privacy
-            </Link>
-            <Link
-              href="/terms"
-              className="text-xs text-muted-foreground transition-colors hover:text-foreground"
-            >
-              Terms
             </Link>
           </div>
         </div>

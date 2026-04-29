@@ -11,7 +11,6 @@ const navigation = [
   { name: "Platform", href: "#platform" },
   { name: "Integrations", href: "#integrations" },
   { name: "Pricing", href: "#pricing" },
-  { name: "Company", href: "#company" },
 ]
 
 export function Navbar() {

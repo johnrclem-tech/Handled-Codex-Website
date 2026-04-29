@@ -3,12 +3,11 @@ import type { ComponentType, ReactElement } from "react"
 import { Hero } from "@/components/sections/hero"
 import { Services } from "@/components/sections/services"
 import { Platform } from "@/components/sections/platform"
-import { IntegrationsFloating } from "@/components/sections/integrations-floating"
+import { IntegrationsCarousel } from "@/components/sections/integrations-carousel"
 import { OnboardingTimeline } from "@/components/sections/onboarding-timeline"
 import { Guarantees } from "@/components/sections/guarantees"
 import { Pricing3 } from "@/components/sections/pricing-3"
 import { TestimonialsCustomers } from "@/components/sections/testimonials-customers"
-import { Company } from "@/components/sections/company"
 import { FAQCardGrid } from "@/components/sections/faq-card-grid"
 import { CTA } from "@/components/sections/cta"
 import type { SectionConfig, SectionKey } from "@/lib/page-model"
@@ -34,7 +33,7 @@ const sectionRegistry: Record<SectionKey, DynamicSectionRenderer> = {
   services: renderDynamicSection(asDynamicComponent(Services)),
   platform: renderDynamicSection(asDynamicComponent(Platform)),
   integrationsFloating: renderDynamicSection(
-    asDynamicComponent(IntegrationsFloating)
+    asDynamicComponent(IntegrationsCarousel)
   ),
   onboardingTimeline: renderDynamicSection(
     asDynamicComponent(OnboardingTimeline)
@@ -44,7 +43,6 @@ const sectionRegistry: Record<SectionKey, DynamicSectionRenderer> = {
   testimonialsCustomers: renderDynamicSection(
     asDynamicComponent(TestimonialsCustomers)
   ),
-  company: renderDynamicSection(asDynamicComponent(Company)),
   faqCardGrid: renderDynamicSection(asDynamicComponent(FAQCardGrid)),
   cta: renderDynamicSection(asDynamicComponent(CTA)),
 }

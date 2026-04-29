@@ -34,7 +34,7 @@ import type { GuaranteeItem } from "@/components/sections/guarantees"
 import { FAQCardGrid } from "@/components/sections/faq-card-grid"
 import { CTA } from "@/components/sections/cta"
 import type { CTABenefit } from "@/components/sections/cta"
-import { IntegrationsFloating } from "@/components/sections/integrations-floating"
+import { IntegrationsCarousel } from "@/components/sections/integrations-carousel"
 import { TestimonialsCustomers } from "@/components/sections/testimonials-customers"
 import { Warehouse, PackageCheck, Truck } from "lucide-react"
 import { canonicalForPath } from "@/lib/site-routes"
@@ -781,7 +781,7 @@ export default function ApparelFulfillmentPage() {
           </div>
         </section>
 
-        <IntegrationsFloating
+        <IntegrationsCarousel
           label="Apparel Integrations"
           heading="Connect your clothing brand in under 24 hours"
           description="Handled integrates with every platform apparel brands sell on. Orders, inventory, size-color matrices, and tracking sync in real time."

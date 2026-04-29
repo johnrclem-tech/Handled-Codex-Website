@@ -154,7 +154,6 @@ export const homeSEOPage: PageContentModel = {
       },
     },
     { key: "testimonialsCustomers" },
-    { key: "company" },
     {
       key: "faqCardGrid",
       props: {

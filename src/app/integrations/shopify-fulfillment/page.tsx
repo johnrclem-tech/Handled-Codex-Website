@@ -31,7 +31,7 @@ import type { GuaranteeItem } from "@/components/sections/guarantees"
 import { FAQCardGrid } from "@/components/sections/faq-card-grid"
 import { CTA } from "@/components/sections/cta"
 import type { CTABenefit } from "@/components/sections/cta"
-import { IntegrationsFloating } from "@/components/sections/integrations-floating"
+import { IntegrationsCarousel } from "@/components/sections/integrations-carousel"
 import { TestimonialsCustomers } from "@/components/sections/testimonials-customers"
 import { Warehouse, PackageCheck, Truck } from "lucide-react"
 import { canonicalForPath } from "@/lib/site-routes"
@@ -584,7 +584,7 @@ export default function ShopifyFulfillmentPage() {
           </div>
         </section>
 
-        <IntegrationsFloating
+        <IntegrationsCarousel
           label="Shopify Integrations"
           heading="Your Shopify store, connected in minutes"
           description="Handled integrates natively with Shopify and Shopify Plus. Orders, inventory, and tracking sync automatically — so you can focus on selling, not spreadsheets."

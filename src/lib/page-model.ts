@@ -19,7 +19,6 @@ export type SectionKey =
   | "guarantees"
   | "pricing3"
   | "testimonialsCustomers"
-  | "company"
   | "faqCardGrid"
   | "cta"
 

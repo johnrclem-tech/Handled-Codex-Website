@@ -84,6 +84,6 @@ Generated files:
 
 Use this file as the single source of truth for ad creation/update instructions:
 
-- `docs/prompts/google-ads-ad-only-canonical-v1.md`
+- `docs/instructions/google-ads.md`
 
 This prompt is ad-only, dataset-driven, and outputs a full RSA package with extensions.

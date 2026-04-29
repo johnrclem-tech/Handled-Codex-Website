@@ -4,7 +4,6 @@ import { Navbar } from "@/components/sections/navbar"
 import { Hero } from "@/components/sections/hero"
 import { Services } from "@/components/sections/services"
 import { Platform } from "@/components/sections/platform"
-import { IntegrationsFloating } from "@/components/sections/integrations-floating"
 import { IntegrationsCarousel } from "@/components/sections/integrations-carousel"
 import { IntegrationsDiamond } from "@/components/sections/integrations-diamond"
 import { OnboardingTimeline } from "@/components/sections/onboarding-timeline"
@@ -13,7 +12,6 @@ import { Guarantees, defaultGuarantees } from "@/components/sections/guarantees"
 import { Pricing3 } from "@/components/sections/pricing-3"
 import type { Pricing3Plan } from "@/components/sections/pricing-3"
 import { TestimonialsCustomers } from "@/components/sections/testimonials-customers"
-import { Company } from "@/components/sections/company"
 import { FAQCardGrid } from "@/components/sections/faq-card-grid"
 import { FAQCardColumn } from "@/components/sections/faq-card-column"
 import { CTA, defaultCTABenefits } from "@/components/sections/cta"
@@ -79,26 +77,20 @@ export default function SectionTestPage() {
         {/* 3. Platform — bg: bg-muted/30 (built-in) */}
         <Platform />
 
-        {/* 4. Integrations Floating — bg: white */}
-        <IntegrationsFloating
-          heading="Connect your store in under 24 hours"
-          description="Handled integrates seamlessly with the platforms and tools you already use. One-click connections to Shopify, Amazon, ShipStation, and dozens more."
-        />
-
-        {/* 5. Integrations Carousel — bg: bg-muted/30 */}
+        {/* 4. Integrations Carousel — bg: bg-muted/30 */}
         <IntegrationsCarousel
           heading="Connect your store in under 24 hours"
           description="Handled integrates seamlessly with the platforms and tools you already use. One-click connections to Shopify, Amazon, ShipStation, and dozens more."
           bgColor="bg-muted/30"
         />
 
-        {/* 6. Integrations Diamond — bg: white */}
+        {/* 5. Integrations Diamond — bg: white */}
         <IntegrationsDiamond
           heading="Connect your store in under 24 hours"
           description="Handled integrates seamlessly with the platforms and tools you already use. One-click connections to Shopify, Amazon, ShipStation, and dozens more."
         />
 
-        {/* 7. Onboarding Timeline — bg: bg-muted/30 */}
+        {/* 6. Onboarding Timeline — bg: bg-muted/30 */}
         <OnboardingTimeline
           label="Onboarding"
           heading="Onboard your Shopify fulfillment in 2 weeks"
@@ -185,9 +177,6 @@ export default function SectionTestPage() {
 
         {/* 12. Testimonials & Customers — bg: white */}
         <TestimonialsCustomers />
-
-        {/* 13. Company — bg: bg-muted/30 (built-in) */}
-        <Company />
 
         {/* 14. FAQ Card Grid — bg: white */}
         <FAQCardGrid

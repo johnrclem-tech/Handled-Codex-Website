@@ -56,7 +56,7 @@ When asked to create/update an ad:
 
 ### 8) Category 1 Keyword Matcher Rules (Use Top-10 Pool)
 - Build 6 keyword matcher headlines from the top-10 eligible keywords.
-- Use only terms present in that ad group’s keyword corpus.
+- Use only terms present in that ad group's keyword corpus.
 - Transform keyword phrasing into human-readable Title Case (natural order).
 - No cross-ad-group term injection.
 - If a top keyword creates duplication/awkwardness, skip to next top-10 keyword and document substitution in `Change Notes`.

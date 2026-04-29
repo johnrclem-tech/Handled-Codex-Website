@@ -35,7 +35,7 @@ import type { GuaranteeItem } from "@/components/sections/guarantees"
 import { FAQCardGrid } from "@/components/sections/faq-card-grid"
 import { CTA } from "@/components/sections/cta"
 import type { CTABenefit } from "@/components/sections/cta"
-import { IntegrationsFloating } from "@/components/sections/integrations-floating"
+import { IntegrationsCarousel } from "@/components/sections/integrations-carousel"
 import { TestimonialsCustomers } from "@/components/sections/testimonials-customers"
 import { Warehouse, PackageCheck, Truck } from "lucide-react"
 import { canonicalForPath } from "@/lib/site-routes"
@@ -587,7 +587,7 @@ export default function EcommerceFulfillmentPage() {
           </div>
         </section>
 
-        <IntegrationsFloating
+        <IntegrationsCarousel
           label="Ecommerce Integrations"
           heading="Connect your online store in under 24 hours"
           description="Handled integrates seamlessly with every major ecommerce platform, marketplace, and shipping carrier. Orders, inventory, and tracking sync automatically."

@@ -105,7 +105,6 @@ export const SITE_ROUTES: SiteRoute[] = [
   { path: "/locations/new-jersey", type: "seo", published: false, indexable: false },
   { path: "/locations/east-coast", type: "seo", published: false, indexable: false },
   { path: "/locations/west-coast", type: "seo", published: false, indexable: false },
-  { path: "/company", type: "seo", published: false, indexable: false },
   { path: "/contact-sales", type: "seo", published: false, indexable: false },
 ]
 
