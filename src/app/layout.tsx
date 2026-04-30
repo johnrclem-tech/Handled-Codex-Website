@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { TooltipProvider } from "@/components/ui/tooltip";
 
 export const metadata: Metadata = {
   title: "Handled — Fulfillment Infrastructure for Modern Brands",
@@ -30,14 +31,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="font-sans">
       <body className="antialiased">
-        {children}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `document.addEventListener('click',function(e){var a=e.target.closest('a[href^="#"]');if(!a)return;var id=a.getAttribute('href').slice(1);if(!id)return;var el=document.getElementById(id);if(el){e.preventDefault();el.scrollIntoView({behavior:'smooth'});history.replaceState(null,'','#'+id)}})`,
-          }}
-        />
+        <TooltipProvider>
+          {children}
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `document.addEventListener('click',function(e){var a=e.target.closest('a[href^="#"]');if(!a)return;var id=a.getAttribute('href').slice(1);if(!id)return;var el=document.getElementById(id);if(el){e.preventDefault();el.scrollIntoView({behavior:'smooth'});history.replaceState(null,'','#'+id)}})`,
+            }}
+          />
+        </TooltipProvider>
       </body>
     </html>
   );

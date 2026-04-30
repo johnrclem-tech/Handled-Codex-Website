@@ -82,6 +82,15 @@ export const SITE_ROUTES: SiteRoute[] = [
       "Handled policy library, including prohibited and restricted inventory rules and other operational policies.",
   },
   {
+    path: "/internal",
+    type: "utility",
+    published: true,
+    indexable: false,
+    title: "Internal Marketing Workspace | Handled",
+    description:
+      "Internal home for Handled marketing tools and website operations.",
+  },
+  {
     path: "/internal/keyword-analysis",
     type: "utility",
     published: true,
@@ -90,6 +99,22 @@ export const SITE_ROUTES: SiteRoute[] = [
     description:
       "Internal dashboard for keyword performance grouped by ad group.",
   },
+  {
+    path: "/internal/instructions",
+    type: "utility",
+    published: true,
+    indexable: false,
+    title: "Internal Instructions | Handled",
+    description:
+      "Internal instruction manager for website, marketing, GitHub, Vercel, and Google Ads rules.",
+  },
+  { path: "/internal/instructions/agent-index", type: "utility", published: true, indexable: false },
+  { path: "/internal/instructions/website-build-rules", type: "utility", published: true, indexable: false },
+  { path: "/internal/instructions/seo", type: "utility", published: true, indexable: false },
+  { path: "/internal/instructions/landing-pages", type: "utility", published: true, indexable: false },
+  { path: "/internal/instructions/google-ads", type: "utility", published: true, indexable: false },
+  { path: "/internal/instructions/github-vercel-workflow", type: "utility", published: true, indexable: false },
+  { path: "/application-shell-11", type: "utility", published: true, indexable: false },
   { path: "/section-test", type: "utility", published: true, indexable: false },
 
   // Planned/unpublished routes referenced in IA

@@ -1,8 +1,15 @@
 import type { Metadata } from "next"
-import { Navbar } from "@/components/sections/navbar"
-import { Footer } from "@/components/sections/footer"
 import { KeywordBubbleChart } from "@/components/internal/keyword-bubble-chart"
 import { KeywordGapReportTable } from "@/components/internal/keyword-gap-report-table"
+import ApplicationShell from "@/components/shadcn-studio/blocks/application-shell-11"
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table"
 import { getKeywordAdGroupPerformance } from "@/lib/keyword-performance"
 import { getKeywordGapReportData } from "@/lib/keyword-gap-report"
 import { canonicalForPath } from "@/lib/site-routes"
@@ -27,36 +34,29 @@ export default async function InternalKeywordAnalysisPage() {
   ])
 
   return (
-    <main className="min-h-screen bg-background">
-      <Navbar />
-      <section className="mx-auto max-w-7xl px-6 pb-16 pt-24 sm:pt-28 lg:px-8">
-        <div className="max-w-3xl">
-          <p className="section-label">Internal Use</p>
-          <h1 className="section-heading mt-2">
-            Keyword Performance Bubble Analysis by Ad Group
-          </h1>
-          <p className="section-description mt-3">
-            X-axis: weighted average Quality Score by ad group. Y-axis: total
-            available impressions (impressions / search impression share). Bubble
-            size: total spend.
-          </p>
-        </div>
-
-        <div className="mt-10">
+    <ApplicationShell
+      eyebrow="Google Ads"
+      title="Keyword Analysis"
+      description="Analyze raw keyword CSV data by ad group, quality score, search impression share, spend, and calculated total available impressions."
+    >
+      <div className="space-y-10">
+        <section>
           <KeywordBubbleChart
             groups={keywordPerformance.groups}
             rawKeywords={keywordPerformance.rawKeywords}
             excludedFromChartCount={keywordPerformance.excludedFromChartCount}
           />
-        </div>
+        </section>
 
-        <div className="mt-14 space-y-6">
+        <section className="space-y-6">
           <div className="max-w-4xl">
-            <h2 className="section-heading">Keyword Gap Report (Top-Spend Ad Groups)</h2>
-            <p className="section-description mt-3">
+            <h2 className="text-2xl font-semibold tracking-tight">
+              Keyword Gap Report
+            </h2>
+            <p className="mt-2 text-muted-foreground">
               Planner-enriched recommendation matrix generated from the latest sync.
             </p>
-            <div className="mt-3 grid gap-1 text-sm text-muted-foreground">
+            <div className="mt-3 grid gap-1 text-sm text-muted-foreground sm:grid-cols-2 xl:grid-cols-5">
               <p>Report generated: {gapReport.generatedOn ?? "n/a"}</p>
               <p>Last planner sync: {gapReport.metadata.lastSyncTime ?? "n/a"}</p>
               <p>Targeting profile: {gapReport.metadata.targetingProfile ?? "n/a"}</p>
@@ -66,33 +66,32 @@ export default async function InternalKeywordAnalysisPage() {
           </div>
 
           <KeywordGapReportTable rows={gapReport.matrix} />
+        </section>
 
-          <div>
-            <h3 className="text-xl font-semibold tracking-tight">Phase-2 Backlog</h3>
-            <div className="mt-3 overflow-x-auto rounded-xl border border-border bg-card">
-              <table className="min-w-[900px] w-full text-left text-sm">
-                <thead className="bg-muted/70 text-xs uppercase tracking-wide text-muted-foreground">
-                  <tr>
-                    <th className="px-4 py-3">Ad Group</th>
-                    <th className="px-4 py-3">Current Spend</th>
-                    <th className="px-4 py-3">Next Expansion Terms</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {gapReport.backlog.map((row, index) => (
-                    <tr key={`${row.adGroup}-${index}`} className="border-t border-border">
-                      <td className="px-4 py-3 align-top font-medium">{row.adGroup}</td>
-                      <td className="px-4 py-3 align-top">{row.currentSpend}</td>
-                      <td className="px-4 py-3 align-top">{row.nextExpansionTerms}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+        <section>
+          <h2 className="text-2xl font-semibold tracking-tight">Phase-2 Backlog</h2>
+          <div className="mt-3 overflow-x-auto rounded-md border bg-card">
+            <Table className="min-w-[900px]">
+              <TableHeader className="bg-muted/70">
+                <TableRow>
+                  <TableHead>Ad Group</TableHead>
+                  <TableHead>Current Spend</TableHead>
+                  <TableHead>Next Expansion Terms</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {gapReport.backlog.map((row, index) => (
+                  <TableRow key={`${row.adGroup}-${index}`}>
+                    <TableCell className="align-top font-medium">{row.adGroup}</TableCell>
+                    <TableCell className="align-top">{row.currentSpend}</TableCell>
+                    <TableCell className="align-top">{row.nextExpansionTerms}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
           </div>
-        </div>
-      </section>
-      <Footer />
-    </main>
+        </section>
+      </div>
+    </ApplicationShell>
   )
 }

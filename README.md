@@ -87,3 +87,13 @@ Use this file as the single source of truth for ad creation/update instructions:
 - `docs/instructions/google-ads.md`
 
 This prompt is ad-only, dataset-driven, and outputs a full RSA package with extensions.
+
+## Project Instructions
+
+Focused instruction sets live in `docs/instructions/`:
+
+- Website design: `docs/instructions/website-build-rules.md`
+- SEO: `docs/instructions/seo.md`
+- Landing pages: `docs/instructions/landing-pages.md`
+- Google Ads: `docs/instructions/google-ads.md`
+- GitHub and Vercel workflow: `docs/instructions/github-vercel-workflow.md`

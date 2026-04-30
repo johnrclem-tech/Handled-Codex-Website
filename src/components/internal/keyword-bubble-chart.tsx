@@ -1,10 +1,28 @@
 "use client"
 
 import { useMemo, useRef, useState } from "react"
+import { ArrowDown, ArrowUp, ArrowUpDown } from "lucide-react"
 import type {
   AdGroupPerformance,
   KeywordPerformanceRow,
 } from "@/lib/keyword-performance"
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
+import { Button } from "@/components/ui/button"
+import { MultiSelectCombobox } from "@/components/ui/multi-select-combobox"
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table"
 
 interface KeywordBubbleChartProps {
   groups: AdGroupPerformance[]
@@ -87,7 +105,6 @@ export function KeywordBubbleChart({
   const [adGroupFilters, setAdGroupFilters] = useState<string[]>([])
   const [adRelevanceFilters, setAdRelevanceFilters] = useState<string[]>([])
   const [landingPageFilters, setLandingPageFilters] = useState<string[]>([])
-  const [adGroupQuery, setAdGroupQuery] = useState("")
   const chartContainerRef = useRef<HTMLDivElement | null>(null)
 
   const chart = useMemo(() => {
@@ -231,17 +248,6 @@ export function KeywordBubbleChart({
     [rawKeywords]
   )
 
-  const adGroupComboOptions = useMemo(
-    () =>
-      filterOptions.adGroups
-        .filter((adGroup) => !adGroupFilters.includes(adGroup))
-        .filter((adGroup) =>
-          adGroup.toLowerCase().includes(adGroupQuery.trim().toLowerCase())
-        )
-        .slice(0, 25),
-    [adGroupFilters, adGroupQuery, filterOptions.adGroups]
-  )
-
   function setRawKeywordSort(nextSortKey: RawKeywordSortKey) {
     if (nextSortKey === sortKey) {
       setSortDirection((current) => (current === "asc" ? "desc" : "asc"))
@@ -252,188 +258,32 @@ export function KeywordBubbleChart({
     setSortDirection("asc")
   }
 
-  function sortLabel(label: string, key: RawKeywordSortKey) {
-    if (key !== sortKey) {
-      return label
-    }
-
-    return `${label} (${sortDirection})`
-  }
-
-  function toggleFilterValue(
-    value: string,
-    selectedValues: string[],
-    setSelectedValues: (values: string[]) => void
-  ) {
-    if (selectedValues.includes(value)) {
-      setSelectedValues(selectedValues.filter((selected) => selected !== value))
-      return
-    }
-
-    setSelectedValues([...selectedValues, value])
-  }
-
-  function MultiFilter({
+  function SortHeader({
     label,
-    selectedValues,
-    options,
-    onChange,
+    columnKey,
   }: {
     label: string
-    selectedValues: string[]
-    options: string[]
-    onChange: (values: string[]) => void
+    columnKey: RawKeywordSortKey
   }) {
-    const summary =
-      selectedValues.length === 0
-        ? "All"
-        : `${selectedValues.length} selected`
+    const active = columnKey === sortKey
+    const Icon =
+      !active
+        ? ArrowUpDown
+        : sortDirection === "asc"
+          ? ArrowUp
+          : ArrowDown
 
     return (
-      <details className="group rounded-md border border-border bg-background text-sm">
-        <summary
-          className="flex min-h-9 cursor-pointer list-none items-center justify-between gap-3 px-3 py-2"
-        >
-          <span>
-            <span className="block text-xs font-medium uppercase tracking-wide text-muted-foreground">
-              {label}
-            </span>
-            <span>{summary}</span>
-          </span>
-          <span className="text-muted-foreground">v</span>
-        </summary>
-        <div className="max-h-72 overflow-auto border-t border-border p-2">
-          <button
-            className="mb-2 w-full rounded border border-border px-2 py-1 text-left text-xs text-muted-foreground hover:bg-muted"
-            onClick={() => onChange([])}
-            type="button"
-          >
-            Clear filter
-          </button>
-          {options.map((option) => (
-            <label
-              className="flex items-start gap-2 rounded px-2 py-1.5 hover:bg-muted"
-              key={`${label}-${option}`}
-            >
-              <input
-                checked={selectedValues.includes(option)}
-                className="mt-0.5"
-                onChange={() =>
-                  toggleFilterValue(option, selectedValues, onChange)
-                }
-                type="checkbox"
-              />
-              <span>{option}</span>
-            </label>
-          ))}
-        </div>
-      </details>
-    )
-  }
-
-  function addAdGroupFilter(adGroup: string) {
-    const trimmedAdGroup = adGroup.trim()
-    if (!trimmedAdGroup || !filterOptions.adGroups.includes(trimmedAdGroup)) {
-      return
-    }
-
-    if (!adGroupFilters.includes(trimmedAdGroup)) {
-      setAdGroupFilters([...adGroupFilters, trimmedAdGroup])
-    }
-    setAdGroupQuery("")
-  }
-
-  function ComboFilter({
-    label,
-    query,
-    selectedValues,
-    options,
-    onQueryChange,
-    onAdd,
-    onRemove,
-    onClear,
-  }: {
-    label: string
-    query: string
-    selectedValues: string[]
-    options: string[]
-    onQueryChange: (value: string) => void
-    onAdd: (value: string) => void
-    onRemove: (value: string) => void
-    onClear: () => void
-  }) {
-    return (
-      <div className="rounded-md border border-border bg-background p-3 text-sm">
-        <label className="grid gap-1">
-          <span className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
-            {label}
-          </span>
-          <input
-            className="h-9 rounded-md border border-border bg-background px-2 text-sm"
-            list={`${label}-options`}
-            onChange={(event) => onQueryChange(event.target.value)}
-            onKeyDown={(event) => {
-              if (event.key === "Enter") {
-                event.preventDefault()
-                onAdd(query)
-              }
-            }}
-            placeholder="Search ad groups"
-            value={query}
-          />
-          <datalist id={`${label}-options`}>
-            {options.map((option) => (
-              <option key={`${label}-${option}`} value={option} />
-            ))}
-          </datalist>
-        </label>
-
-        <div className="mt-2 flex gap-2">
-          <button
-            className="rounded border border-border px-2 py-1 text-xs hover:bg-muted"
-            onClick={() => onAdd(query)}
-            type="button"
-          >
-            Add
-          </button>
-          <button
-            className="rounded border border-border px-2 py-1 text-xs text-muted-foreground hover:bg-muted"
-            onClick={onClear}
-            type="button"
-          >
-            Clear
-          </button>
-        </div>
-
-        <div className="mt-3 flex max-h-28 flex-wrap gap-2 overflow-auto">
-          {selectedValues.length === 0 ? (
-            <span className="text-xs text-muted-foreground">All ad groups</span>
-          ) : (
-            selectedValues.map((value) => (
-              <button
-                className="rounded-full border border-border px-2 py-1 text-xs hover:bg-muted"
-                key={`selected-${value}`}
-                onClick={() => onRemove(value)}
-                type="button"
-              >
-                {value} x
-              </button>
-            ))
-          )}
-        </div>
-      </div>
-    )
-  }
-
-  function SortHeader({ label, sortKey }: { label: string; sortKey: RawKeywordSortKey }) {
-    return (
-      <button
-        className="text-left font-semibold hover:text-foreground"
-        onClick={() => setRawKeywordSort(sortKey)}
+      <Button
+        className="h-auto justify-start px-0 py-0 text-left text-xs font-semibold uppercase tracking-wide hover:bg-transparent"
+        onClick={() => setRawKeywordSort(columnKey)}
+        size="sm"
         type="button"
+        variant="ghost"
       >
-        {sortLabel(label, sortKey)}
-      </button>
+        {label}
+        <Icon className={active ? "h-3.5 w-3.5" : "h-3.5 w-3.5 opacity-45"} />
+      </Button>
     )
   }
 
@@ -601,254 +451,264 @@ export function KeywordBubbleChart({
             </p>
 
             <div className="mt-3 overflow-hidden rounded-md border border-border">
-              <table className="min-w-full text-left text-xs">
-                <thead className="bg-muted/70 text-muted-foreground">
-                  <tr>
-                    <th className="px-2 py-2">Keyword</th>
-                    <th className="px-2 py-2">Avail. Impr.</th>
-                    <th className="px-2 py-2">Quality</th>
-                    <th className="px-2 py-2">Ad Relevance</th>
-                    <th className="px-2 py-2">Landing Relevance</th>
-                  </tr>
-                </thead>
-                <tbody>
+              <Table className="text-xs">
+                <TableHeader className="bg-muted/70">
+                  <TableRow>
+                    <TableHead className="h-8 px-2 py-2">Keyword</TableHead>
+                    <TableHead className="h-8 px-2 py-2">Avail. Impr.</TableHead>
+                    <TableHead className="h-8 px-2 py-2">Quality</TableHead>
+                    <TableHead className="h-8 px-2 py-2">Ad Relevance</TableHead>
+                    <TableHead className="h-8 px-2 py-2">
+                      Landing Relevance
+                    </TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
                   {tooltip.group.keywords.slice(0, 6).map((keyword, index) => (
-                    <tr
+                    <TableRow
                       key={`${tooltip.group.adGroup}-${keyword.keyword}-${index}-hover`}
-                      className="border-t border-border"
                     >
-                      <td className="px-2 py-2">{keyword.keyword}</td>
-                      <td className="px-2 py-2">
+                      <TableCell className="px-2 py-2">{keyword.keyword}</TableCell>
+                      <TableCell className="px-2 py-2">
                         {formatNumber(keyword.totalAvailableImpressions)}
-                      </td>
-                      <td className="px-2 py-2">
+                      </TableCell>
+                      <TableCell className="px-2 py-2">
                         {keyword.qualityScore !== null ? keyword.qualityScore : "n/a"}
-                      </td>
-                      <td className="px-2 py-2">{keyword.adRelevance}</td>
-                      <td className="px-2 py-2">{keyword.landingPageRelevance}</td>
-                    </tr>
+                      </TableCell>
+                      <TableCell className="px-2 py-2">
+                        {keyword.adRelevance}
+                      </TableCell>
+                      <TableCell className="px-2 py-2">
+                        {keyword.landingPageRelevance}
+                      </TableCell>
+                    </TableRow>
                   ))}
-                </tbody>
-              </table>
+                </TableBody>
+              </Table>
             </div>
           </div>
         ) : null}
       </div>
 
-      <div className="rounded-xl border border-border bg-card p-5">
-        <div className="flex flex-col gap-1 sm:flex-row sm:items-end sm:justify-between">
+      <Card>
+        <CardHeader className="gap-3 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <h3 className="text-base font-semibold">Raw Keyword CSV Data</h3>
-            <p className="mt-1 text-sm text-muted-foreground">
+            <CardTitle className="text-base">Raw Keyword CSV Data</CardTitle>
+            <CardDescription className="mt-1">
               Original keyword rows with calculated total available impressions.
               Not eligible keywords are shown here, but excluded from the chart.
-            </p>
+            </CardDescription>
           </div>
           <div className="text-sm text-muted-foreground sm:text-right">
             <p>{rawKeywordRows.length.toLocaleString("en-US")} rows</p>
             <p>{excludedFromChartCount.toLocaleString("en-US")} excluded from chart</p>
           </div>
-        </div>
+        </CardHeader>
 
-        <div className="mt-5 grid gap-3 md:grid-cols-2 xl:grid-cols-4">
-          <MultiFilter
-            label="Status"
-            selectedValues={statusFilters}
-            options={filterOptions.statuses}
-            onChange={setStatusFilters}
-          />
-          <ComboFilter
-            label="Ad Group"
-            query={adGroupQuery}
-            selectedValues={adGroupFilters}
-            options={adGroupComboOptions}
-            onQueryChange={setAdGroupQuery}
-            onAdd={addAdGroupFilter}
-            onRemove={(value) =>
-              setAdGroupFilters(
-                adGroupFilters.filter((adGroup) => adGroup !== value)
-              )
-            }
-            onClear={() => {
-              setAdGroupFilters([])
-              setAdGroupQuery("")
-            }}
-          />
-          <MultiFilter
-            label="Ad Relevance"
-            selectedValues={adRelevanceFilters}
-            options={filterOptions.adRelevance}
-            onChange={setAdRelevanceFilters}
-          />
-          <MultiFilter
-            label="Landing Page Exp."
-            selectedValues={landingPageFilters}
-            options={filterOptions.landingPages}
-            onChange={setLandingPageFilters}
-          />
-        </div>
+        <CardContent>
+          <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-4">
+            <MultiSelectCombobox
+              label="Status"
+              selectedValues={statusFilters}
+              options={filterOptions.statuses}
+              onChange={setStatusFilters}
+              placeholder="Search statuses"
+            />
+            <MultiSelectCombobox
+              label="Ad Group"
+              selectedValues={adGroupFilters}
+              options={filterOptions.adGroups}
+              onChange={setAdGroupFilters}
+              placeholder="Search ad groups"
+            />
+            <MultiSelectCombobox
+              label="Ad Relevance"
+              selectedValues={adRelevanceFilters}
+              options={filterOptions.adRelevance}
+              onChange={setAdRelevanceFilters}
+              placeholder="Search relevance"
+            />
+            <MultiSelectCombobox
+              label="Landing Page Exp."
+              selectedValues={landingPageFilters}
+              options={filterOptions.landingPages}
+              onChange={setLandingPageFilters}
+              placeholder="Search landing page exp."
+            />
+          </div>
 
-        <div className="mt-4 max-h-[520px] overflow-auto rounded-md border border-border">
-          <table className="min-w-[1280px] w-full text-left text-sm">
-            <thead className="sticky top-0 bg-muted/90 text-xs uppercase tracking-wide text-muted-foreground">
-              <tr>
-                <th className="px-3 py-2">
-                  <SortHeader label="Keyword" sortKey="keyword" />
-                </th>
-                <th className="px-3 py-2">
-                  <SortHeader label="Status" sortKey="status" />
-                </th>
-                <th className="px-3 py-2">
-                  <SortHeader label="Ad Group" sortKey="adGroup" />
-                </th>
-                <th className="px-3 py-2">
-                  <SortHeader label="Quality Score" sortKey="qualityScore" />
-                </th>
-                <th className="px-3 py-2">
-                  <SortHeader label="Ad Relevance" sortKey="adRelevance" />
-                </th>
-                <th className="px-3 py-2">
-                  <SortHeader
-                    label="Landing Page Exp."
-                    sortKey="landingPageRelevance"
-                  />
-                </th>
-                <th className="px-3 py-2">
-                  <SortHeader label="Cost" sortKey="cost" />
-                </th>
-                <th className="px-3 py-2">
-                  <SortHeader label="Impr." sortKey="impressions" />
-                </th>
-                <th className="px-3 py-2">
-                  <SortHeader
-                    label="Search Impr. Share"
-                    sortKey="searchImpressionShare"
-                  />
-                </th>
-                <th className="px-3 py-2">
-                  <SortHeader
-                    label="Total Available Impr."
-                    sortKey="totalAvailableImpressions"
-                  />
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {rawKeywordRows.map((keyword) => (
-                <tr
-                  key={`${keyword.sourceOrder}-${keyword.adGroup}-${keyword.keyword}`}
-                  className="border-t border-border"
-                >
-                  <td className="px-3 py-2 align-top">{keyword.keyword}</td>
-                  <td className="px-3 py-2 align-top">{keyword.status}</td>
-                  <td className="px-3 py-2 align-top">{keyword.adGroup}</td>
-                  <td className="px-3 py-2 align-top">
-                    {keyword.qualityScore ?? "n/a"}
-                  </td>
-                  <td className="px-3 py-2 align-top">{keyword.adRelevance}</td>
-                  <td className="px-3 py-2 align-top">
-                    {keyword.landingPageRelevance}
-                  </td>
-                  <td className="px-3 py-2 align-top">
-                    {formatCurrency(keyword.cost)}
-                  </td>
-                  <td className="px-3 py-2 align-top">
-                    {formatNumber(keyword.impressions)}
-                  </td>
-                  <td className="px-3 py-2 align-top">
-                    {formatPercent(keyword.searchImpressionShare)}
-                  </td>
-                  <td className="px-3 py-2 align-top font-medium">
-                    {formatNumber(keyword.totalAvailableImpressions)}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
+          <div className="mt-4 max-h-[520px] overflow-auto rounded-md border border-border">
+            <Table className="min-w-[1280px]">
+              <TableHeader className="sticky top-0 z-10 bg-muted/95">
+                <TableRow>
+                  <TableHead>
+                    <SortHeader label="Keyword" columnKey="keyword" />
+                  </TableHead>
+                  <TableHead>
+                    <SortHeader label="Status" columnKey="status" />
+                  </TableHead>
+                  <TableHead>
+                    <SortHeader label="Ad Group" columnKey="adGroup" />
+                  </TableHead>
+                  <TableHead>
+                    <SortHeader label="Quality Score" columnKey="qualityScore" />
+                  </TableHead>
+                  <TableHead>
+                    <SortHeader label="Ad Relevance" columnKey="adRelevance" />
+                  </TableHead>
+                  <TableHead>
+                    <SortHeader
+                      label="Landing Page Exp."
+                      columnKey="landingPageRelevance"
+                    />
+                  </TableHead>
+                  <TableHead>
+                    <SortHeader label="Cost" columnKey="cost" />
+                  </TableHead>
+                  <TableHead>
+                    <SortHeader label="Impr." columnKey="impressions" />
+                  </TableHead>
+                  <TableHead>
+                    <SortHeader
+                      label="Search Impr. Share"
+                      columnKey="searchImpressionShare"
+                    />
+                  </TableHead>
+                  <TableHead>
+                    <SortHeader
+                      label="Total Available Impr."
+                      columnKey="totalAvailableImpressions"
+                    />
+                  </TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {rawKeywordRows.map((keyword) => (
+                  <TableRow
+                    key={`${keyword.sourceOrder}-${keyword.adGroup}-${keyword.keyword}`}
+                  >
+                    <TableCell className="align-top">{keyword.keyword}</TableCell>
+                    <TableCell className="align-top">{keyword.status}</TableCell>
+                    <TableCell className="align-top">{keyword.adGroup}</TableCell>
+                    <TableCell className="align-top">
+                      {keyword.qualityScore ?? "n/a"}
+                    </TableCell>
+                    <TableCell className="align-top">
+                      {keyword.adRelevance}
+                    </TableCell>
+                    <TableCell className="align-top">
+                      {keyword.landingPageRelevance}
+                    </TableCell>
+                    <TableCell className="align-top">
+                      {formatCurrency(keyword.cost)}
+                    </TableCell>
+                    <TableCell className="align-top">
+                      {formatNumber(keyword.impressions)}
+                    </TableCell>
+                    <TableCell className="align-top">
+                      {formatPercent(keyword.searchImpressionShare)}
+                    </TableCell>
+                    <TableCell className="align-top font-medium">
+                      {formatNumber(keyword.totalAvailableImpressions)}
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
+        </CardContent>
+      </Card>
 
       <div className="grid gap-4 lg:grid-cols-[1.1fr_1fr]">
-        <div className="rounded-xl border border-border bg-card p-5">
-          <h3 className="text-base font-semibold">Ad Group Summary</h3>
-          <p className="mt-1 text-sm text-muted-foreground">
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-base">Ad Group Summary</CardTitle>
+            <CardDescription>
             Bubble size is total spend. Hover a bubble to inspect keyword relevance.
-          </p>
+            </CardDescription>
+          </CardHeader>
 
-          {activeGroup ? (
-            <dl className="mt-4 grid grid-cols-2 gap-3 text-sm">
-              <div>
-                <dt className="text-muted-foreground">Ad Group</dt>
-                <dd className="font-medium">{activeGroup.adGroup}</dd>
-              </div>
-              <div>
-                <dt className="text-muted-foreground">Weighted Avg QS</dt>
-                <dd className="font-medium">
-                  {(activeGroup.weightedAverageQualityScore ?? 0).toFixed(2)}
-                </dd>
-              </div>
-              <div>
-                <dt className="text-muted-foreground">Total Available Impr.</dt>
-                <dd className="font-medium">
-                  {formatNumber(activeGroup.totalAvailableImpressions)}
-                </dd>
-              </div>
-              <div>
-                <dt className="text-muted-foreground">Spend</dt>
-                <dd className="font-medium">{formatCurrency(activeGroup.totalSpend)}</dd>
-              </div>
-            </dl>
-          ) : (
-            <p className="mt-5 text-sm text-muted-foreground">
-              Hover over a bubble to view ad-group and keyword details.
-            </p>
-          )}
-        </div>
+          <CardContent>
+            {activeGroup ? (
+              <dl className="grid grid-cols-2 gap-3 text-sm">
+                <div>
+                  <dt className="text-muted-foreground">Ad Group</dt>
+                  <dd className="font-medium">{activeGroup.adGroup}</dd>
+                </div>
+                <div>
+                  <dt className="text-muted-foreground">Weighted Avg QS</dt>
+                  <dd className="font-medium">
+                    {(activeGroup.weightedAverageQualityScore ?? 0).toFixed(2)}
+                  </dd>
+                </div>
+                <div>
+                  <dt className="text-muted-foreground">Total Available Impr.</dt>
+                  <dd className="font-medium">
+                    {formatNumber(activeGroup.totalAvailableImpressions)}
+                  </dd>
+                </div>
+                <div>
+                  <dt className="text-muted-foreground">Spend</dt>
+                  <dd className="font-medium">{formatCurrency(activeGroup.totalSpend)}</dd>
+                </div>
+              </dl>
+            ) : (
+              <p className="text-sm text-muted-foreground">
+                Hover over a bubble to view ad-group and keyword details.
+              </p>
+            )}
+          </CardContent>
+        </Card>
 
-        <div className="rounded-xl border border-border bg-card p-5">
-          <h3 className="text-base font-semibold">Keywords and Relevance</h3>
-          <p className="mt-1 text-sm text-muted-foreground">
-            Showing keyword-level ad relevance and landing page relevance.
-          </p>
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-base">Keywords and Relevance</CardTitle>
+            <CardDescription>
+              Showing keyword-level ad relevance and landing page relevance.
+            </CardDescription>
+          </CardHeader>
 
-          {activeGroup ? (
-            <div className="mt-4 max-h-[360px] overflow-auto rounded-md border border-border">
-              <table className="min-w-full text-left text-sm">
-                <thead className="sticky top-0 bg-muted/70 text-xs uppercase tracking-wide text-muted-foreground">
-                  <tr>
-                    <th className="px-3 py-2">Keyword</th>
-                    <th className="px-3 py-2">Ad Relevance</th>
-                    <th className="px-3 py-2">Landing Relevance</th>
-                    <th className="px-3 py-2">Avail. Impr.</th>
-                    <th className="px-3 py-2">Impr. Share</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {activeGroup.keywords.map((keyword, index) => (
-                    <tr
-                      key={`${activeGroup.adGroup}-${keyword.keyword}-${index}`}
-                      className="border-t border-border"
-                    >
-                      <td className="px-3 py-2 align-top">{keyword.keyword}</td>
-                      <td className="px-3 py-2">{keyword.adRelevance}</td>
-                      <td className="px-3 py-2">{keyword.landingPageRelevance}</td>
-                      <td className="px-3 py-2">
-                        {formatNumber(keyword.totalAvailableImpressions)}
-                      </td>
-                      <td className="px-3 py-2">
-                        {formatPercent(keyword.searchImpressionShare)}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          ) : (
-            <p className="mt-5 text-sm text-muted-foreground">
-              Hover over an ad group bubble to load its keywords.
-            </p>
-          )}
-        </div>
+          <CardContent>
+            {activeGroup ? (
+              <div className="max-h-[360px] overflow-auto rounded-md border border-border">
+                <Table>
+                  <TableHeader className="sticky top-0 z-10 bg-muted/95">
+                    <TableRow>
+                      <TableHead>Keyword</TableHead>
+                      <TableHead>Ad Relevance</TableHead>
+                      <TableHead>Landing Relevance</TableHead>
+                      <TableHead>Avail. Impr.</TableHead>
+                      <TableHead>Impr. Share</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {activeGroup.keywords.map((keyword, index) => (
+                      <TableRow
+                        key={`${activeGroup.adGroup}-${keyword.keyword}-${index}`}
+                      >
+                        <TableCell className="align-top">
+                          {keyword.keyword}
+                        </TableCell>
+                        <TableCell>{keyword.adRelevance}</TableCell>
+                        <TableCell>{keyword.landingPageRelevance}</TableCell>
+                        <TableCell>
+                          {formatNumber(keyword.totalAvailableImpressions)}
+                        </TableCell>
+                        <TableCell>
+                          {formatPercent(keyword.searchImpressionShare)}
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </div>
+            ) : (
+              <p className="text-sm text-muted-foreground">
+                Hover over an ad group bubble to load its keywords.
+              </p>
+            )}
+          </CardContent>
+        </Card>
       </div>
     </div>
   )
