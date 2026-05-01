@@ -22,6 +22,13 @@ export const instructionSets: InstructionSet[] = [
     category: "website",
   },
   {
+    slug: "handled-brand-and-icp",
+    title: "Handled Brand And ICP",
+    description: "Source of truth for Handled positioning, ICP, differentiation, proof points, and messaging rules.",
+    path: "docs/instructions/handled-brand-and-icp.md",
+    category: "marketing",
+  },
+  {
     slug: "seo",
     title: "SEO Instructions",
     description: "Draft workflow for organic search strategy, metadata, schema, and indexability.",

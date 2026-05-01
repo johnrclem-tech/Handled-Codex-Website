@@ -3,21 +3,35 @@
 Status: Active
 Owner: John
 Last updated: 2026-04-30
-Version: 2.4
+Version: 2.5
 
-## Purpose
+## Inputs
+
+### Summary
 
 Use this instruction set to create or update Google Ads assets for Handled from keyword data. The goal is to produce high-quality Responsive Search Ad assets and extensions that are grounded in the selected ad group's actual eligible keyword corpus, ranked opportunity, and buyer intent.
 
 This workflow is ad-only. It does not create SEO pages, landing pages, budgets, bids, campaign structures, or unattended Google Ads account changes.
 
-## When To Use
+Required context:
+
+- Read `docs/instructions/handled-brand-and-icp.md` before drafting ad assets.
+
+Assumptions and defaults:
+
+- The latest uploaded keyword dataset is the source of truth until replaced.
+- If an ad group exists in multiple campaigns, campaign selection is required first.
+- If required phrasing exceeds limits, use the nearest compliant conversational variant and log it in `Change Notes`.
+- If available keyword data is too thin, ask the user whether to continue with limited coverage or choose another ad group.
+- If a user asks for live campaign changes, stop and ask for explicit confirmation because this workflow is asset-generation only.
+
+### When To Use
 
 Use this instruction set when the user asks to:
 
 - Create Google Ads copy.
 - Update an existing Google Ads RSA.
-- Generate headlines, descriptions, sitelinks, callouts, structured snippets, or promotion extensions.
+- Generate headlines, descriptions, sitelinks, callouts, or structured snippets.
 - Analyze an ad group before creating ad assets.
 - Use keyword CSV data to prioritize ad copy.
 
@@ -28,7 +42,7 @@ Do not use this instruction set when the user asks to:
 - Create landing page copy unless the user explicitly asks for a separate landing page workflow.
 - Generate generic ad copy without an ad group and keyword dataset.
 
-## Data Sources
+### Data Sources
 
 - Primary keyword source: latest keyword dataset available in the project, currently `src/content/keywords-clem.csv`.
 - Internal analysis UI: `/internal/keyword-analysis`.
@@ -36,7 +50,7 @@ Do not use this instruction set when the user asks to:
 - If `Search impr. share` is `< 10%`, use `10%` as the deterministic denominator.
 - If `Search impr. share` is missing or invalid, exclude that row from the ranked top-10 list and note it.
 
-## Start Protocol
+### Start Protocol
 
 When asked to create or update an ad:
 
@@ -47,7 +61,7 @@ When asked to create or update an ad:
 5. Exclude all rows where `Search keyword status = Not eligible`.
 6. Present the top 10 ranked eligible keywords and wait for user confirmation before drafting ad assets.
 
-## Search Intent Brief
+### Search Intent Brief
 
 The first section of the output must be `## Search Intent Brief`.
 
@@ -58,7 +72,7 @@ Include:
 - 3 to 5 copy requirements driven by the selected keyword set.
 - Notes on any excluded or unusable keyword rows that materially affect coverage.
 
-## Top 10 Keyword Confirmation
+### Top 10 Keyword Confirmation
 
 Before drafting ad assets, present the top 10 ranked eligible keywords with:
 
@@ -69,9 +83,24 @@ Before drafting ad assets, present the top 10 ranked eligible keywords with:
 
 Wait for user confirmation before continuing.
 
-## RSA Construction Rules
+### Brand And Policy Safety
 
-### Headlines
+- Use `Handled` as the brand name.
+- Do not use `Handled3PL`, `Handled.com`, or `Handled Inc.`.
+- Never start a headline with standalone verb-like `Handled`.
+- No duplicate first word across all 15 headlines.
+- Prefer numerals such as `3PL` and `100%`.
+- Avoid disapproval-prone superlatives or unverifiable claims.
+- Do not imply Google, Shopify, Amazon, or another platform endorses Handled.
+- Do not make live-account changes or imply campaign changes have been applied.
+
+### Changelog
+
+- 2026-04-30: Expanded description rules into four distinct slots for keyword integration, brand authority, pain relief, and direct CTA validation.
+- 2026-04-30: Reorganized into sequential Inputs, Headlines, Descriptions, Sitelinks, Callouts, Structured Snippets, and Output sections. Moved examples into relevant sections and removed unused extension guidance.
+- 2026-04-30: Added metadata, purpose, when-to-use guidance, data sources, expanded acceptance checklist, examples, assumptions, and changelog. Preserved the v2.3 RSA construction rules and upgraded document version to 2.4.
+
+## Headlines
 
 Create 15 headlines total. Each headline must be `<=30` characters.
 
@@ -129,48 +158,218 @@ CTA constraints:
 - Keep phrasing policy-safe.
 - Keep every headline `<=30` characters.
 
-### Descriptions
+Examples:
+
+- Good keyword matcher headline: `Apparel Fulfillment`
+- Good USP headline: `100% Order Accuracy`
+- Good location CTA: `Tour Our LA Warehouse`
+- Avoid generic cross-ad-group injection: `Best Shopify 3PL`
+- Avoid awkward keyword stuffing: `Fulfillment Company Services`
+- Avoid unsupported endorsement language: `Google Approved 3PL`
+
+## Descriptions
 
 Create 4 descriptions total. Each description must be `<=90` characters.
 
-- Description 1 must be keyword-integrated and pinned to Position 1.
-- Descriptions 2 to 4 are unpinned.
-- Descriptions must be specific, believable, and aligned with the ad group intent.
-- Avoid vague filler such as "solutions for your business" unless tied to a concrete fulfillment value prop.
+All descriptions must be complete, conversational sentences. They should sound like something a real person would say aloud, not scraped SEO copy or a keyword list.
 
-## Brand And Policy Safety
+Cross-cutting rules:
 
-- Use `Handled3PL` where ambiguity risk exists.
-- Never start a headline with standalone verb-like `Handled`.
-- No duplicate first word across all 15 headlines.
-- Prefer numerals such as `3PL` and `100%`.
-- Avoid disapproval-prone superlatives or unverifiable claims.
-- Do not imply Google, Shopify, Amazon, or another platform endorses Handled.
-- Do not make live-account changes or imply campaign changes have been applied.
+- Each description must start with a distinct first word.
+- No two descriptions may say the same thing with different words.
+- Every stat, guarantee, proof point, capability, or trust anchor must come from `docs/instructions/handled-brand-and-icp.md`.
+- One description must contain the highest-impression keyword. Prefer Description 1 unless Description 2 is the more natural fit.
+- Use `Handled` as the brand name, not `Handled3PL`, `Handled.com`, or `Handled Inc.`
+- Do not begin a description with `Handled` immediately followed by a noun that could read as its verb object, such as orders, shipments, returns, packages, deliveries, or fulfillment.
+- Prefer brand placements such as `California 3PL by Handled` or `Same-day shipping with 100% accuracy. By Handled.`
+- When `Handled` must lead, follow it with a verb or category phrase that clearly disambiguates the brand, such as `Handled guarantees`, `Handled is`, or `Handled fulfills`.
 
-## Ad Extensions
+Forbidden description patterns:
 
-Create:
+- Plus signs used to chain keywords.
+- Slashes used to chain keywords.
+- Em dashes used to chain keywords.
+- Parenthetical keyword lists.
+- Sentence fragments that only list services.
+- Any output that reads as scraped SEO copy.
+- Vague jargon such as `blind spots`, `synergies`, `alignment`, or `handoffs`.
 
-- 4 sitelinks, each with two description lines.
-- 6 callouts.
-- 4 structured snippets using the `Services` header.
-- 1 promotion extension when intent supports it.
+### Description 1: Keyword-Integrated Intro
 
-Extensions should reinforce the selected ad group's intent and should not introduce unrelated services or locations.
+Pin: Position 1.
 
-## Output Format
+Purpose: maximize ad relevance and Quality Score.
+
+Requirements:
+
+- Contains the 2 longest exact-match keywords from the ad group, woven into one grammatically complete sentence.
+- Uses a real subject, verb, and object.
+- Makes the keywords load-bearing; removing them should break the meaning.
+- Does not require a brand mention because this slot is for keyword relevance.
+- Must be `<=90` characters.
+- Cannot start with the same first word as Descriptions 2, 3, or 4.
+
+Bad example:
+
+`California Fulfillment Warehouse Companies + Fulfillment Center Los Angeles California.`
+
+Good example:
+
+`Compare California fulfillment warehouse companies serving Los Angeles brands and beyond.`
+
+### Description 2: Brand Authority And ICP-Aligned Proof
+
+Pin: Unpinned.
+
+Purpose: build credibility with a real, verifiable Handled proof point.
+
+Requirements:
+
+- Mentions `Handled` by name using the brand placement rules above.
+- Cites a real proof point from `docs/instructions/handled-brand-and-icp.md`.
+- Includes a phrase-match keyword variant alongside the brand authority claim.
+- Reads as a confident, factual statement, not a marketing slogan.
+- Must be `<=90` characters.
+- Cannot start with the same first word as Descriptions 1, 3, or 4.
+
+Good example:
+
+`Handled guarantees same-day shipping and 100% order accuracy across California.`
+
+### Description 3: Pain Reliever
+
+Pin: Unpinned.
+
+Purpose: validate the searcher's immediate pain and why they are searching now.
+
+Requirements:
+
+- Names a concrete, specific pain the ad group's searcher is likely experiencing.
+- Implies Handled solves the pain without needing to spell out every solution.
+- Uses only approved pain points from the pain library below.
+- Must be `<=90` characters.
+- Cannot start with the same first word as Descriptions 1, 2, or 4.
+
+Pain library:
+
+| Ad Group Type | Approved Pain Points |
+|---|---|
+| Location | Delayed transit times, slow West Coast or East Coast reach, port congestion, distance from current 3PL |
+| Service | Missed SLAs, slow shipping, no inventory visibility, brand experience failures, order accuracy issues |
+| Industry | Apparel SKU sprawl, cosmetics lot tracking, fashion seasonal peaks, category-specific fulfillment complexity |
+| Integration | Cart sync errors, manual order entry, broken tracking writeback, returns chaos |
+| B2B / Retail | Chargebacks, EDI errors, retailer routing guide violations, capacity caps |
+
+Bad example:
+
+`Fix slow handoffs and blind spots with California visibility, routing, and SLA focus.`
+
+Good example:
+
+`Tired of missed cutoffs and stockouts? Get same-day shipping from a California 3PL.`
+
+### Description 4: Direct CTA And Trust Anchor
+
+Pin: Unpinned.
+
+Purpose: convert intent into action with a low-friction ask paired with a risk-reducing trust signal.
+
+Requirements:
+
+- Leads with a command verb: `Get`, `Request`, `Talk to`, or `Tour`.
+- Echoes the Category 3 CTA selected for the ad's headlines.
+- Pairs the CTA with at least one trust anchor from `docs/instructions/handled-brand-and-icp.md`.
+- Uses only real Handled commitments; never invent a trust anchor.
+- Must be `<=90` characters.
+- Cannot start with the same first word as Descriptions 1, 2, or 3.
+
+Good example:
+
+`Tour our California warehouse this week. No surprise fees. No minimums.`
+
+Examples:
+
+- Full Description 1 example: `Compare California fulfillment warehouse companies serving Los Angeles brands and beyond.`
+- Full Description 2 example: `Handled guarantees same-day shipping and 100% order accuracy across California.`
+- Full Description 3 example: `Tired of missed cutoffs and stockouts? Get same-day shipping from a California 3PL.`
+- Full Description 4 example: `Tour our California warehouse this week. No surprise fees. No minimums.`
+
+## Sitelinks
+
+Create 4 sitelinks. Each sitelink must include two description lines.
+
+- Sitelinks should reinforce the selected ad group's intent.
+- Use clear destination-style labels, not vague teaser copy.
+- Do not introduce unrelated services, industries, platforms, or locations.
+- Keep each description line specific to the service, proof point, or next step.
+
+Examples:
+
+- Good sitelink: `Tour A Warehouse`
+- Good description line: `See how Handled ships orders`
+- Good description line: `Review locations and workflows`
+- Avoid sitelink: `Learn More`
+
+## Callouts
+
+Create 6 callouts.
+
+- Callouts should be short, scannable proof points.
+- Prioritize guarantees, operational strengths, speed, accuracy, support, and fit for the selected ad group.
+- Do not repeat the same phrase structure across all callouts.
+- Do not use unsupported superlatives.
+
+Examples:
+
+- Good: `Same-Day Shipping`
+- Good: `100% Order Accuracy`
+- Good: `Bi-Coastal Warehouses`
+- Avoid: `Best Fulfillment`
+
+## Structured Snippets
+
+Create 4 structured snippets using the `Services` header.
+
+- Each snippet should name a service or capability directly relevant to the selected ad group.
+- Do not use locations, claims, or generic benefits as structured snippet values.
+- Keep values concise and parallel.
+
+Examples:
+
+- Good Services snippet: `Pick And Pack`
+- Good Services snippet: `Kitting`
+- Good Services snippet: `Returns`
+- Good Services snippet: `B2B Fulfillment`
+- Avoid Services snippet: `Fast Shipping`
+
+## Output
+
+### Format
 
 Use this exact output order:
 
 1. `## Search Intent Brief`
 2. `## Top 10 Keyword Confirmation`
 3. `## Responsive Search Ad`
-4. `## Ad Extensions`
-5. `## Keyword Coverage Map`
-6. `## Change Notes`
+4. `## Sitelinks`
+5. `## Callouts`
+6. `## Structured Snippets`
+7. `## Keyword Coverage Map`
+8. `## Description Validation Checklist`
+9. `## Change Notes`
 
-## Acceptance Checklist
+Responsive Search Ad description table format:
+
+| # | Description | Char Count | Pin |
+|---|---|---:|---|
+| 1 | Description text | 0 | Position 1 |
+| 2 | Description text | 0 | Unpinned |
+| 3 | Description text | 0 | Unpinned |
+| 4 | Description text | 0 | Unpinned |
+
+Description Validation Checklist must confirm each description rule before final delivery. If any checklist item fails, regenerate the failing description before output.
+
+### Acceptance Checklist
 
 Before presenting final ad assets, verify:
 
@@ -188,83 +387,25 @@ Before presenting final ad assets, verify:
 - 3 CTA headlines follow the quote, conditional CTA, and urgency pattern.
 - 4 descriptions were created.
 - Every description is `<=90` characters.
+- Description 1 contains the 2 longest exact-match keywords as load-bearing words.
+- Description 1 reads as a real sentence, not a keyword stack.
+- Description 1 contains no plus signs, slashes, em-dash keyword chains, or parenthetical keyword lists.
+- Description 2 mentions `Handled` by name.
+- Description 2 cites a proof point from `docs/instructions/handled-brand-and-icp.md`.
+- Description 2 includes a phrase-match keyword variant.
+- Description 3 names a concrete pain from the approved pain library.
+- Description 3 contains none of the forbidden jargon.
+- Description 4 leads with a command verb that echoes the ad's Category 3 CTA.
+- Description 4 includes an approved trust anchor.
+- All 4 descriptions start with distinct first words.
+- No two descriptions say the same thing with different words.
+- Brand placement rules are followed throughout all descriptions.
+- One description contains the highest-impression keyword.
+- All 4 descriptions pass the read-aloud sentence test.
 - Pinning instructions are included.
 - No duplicate first word appears across headlines.
 - Brand and policy safety rules were checked.
-- Extensions include 4 sitelinks, 6 callouts, 4 structured snippets, and a promotion extension when appropriate.
+- 4 sitelinks were created, each with two description lines.
+- 6 callouts were created.
+- 4 structured snippets were created using the `Services` header.
 - Change Notes explain substitutions, exclusions, compromises, or assumptions.
-
-## Examples
-
-### Good
-
-Good keyword matcher headline:
-
-`Apparel Fulfillment`
-
-Why it works:
-
-- Uses a term from the ad group's keyword corpus.
-- Fits within 30 characters.
-- Is clear and natural.
-
-Good USP headline:
-
-`100% Order Accuracy`
-
-Why it works:
-
-- Uses a required guarantee.
-- Is concise and policy-safe.
-- Fits within 30 characters.
-
-Good location CTA:
-
-`Tour Our LA Warehouse`
-
-Why it works:
-
-- Follows the warehouse-tour pattern.
-- Uses location intent.
-- Fits within 30 characters.
-
-### Avoid
-
-Avoid generic cross-ad-group injection:
-
-`Best Shopify 3PL`
-
-Why to avoid it:
-
-- It injects Shopify intent into non-Shopify ad groups.
-- It uses a superlative that can be difficult to substantiate.
-
-Avoid awkward keyword stuffing:
-
-`Fulfillment Company Services`
-
-Why to avoid it:
-
-- It reads unnaturally.
-- It is less likely to improve ad quality than a clean keyword-matching phrase.
-
-Avoid unsupported endorsement language:
-
-`Google Approved 3PL`
-
-Why to avoid it:
-
-- It implies endorsement.
-- It creates policy risk.
-
-## Assumptions And Defaults
-
-- The latest uploaded keyword dataset is the source of truth until replaced.
-- If an ad group exists in multiple campaigns, campaign selection is required first.
-- If required phrasing exceeds limits, use the nearest compliant conversational variant and log it in `Change Notes`.
-- If available keyword data is too thin, ask the user whether to continue with limited coverage or choose another ad group.
-- If a user asks for live campaign changes, stop and ask for explicit confirmation because this workflow is asset-generation only.
-
-## Changelog
-
-- 2026-04-30: Added metadata, purpose, when-to-use guidance, data sources, expanded acceptance checklist, examples, assumptions, and changelog. Preserved the v2.3 RSA construction rules and upgraded document version to 2.4.

@@ -110,6 +110,7 @@ export const SITE_ROUTES: SiteRoute[] = [
   },
   { path: "/internal/instructions/agent-index", type: "utility", published: true, indexable: false },
   { path: "/internal/instructions/website-build-rules", type: "utility", published: true, indexable: false },
+  { path: "/internal/instructions/handled-brand-and-icp", type: "utility", published: true, indexable: false },
   { path: "/internal/instructions/seo", type: "utility", published: true, indexable: false },
   { path: "/internal/instructions/landing-pages", type: "utility", published: true, indexable: false },
   { path: "/internal/instructions/google-ads", type: "utility", published: true, indexable: false },

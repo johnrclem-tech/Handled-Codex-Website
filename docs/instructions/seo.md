@@ -9,6 +9,10 @@ Version: 0.1
 
 Use this instruction set when planning or updating SEO strategy for Handled website pages. This file will be expanded shortly with the full SEO workflow.
 
+Required context:
+
+- Read `docs/instructions/handled-brand-and-icp.md` before creating SEO strategy, metadata, page briefs, or organic search copy.
+
 ## When To Use
 
 Use this instruction set when working on:

@@ -9,6 +9,10 @@ Version: 0.1
 
 Use this instruction set when planning or updating Handled landing pages. This file will be expanded shortly with the full landing page workflow.
 
+Required context:
+
+- Read `docs/instructions/handled-brand-and-icp.md` before planning landing page messaging, offer structure, proof points, or page copy.
+
 ## When To Use
 
 Use this instruction set when working on:

@@ -93,6 +93,7 @@ This prompt is ad-only, dataset-driven, and outputs a full RSA package with exte
 Focused instruction sets live in `docs/instructions/`:
 
 - Website design: `docs/instructions/website-build-rules.md`
+- Handled brand and ICP: `docs/instructions/handled-brand-and-icp.md`
 - SEO: `docs/instructions/seo.md`
 - Landing pages: `docs/instructions/landing-pages.md`
 - Google Ads: `docs/instructions/google-ads.md`

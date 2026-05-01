@@ -21,6 +21,7 @@ Use this file before any project work, including:
 
 ## Instruction Index
 
+- Handled brand and ICP: `docs/instructions/handled-brand-and-icp.md`
 - Website design changes: `docs/instructions/website-build-rules.md`
 - SEO work: `docs/instructions/seo.md`
 - Landing page work: `docs/instructions/landing-pages.md`
@@ -48,6 +49,7 @@ Use this file before any project work, including:
 Good:
 
 - Read `docs/instructions/website-build-rules.md` before changing visual design, components, sections, charts, or UI patterns.
+- Read `docs/instructions/handled-brand-and-icp.md` before creating or changing marketing copy, Google Ads, landing pages, SEO pages, positioning, ICP, or proof-point language.
 - Read `docs/instructions/seo.md` before changing SEO strategy, metadata, schema, canonical behavior, or indexability.
 - Read `docs/instructions/landing-pages.md` before planning paid-search landing pages, conversion flow, offers, or page-specific landing page structure.
 - Read `docs/instructions/google-ads.md` before generating RSA assets.

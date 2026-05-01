@@ -35,6 +35,7 @@ import {
   SidebarGroupLabel,
   SidebarHeader,
   SidebarMenu,
+  SidebarMenuAction,
   SidebarMenuBadge,
   SidebarMenuButton,
   SidebarMenuItem,
@@ -61,14 +62,10 @@ type MenuSubItem = {
 type MenuItem = {
   icon: ComponentType<SVGProps<SVGSVGElement>>
   label: string
-} & (
-  | {
-      href: string
-      badge?: string
-      items?: never
-    }
-  | { href?: never; badge?: never; items: MenuSubItem[] }
-)
+  href?: string
+  badge?: string
+  items?: MenuSubItem[]
+}
 
 const primaryMenuItems: MenuItem[] = [
   {
@@ -84,10 +81,11 @@ const primaryMenuItems: MenuItem[] = [
   {
     icon: BookOpenTextIcon,
     label: "Instructions",
+    href: "/internal/instructions",
     items: [
-      { label: "All Instructions", href: "/internal/instructions" },
       { label: "Agent Index", href: "/internal/instructions/agent-index" },
       { label: "Website Design", href: "/internal/instructions/website-build-rules" },
+      { label: "Brand And ICP", href: "/internal/instructions/handled-brand-and-icp" },
       { label: "SEO", href: "/internal/instructions/seo" },
       { label: "Landing Pages", href: "/internal/instructions/landing-pages" },
       { label: "Google Ads", href: "/internal/instructions/google-ads" },
@@ -179,20 +177,49 @@ const SidebarGroupedMenuItems = ({
                 key={item.label}
               >
                 <SidebarMenuItem>
-                  <CollapsibleTrigger asChild>
-                    <SidebarMenuButton
-                      tooltip={item.label}
-                      className={cn(
-                        "rounded-l-none rounded-r-full px-4",
-                        item.items.some((subItem) => pathname === subItem.href) &&
-                          "bg-sidebar-accent text-sidebar-accent-foreground"
-                      )}
-                    >
-                      <item.icon />
-                      <span>{item.label}</span>
-                      <ChevronRightIcon className="ml-auto h-4 w-4 transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
-                    </SidebarMenuButton>
-                  </CollapsibleTrigger>
+                  {item.href ? (
+                    <>
+                      <SidebarMenuButton
+                        tooltip={item.label}
+                        className={cn(
+                          "rounded-l-none rounded-r-full px-4",
+                          (pathname === item.href ||
+                            item.items.some((subItem) => pathname === subItem.href)) &&
+                            "bg-sidebar-accent text-sidebar-accent-foreground"
+                        )}
+                        asChild
+                      >
+                        <Link href={item.href} onClick={() => onOpenMenuChange(item.label)}>
+                          <item.icon />
+                          <span>{item.label}</span>
+                        </Link>
+                      </SidebarMenuButton>
+                      <CollapsibleTrigger asChild>
+                        <SidebarMenuAction
+                          aria-label={`${openMenuLabel === item.label ? "Close" : "Open"} ${item.label} menu`}
+                          className="right-2"
+                          showOnHover
+                        >
+                          <ChevronRightIcon className="transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
+                        </SidebarMenuAction>
+                      </CollapsibleTrigger>
+                    </>
+                  ) : (
+                    <CollapsibleTrigger asChild>
+                      <SidebarMenuButton
+                        tooltip={item.label}
+                        className={cn(
+                          "rounded-l-none rounded-r-full px-4",
+                          item.items.some((subItem) => pathname === subItem.href) &&
+                            "bg-sidebar-accent text-sidebar-accent-foreground"
+                        )}
+                      >
+                        <item.icon />
+                        <span>{item.label}</span>
+                        <ChevronRightIcon className="ml-auto h-4 w-4 transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
+                      </SidebarMenuButton>
+                    </CollapsibleTrigger>
+                  )}
                   <CollapsibleContent>
                     <SidebarMenuSub className="ml-5">
                       {item.items.map((subItem) => (
@@ -232,7 +259,7 @@ const SidebarGroupedMenuItems = ({
                   )}
                   asChild
                 >
-                  <Link href={item.href} onClick={() => onOpenMenuChange(null)}>
+                  <Link href={item.href ?? "#"} onClick={() => onOpenMenuChange(null)}>
                     <item.icon />
                     <span>{item.label}</span>
                   </Link>
